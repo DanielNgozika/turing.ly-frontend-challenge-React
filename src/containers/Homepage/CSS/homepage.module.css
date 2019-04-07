@@ -1,0 +1,35 @@
+.navSideDrawer {
+	height: 100vh;
+	width: 85%;
+	position: fixed;
+	top: 0;
+	right: -100%;
+	z-index: 1000;
+	overflow-x: auto;
+	overflow-y: auto;
+	padding-top: 30px;
+	box-sizing: border-box;
+	background: linear-gradient(to right, #fff, #fbfbfb);
+	box-shadow: -10px 0 50px rgba(0, 0, 0, 0.9);
+	opacity: 1;
+	transition: transform 0.4s ease-out;
+}
+
+.navSideDrawerClose {
+	transform: translateX(100%)
+}
+
+.navSideDrawerOpen {
+	transform: translateX(-100%)
+}
+
+.categories {
+	margin: 0;
+	padding: 30px 10px 60px 10px;
+	background-color: #fffffe;
+}
+
+.body {
+	margin: 0;
+	padding: 0;
+}

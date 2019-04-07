@@ -1,0 +1,41 @@
+.Toolbar {
+	margin: 0;
+	padding: 0;
+	height: 50px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	top: 0;
+	left: 0;
+	position: fixed;
+	box-sizing: border-box;
+	box-shadow: 0 0px 12px rgba(0, 0, 0, 0.2);
+	background-color: #fff;
+	z-index: 2;
+}
+
+.nav {
+	display: none;
+}
+
+.HamStyle {
+	width: 23px;
+	margin: 17px 16px;
+	padding: 0;
+}
+
+.hamBarStyle {
+	width: 100%;
+	/* background: linear-gradient(to bottom right, #f2545b, #ff7a59); */
+	background-color: #48484e;
+	height: 2px;
+	/* margin-bottom: 1.5px; */
+	margin: 3px 0;
+	border-radius: 1.5px;
+}
+
+@media (min-width: 720px) {
+	.icon {
+		display: none;
+	}
+}

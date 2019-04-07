@@ -1,0 +1,116 @@
+.div {
+	display: flex;
+	flex-direction: column;
+	flex: 0 0 auto;
+	width: 40%;
+	height: 190px;
+	margin: 10px;
+	border-radius: 4px;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+	box-sizing: border-box;
+	background-color: #fff;
+}
+
+.div img {
+	border-radius: 4px 4px 0 0;
+	height: 72%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.div p {
+	display: block;
+	padding: 0;
+	padding-left: 5px;
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	color: #4b4b4e;
+}
+
+.price {
+	margin: 0;
+	margin-top: 5px
+}
+
+.name {
+	margin: 3px 0;
+	font-size: 12px;
+	margin-bottom: 5px;
+}
+
+.prodDetailModal {
+	display: flex;
+	flex-direction: column;
+	top: 15% !important;
+	width: 90%;
+	/* height: 62%; */
+	padding: 10px;
+	background-color: #fffffa;
+	border-radius: 4px;
+	overflow-y: auto;
+	box-sizing: border-box;
+}
+
+.top {
+	display: flex;
+}
+
+.top img {
+	margin: 0 10px 10px 0;
+	border-radius: 4px;
+	height: 150px;
+	width: 47%
+}
+
+.top .name {
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: 500;
+	color: #040405;
+	margin-bottom: 40px;
+}
+
+.mod_price {
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: #E11010;
+	text-decoration: line-through;
+}
+
+.disc_price {
+	display: block;
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: rgb(2, 2, 46);
+	margin-top: 10px;
+}
+
+.descr {
+	font-family: 'Lato', Arial, Helvetica, sans-serif;
+	color: #4b4b4e;
+}
+
+.prodDetailModal button {
+	border: none;
+	background-color: #0b0b0c;
+	padding: 15px;
+	color: #fff;
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	border-radius: 4px;
+	margin-top: 30px;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.attributeModal {
+	color: #4b4b4e;
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	top: 20% !important;
+	width: 90%;
+	padding: 10px;
+	background-color: #fff;
+	border-radius: 4px;
+	box-sizing: border-box;
+}

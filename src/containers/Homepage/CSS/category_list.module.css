@@ -1,0 +1,16 @@
+.div {
+	margin: 0;
+	padding-left: 30px;
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.name {
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	padding: 5px 0;
+}
+
+.name:active, .name:focus {
+	background-color: #d3d3d3;
+}

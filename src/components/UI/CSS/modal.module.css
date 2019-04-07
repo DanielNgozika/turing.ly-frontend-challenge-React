@@ -1,0 +1,24 @@
+#modal {
+	z-index: 1009;
+	position: fixed;
+	top: 19%;
+	left: 5%
+}
+
+@media (min-width: 600px) {
+	#modal {
+		left: 9%
+	}
+}
+
+@media (min-width: 760px) {
+	#modal {
+		left: 20%
+	}
+}
+
+@media (min-width: 1024px) {
+	#modal {
+		left: 24%
+	}
+}
