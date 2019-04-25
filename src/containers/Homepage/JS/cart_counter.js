@@ -1,22 +1,31 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 //styles
-import styles from '../CSS/cart_counter.module.css';
+import styles from "../CSS/cart_counter.module.css";
 
 class CartCounter extends Component {
 	render() {
-		return <div className={styles.div} >
-			<div className={styles.counter}>{this.props.itemsCount}</div>
-			<i className='fas fa-shopping-basket'></i>
-		</div>
+		return (
+			<div
+				className={styles.div}
+				onClick={() => this.props.history.push("/cart")}
+			>
+				<div className={styles.counter}>{this.props.itemsCount.length}</div>
+				<i className="fas fa-shopping-basket" />
+			</div>
+		);
 	}
 }
 
 function mapstateToProps(state) {
 	return {
-		itemsCount: state.general.cartItemCount
-	}
+		itemsCount: state.general.cart
+	};
 }
 
-export default connect(mapstateToProps, null)(CartCounter);
+export default connect(
+	mapstateToProps,
+	null
+)(withRouter(CartCounter));

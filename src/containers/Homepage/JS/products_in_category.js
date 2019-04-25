@@ -3,18 +3,20 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 //styles
-import styles from '../CSS/products_in_category.module.css'
+import styles from "../CSS/products_in_category.module.css";
 
 //actions
 import {
 	getProductsInCategory,
-	showProductDetail, showAttrModal,
+	showProductDetail,
+	showAttrModal,
 	clickBackDrop
 } from "../../../actions/general/index";
 
 import EachProduct from "../../../components/Homepage/JS/each_product";
 import Spinner from "../../../components/UI/JS/spinner";
 import Backdrop from "../../../components/UI/JS/top_backdrop";
+import CartCounter from "./cart_counter";
 
 class ProductsInCategory extends Component {
 	render() {
@@ -34,6 +36,7 @@ class ProductsInCategory extends Component {
 						/>
 					))}
 				</div>
+				<CartCounter />
 				{this.props.backdropVisible ? (
 					<Backdrop onClick={this.props.clickBackDrop} />
 				) : null}

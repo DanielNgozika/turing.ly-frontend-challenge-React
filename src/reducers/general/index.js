@@ -8,7 +8,12 @@ const initialState = {
 	productDetailedId: null,
 	cartId: null,
 	productIdAttrModalOpen: null,
-	cartItemCount: 0
+	cart: [],
+	cartItemIdUpdated: null,
+	itemRemoveNoticeModalOpen: null,
+	emptyCartWarningModal: false,
+	shippingRegions: [],
+	shippingTypesPerRegion: {}
 };
 
 export default function(state = initialState, action) {
@@ -28,7 +33,13 @@ export default function(state = initialState, action) {
 				productIdAttrModalOpen: state.productIdAttrModalOpen
 					? null
 					: null,
-				backdropVisible: false
+				backdropVisible: false,
+				itemRemoveNoticeModalOpen: state.itemRemoveNoticeModalOpen
+					? null
+					: null,
+				emptyCartWarningModal: state.emptyCartWarningModal
+					? false
+					: false
 			};
 		case "OPEN_DEPT_SIDEBAR":
 			return {
@@ -68,10 +79,75 @@ export default function(state = initialState, action) {
 				productDetailedId: null,
 				productIdAttrModalOpen: action.payload
 			};
+
+		//CART
 		case "ADD_TO_CART":
 			return {
 				...state,
-				cartItemCount: state.cartItemCount + 1
+				cart: action.payload
+			};
+		case "GET_CART_ITEMS":
+			return {
+				...state,
+				cart: action.payload
+			};
+		case "UPDATE_CART_ITEM":
+			const { itemId, qty } = action.payload;
+			return {
+				...state,
+				cart: state.cart.map(i =>
+					i.item_id === itemId
+						? { ...i, quantity: qty, subtotal: qty * i.price }
+						: i
+				)
+			};
+		case "REMOVE_CART_ITEM":
+			const ID = action.payload;
+			return {
+				...state,
+				cart: state.cart.filter(i => i.item_id !== ID),
+				backdropVisible: false
+			};
+		case "EMPTY_CART":
+			return {
+				...state,
+				cart: []
+			};
+		case "SHOW_CART_ITEM_UPDATE_FORM":
+			return {
+				...state,
+				cartItemIdUpdated: action.payload
+			};
+		case "SHOW_REMOVE_NOTICE_MODAL":
+			return {
+				...state,
+				backdropVisible: true,
+				itemRemoveNoticeModalOpen: action.payload
+			};
+		case "REMOVE_CART_ITEM_EDIT_FORM":
+			return {
+				...state,
+				cartItemIdUpdated: null
+			};
+		case "SHOW_EMPTY_CART_WARNING":
+			return {
+				...state,
+				backdropVisible: true,
+				emptyCartWarningModal: true
+			};
+		case "GET_SHIPPING_REGIONS":
+			return {
+				...state,
+				shippingRegions: action.payload
+			};
+		case "GET_SHIPPING_TYPES_PER_REGION":
+			let regionId = action.payload[0].shipping_region_id;
+			return {
+				...state,
+				shippingTypesPerRegion: {
+					...state.shippingTypesPerRegion,
+					[regionId]: action.payload
+				}
 			};
 
 		default:

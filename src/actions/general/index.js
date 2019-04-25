@@ -73,22 +73,124 @@ export const showAttrModal = productId => ({
 });
 
 export const addToCart = (cart_id, product_id, attributes) => {
-	fetch("https://backendapi.turing.com/shoppingcart/add", {
+	const cart = fetch(`${url}/shoppingcart/add`, {
 		method: "POST",
 		headers: {
 			Accept: "application/json",
 			"Content-Type": "application/x-www-form-urlencoded"
 		},
-		body: `cart_id=${cart_id}&product_id=${product_id}&attributes=${attributes}`
+		body: `cart_id=${cart_id}&product_id=${product_id}&attributes=${
+			attributes.attributes
+		}`
 	})
 		.then(res => {
-			if (!res.ok) {
-				throw Error("Something went wrong", res.status);
+			if (res.ok) {
+				return res.json();
 			}
+			throw new Error("Something went wrong", res.status);
 		})
+		.then(data => data)
 		.catch(err => alert(`${err}`));
 
 	return {
-		type: "ADD_TO_CART"
+		type: "ADD_TO_CART",
+		payload: cart
+	};
+};
+
+export const showCartItemUpdateForm = itemId => ({
+	type: "SHOW_CART_ITEM_UPDATE_FORM",
+	payload: itemId
+});
+
+export const updateCartItem = (itemId, qty) => {
+	const payload = { itemId, qty };
+	fetch(`${url}/shoppingcart/update/${itemId}`, {
+		method: "PUT",
+		headers: {
+			Accept: "application/json",
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: `quantity=${qty}`
+	});
+
+	return {
+		type: "UPDATE_CART_ITEM",
+		payload
+	};
+};
+
+export const removeCartitemEditForm = () => ({
+	type: "REMOVE_CART_ITEM_EDIT_FORM"
+});
+
+export const removeCartItem = itemId => {
+	fetch(`${url}/shoppingcart/removeProduct/${itemId}`, {
+		method: "DELETE",
+		headers: {
+			Accept: "application/json",
+			"Content-Type": "application/x-www-form-urlencoded"
+		}
+	});
+
+	return {
+		type: "REMOVE_CART_ITEM",
+		payload: itemId
+	};
+};
+
+export const showRemoveNoticeModal = itemId => ({
+	type: "SHOW_REMOVE_NOTICE_MODAL",
+	payload: itemId
+});
+
+export const showEmptyCartWarning = () => ({
+	type: "SHOW_EMPTY_CART_WARNING"
+});
+
+export const emptyCart = cartId => {
+	fetch(`${url}/shoppingcart/empty/${cartId}`, {
+		method: "DELETE",
+		headers: {
+			Accept: "application/json",
+			"Content-Type": "application/x-www-form-urlencoded"
+		}
+	});
+
+	return {
+		type: "EMPTY_CART"
+	};
+};
+
+export const getShippingRegions = () => {
+	const regions = fetch(`${url}/shipping/regions
+	`)
+		.then(res => {
+			if (res.ok) return res;
+
+			throw new Error("Something went wrong");
+		})
+		.then(data => data.json())
+		.catch(err => console.log(err));
+
+	return {
+		type: "GET_SHIPPING_REGIONS",
+		payload: regions
+	};
+};
+
+export const getShippingTypesPerRegion = regionID => {
+	const shippingTypes = fetch(`${url}/shipping/regions/${regionID}`)
+		.then(res => {
+			if (res.ok) return res;
+
+			throw new Error("Something went wrong");
+		})
+		.then(data => data.json())
+		.catch(err => console.log(err));
+
+	return {
+		type: "GET_SHIPPING_TYPES_PER_REGION",
+		payload: shippingTypes
 	};
 };

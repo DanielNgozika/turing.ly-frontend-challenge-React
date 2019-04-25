@@ -12,6 +12,7 @@ import Homepage from './containers/Homepage/JS/homepage';
 import SignUp from './containers/Users/JS/sign_up';
 import SignIn from './containers/Users/JS/sign_in';
 import ProductsInCategory from './containers/Homepage/JS/products_in_category';
+import CartPage from './containers/Cart/JS/cart_page';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const storeWithMiddleware = composeEnhancers(applyMiddleware(promiseMiddleware))(createStore);
@@ -23,6 +24,7 @@ const App = () => {
 				<Route path="/:category/products" component={ProductsInCategory}/>
 				<Route path="/sign_up" component={SignUp} />
 				<Route path="/sign_in" component={SignIn} />
+				<Route path="/cart" component={CartPage}/>
 				<Route exact path="/" component={Homepage} />
 			</Switch>
 		</BrowserRouter>

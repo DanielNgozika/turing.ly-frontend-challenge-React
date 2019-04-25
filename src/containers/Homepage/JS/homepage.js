@@ -19,7 +19,7 @@ import Banner from "../../../components/Homepage/JS/banner";
 import Spinner from "../../../components/UI/JS/spinner";
 import EachCategoryDiv from "./each_category_div";
 import DeptsSideNav from "./depts_side_nav";
-import CartCounter from './cart_counter';
+import CartCounter from "./cart_counter";
 
 //actions
 import {
@@ -27,7 +27,10 @@ import {
 	clickBackDrop,
 	openDeptSidebar,
 	getCategories,
-	getDepts, generateCartid
+	getDepts,
+	generateCartid,
+	getShippingRegions,
+	getShippingTypesPerRegion
 } from "../../../actions/general/index";
 
 class Homepage extends Component {
@@ -35,7 +38,24 @@ class Homepage extends Component {
 		this.props.getCategories();
 		this.props.getDepts();
 		if (!this.props.cartId) {
+			//the check makes sure that a new cart id isn't
+			//generated after the component remounts
+
+			//cart id is generated here to make it available early enough
+			//seeing as Homepage is the first component to mount.
 			this.props.generateCartid();
+		}
+		//fetching the shipping regions make them available for the cart
+		//and provides smooth UI update when the cart component gets mounted
+		this.props.getShippingRegions();
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.shippingRegions !== prevProps.shippingRegions)  {
+			const filtered = this.props.shippingRegions.filter(r => r.shipping_region_id !== 1);
+			filtered.map(region => (
+				this.props.getShippingTypesPerRegion(region.shipping_region_id)
+			))
 		}
 	}
 
@@ -125,7 +145,8 @@ function mapStateToProps(state) {
 		navSidebarOpen: state.general.navSidebarOpen,
 		deptSidebarOpen: state.general.deptSidebarOpen,
 		categories: state.general.categories,
-		cartId: state.general.cartId
+		cartId: state.general.cartId,
+		shippingRegions: state.general.shippingRegions
 	};
 }
 
@@ -137,7 +158,9 @@ function mapDispatchToProps(dispatch) {
 			openDeptSidebar,
 			getCategories,
 			getDepts,
-			generateCartid
+			generateCartid,
+			getShippingRegions,
+			getShippingTypesPerRegion
 		},
 		dispatch
 	);

@@ -1,0 +1,22 @@
+.form {
+    width: 98%;
+    padding: 0;
+}
+
+.input {
+    width: 100%;
+    border: none;
+    height: 25px;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    color: #817c87;
+    font-weight: 600;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border: 1.5px solid #817c87;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.input:focus {
+    border: 1px solid gold
+}
