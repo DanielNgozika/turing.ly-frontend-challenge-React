@@ -99,3 +99,12 @@
 	box-shadow: none;
 	cursor: not-allowed;
 }
+
+.div p {
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	color: #48484e;
+}
+
+.div .fb_login {
+	background-color: #3b5998;
+}
