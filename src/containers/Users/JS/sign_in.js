@@ -29,7 +29,7 @@ class SignIn extends Component {
 					"expiresIn",
 					`${Date.now() + 3600000 * parseInt(`${data.expires_in}`)}`
 				);
-				localStorage.setItem("userData", `${data.customer}`);
+				localStorage.setItem("userData", `${JSON.stringify(data)}`);
 				this.props.history.goBack();
 			})
 			.catch(err => {
@@ -44,7 +44,6 @@ class SignIn extends Component {
 			if (response.status === "connected") {
 				localStorage.setItem("fbLoggedIn", true);
 				console.log(response);
-				// localStorage.setItem('fbAccessToken', response.authResponse.accessToken)
 				fetch("https://backendapi.turing.com/customers/facebook", {
 					method: "POST",
 					headers: {
