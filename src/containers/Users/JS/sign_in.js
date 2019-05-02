@@ -29,7 +29,7 @@ class SignIn extends Component {
 					"expiresIn",
 					`${Date.now() + 3600000 * parseInt(`${data.expires_in}`)}`
 				);
-				localStorage.setItem('userData', `${data.customer}`);
+				localStorage.setItem("userData", `${data.customer}`);
 				this.props.history.goBack();
 			})
 			.catch(err => {
@@ -37,6 +37,32 @@ class SignIn extends Component {
 					alert("Connection lost. Check your network and retry");
 				else console.log(err.message);
 			});
+	};
+
+	fbLogin = () => {
+		window.FB.login(response => {
+			if (response.status === "connected") {
+				localStorage.setItem("fbLoggedIn", true);
+				console.log(response);
+				// localStorage.setItem('fbAccessToken', response.authResponse.accessToken)
+				fetch("https://backendapi.turing.com/customers/facebook", {
+					method: "POST",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					body: `access_token=${response.authResponse.accessToken}`
+				})
+					.then(res => {
+						if (!res.ok) throw Error(res.statusText);
+						return res.json();
+					})
+					.then(data => console.log(data))
+					.catch(err => console.log(err.message));
+			} else {
+				alert("Log in attempt failed");
+			}
+		});
 	};
 
 	render() {
@@ -77,7 +103,9 @@ class SignIn extends Component {
 					</button>
 				</form>
 				<p>or</p>
-				<button className={styles.fb_login}>log in with facebook</button>
+				<button className={styles.fb_login} onClick={this.fbLogin}>
+					Log in with facebook
+				</button>
 			</div>
 		);
 	}
