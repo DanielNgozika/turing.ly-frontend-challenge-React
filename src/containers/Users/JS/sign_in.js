@@ -9,6 +9,17 @@ import { renderInputField } from "../../../components/UI/JS/forms";
 import styles from "../CSS/sign_in.module.css";
 
 class SignIn extends Component {
+	componentDidMount() {
+		const tokenExpirationTime = localStorage.expiresIn;
+		const fbLoggedInState = localStorage.fbLoggedIn;
+
+		if (Date.now() < parseInt(tokenExpirationTime) || fbLoggedInState === "true") {
+			if (document.referrer.match(`${window.location.host}/sign_up`))
+				this.props.history.push("/");
+			else window.history.back();
+		}
+	}
+
 	signIn = e => {
 		const { email, password } = e;
 		fetch("https://backendapi.turing.com/customers/login", {
