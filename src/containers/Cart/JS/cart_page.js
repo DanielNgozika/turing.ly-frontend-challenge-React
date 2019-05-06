@@ -46,17 +46,23 @@ class CartPage extends Component {
 			this.props.history.push("/sign_in");
 		else {
 			const token = localStorage.accessToken;
-			const shippingId = this.id;
+			const shippingId = this.id[0][0].shipping_id;
 			const cartId = this.props.cartId;
 			fetch("https://backendapi.turing.com/orders", {
 				method: "POST",
 				headers: {
 					Accept: "application/json",
 					"Content-Type": "application/x-www-form-urlencoded",
-					"USER_KEY": `${token}`
+					"User-Key": token
 				},
 				body: `cart_id=${cartId}&shipping_id=${shippingId}&tax_id=2`
-			});
+			})
+				.then(res => {
+					if (!res.ok) throw Error("Something went wrong");
+					return res.json();
+				})
+				.then(data => this.setState({ orderId: data.orderId }))
+				.catch(err => console.log(err));
 		}
 	};
 
@@ -154,7 +160,11 @@ class CartPage extends Component {
 						<RegionSelect />
 						<h3>Shipping Type</h3>
 						<ShippingType />
-						<button className={styles.order} disabled={isTruthy} onClick={this.createOrder}>
+						<button
+							className={styles.order}
+							disabled={isTruthy}
+							onClick={this.createOrder}
+						>
 							Create order
 						</button>
 					</div>
