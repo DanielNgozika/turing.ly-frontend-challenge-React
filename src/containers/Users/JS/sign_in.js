@@ -13,7 +13,10 @@ class SignIn extends Component {
 		const tokenExpirationTime = localStorage.expiresIn;
 		const fbLoggedInState = localStorage.fbLoggedIn;
 
-		if (Date.now() < parseInt(tokenExpirationTime) || fbLoggedInState === "true") {
+		if (
+			Date.now() < parseInt(tokenExpirationTime) ||
+			fbLoggedInState === "true"
+		) {
 			if (document.referrer.match(`${window.location.host}/sign_up`))
 				this.props.history.push("/");
 			else window.history.back();
@@ -84,7 +87,10 @@ class SignIn extends Component {
 		return (
 			<div className={styles.div}>
 				<div className={styles.header}>
-					<i className="fas fa-arrow-left" />
+					<i
+						className="fas fa-arrow-left"
+						onClick={() => window.history.back()}
+					/>
 					<Link to="/sign_up">sign up</Link>
 				</div>
 				<h1>Sign in</h1>
