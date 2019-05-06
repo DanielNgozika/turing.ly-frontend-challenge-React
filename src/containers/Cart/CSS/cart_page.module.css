@@ -120,6 +120,10 @@
 	box-shadow: 0 3px 7px rgba(129, 124, 135, 0.8)
 }
 
+.order:active, .order:focus {
+	outline: none;
+}
+
 .order:disabled {
 	background-color: #f1f1f1;
 	color: #fff;
