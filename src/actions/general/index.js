@@ -194,3 +194,7 @@ export const getShippingTypesPerRegion = regionID => {
 		payload: shippingTypes
 	};
 };
+
+export const showCheckoutModal = () => ({
+	type: "SHOW_CHECKOUT_MODAL"
+});
