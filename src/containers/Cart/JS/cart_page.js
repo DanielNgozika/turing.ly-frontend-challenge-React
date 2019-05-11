@@ -12,7 +12,8 @@ import {
 	showCartItemUpdateForm,
 	showRemoveNoticeModal,
 	clickBackDrop,
-	showEmptyCartWarning
+	showEmptyCartWarning,
+	showCheckoutModal
 } from "../../../actions/general/index";
 
 //components
@@ -21,10 +22,17 @@ import Modal from "../../../components/UI/JS/modal";
 import Backdrop from "../../../components/UI/JS/top_backdrop";
 import RegionSelect from "./region_select";
 import ShippingType from "./shipping _type_select";
+import CheckoutFormContainer from "../../Checkout/JS/checkout_form_container";
+import Spinner from "../../../components/UI/JS/spinner";
 
 class CartPage extends Component {
 	state = {
-		orderId: null
+		totalAmount: this.props.cart
+			.map(i => parseFloat(i.subtotal))
+			.reduce((a, b) => a + b, 0)
+			.toFixed(2),
+		orderId: null,
+		orderIdLoading: false
 	};
 
 	componentDidMount() {
@@ -44,7 +52,10 @@ class CartPage extends Component {
 		if (localStorage.length === 0) this.props.history.push("./sign_up");
 		else if (Date.now() > localStorage.expiresIn)
 			this.props.history.push("/sign_in");
+		else if (this.state.orderId) this.props.showCheckoutModal();
 		else {
+			this.setState({ orderIdLoading: true });
+			this.props.showCheckoutModal();
 			const token = localStorage.accessToken;
 			const shippingId = this.id[0][0].shipping_id;
 			const cartId = this.props.cartId;
@@ -61,7 +72,12 @@ class CartPage extends Component {
 					if (!res.ok) throw Error("Something went wrong");
 					return res.json();
 				})
-				.then(data => this.setState({ orderId: data.orderId }))
+				.then(data =>
+					this.setState({
+						orderId: data.orderId,
+						orderIdLoading: false
+					})
+				)
 				.catch(err => console.log(err));
 		}
 	};
@@ -77,7 +93,8 @@ class CartPage extends Component {
 			regionValue,
 			regions,
 			allShippingTypes,
-			shippingTypeSelect
+			shippingTypeSelect,
+			checkoutModalShowing
 		} = this.props;
 
 		const getShippingId = () => {
@@ -110,11 +127,18 @@ class CartPage extends Component {
 			</Modal>
 		);
 
-		const total = () =>
-			cart
-				.map(i => parseFloat(i.subtotal))
-				.reduce((a, b) => a + b, 0)
-				.toFixed(2);
+		const checkoutModal = (
+			<Modal styles={styles.checkout_modal}>
+				{this.state.orderIdLoading ? (
+					<Spinner />
+				) : (
+					<CheckoutFormContainer
+						orderId={this.state.orderId}
+						amount={this.state.totalAmount}
+					/>
+				)}
+			</Modal>
+		);
 
 		const isTruthy =
 			(regionValue &&
@@ -154,7 +178,7 @@ class CartPage extends Component {
 						<hr className={styles.items_hr} />
 						<div className={styles.total_div}>
 							<span>Total:</span>
-							<span>$ {total()}</span>
+							<span>$ {this.state.totalAmount}</span>
 						</div>
 						<h3>Shipping Region</h3>
 						<RegionSelect />
@@ -189,6 +213,7 @@ class CartPage extends Component {
 				) : null}
 				{warningModal ? areYouSureModal : null}
 				{getShippingId()}
+				{checkoutModalShowing ? checkoutModal : null}
 			</>
 		);
 	}
@@ -204,7 +229,8 @@ const mapStateToProps = state => ({
 	regions: state.general.shippingRegions,
 	regionValue: state.form.region_select_field,
 	allShippingTypes: state.general.shippingTypesPerRegion,
-	shippingTypeSelect: state.form.shipping_type_select_field
+	shippingTypeSelect: state.form.shipping_type_select_field,
+	checkoutModalShowing: state.general.checkoutModalShowing
 });
 
 const mapDispatchToProps = dispatch =>
@@ -217,7 +243,8 @@ const mapDispatchToProps = dispatch =>
 			//ToBeHandledLater: put the onClick on backdrop Component
 			// at the component itself since the same action is called all the time
 			clickBackDrop,
-			showEmptyCartWarning
+			showEmptyCartWarning,
+			showCheckoutModal
 		},
 		dispatch
 	);

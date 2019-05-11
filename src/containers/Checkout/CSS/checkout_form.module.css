@@ -1,0 +1,50 @@
+.div p {
+	margin-bottom: 30px;
+}
+
+.div button {
+	display: block;
+	border: none;
+	padding: 15px;
+	background-color: #25b318;
+	color: #fff;
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-weight: 500;
+	border-radius: 4px;
+	width: 95%;
+	margin: 30px auto 5px auto;
+	box-shadow: 0 3px 7px 0 rgba(129, 124, 135, 0.8);
+	transition: width 0.3 ease-in;
+}
+
+.div button:active, .div button:focus {
+	outline: none;
+	box-shadow: 0 6px 14px 0 rgba(129, 124, 135, 0.9);
+	width: 98%;
+}
+
+.error {
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-weight: 500;
+	color: red;
+}
+
+.error_div i {
+	margin-top: 20%;
+	color: red;
+	font-weight: 700;
+	font-size: 24px;
+}
+
+.success_div i {
+	margin-top: 10%;
+	color: #25b318;
+	font-weight: 700;
+	font-size: 40px;
+}
+
+.success {
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	color: #4b4b4e;
+	font-weight: 500;
+}

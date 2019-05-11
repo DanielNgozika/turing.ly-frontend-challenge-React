@@ -130,3 +130,17 @@
 	box-shadow: none;
 	cursor: not-allowed;
 }
+
+.checkout_modal {
+	background-color: #fff;
+	border-radius: 5px;
+	top: 25% !important;
+	width: 90%;
+	height: 230px;
+	padding: 10px;
+	text-align: center;
+	color: #4b4b4e;
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-weight: 500;
+	box-sizing: border-box;
+}
