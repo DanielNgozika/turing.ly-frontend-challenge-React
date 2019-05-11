@@ -13,7 +13,8 @@ const initialState = {
 	itemRemoveNoticeModalOpen: null,
 	emptyCartWarningModal: false,
 	shippingRegions: [],
-	shippingTypesPerRegion: {}
+	shippingTypesPerRegion: {},
+	checkoutModalShowing: false
 };
 
 export default function(state = initialState, action) {
@@ -39,7 +40,8 @@ export default function(state = initialState, action) {
 					: null,
 				emptyCartWarningModal: state.emptyCartWarningModal
 					? false
-					: false
+					: false,
+				checkoutModalShowing: state.checkoutModalShowing ? false : false
 			};
 		case "OPEN_DEPT_SIDEBAR":
 			return {
@@ -148,6 +150,12 @@ export default function(state = initialState, action) {
 					...state.shippingTypesPerRegion,
 					[regionId]: action.payload
 				}
+			};
+		case "SHOW_CHECKOUT_MODAL":
+			return {
+				...state,
+				backdropVisible: true,
+				checkoutModalShowing: true
 			};
 
 		default:
