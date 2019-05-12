@@ -3,13 +3,21 @@
 	margin: auto;
 }
 
+.form_wider {
+	padding: 0;
+	width: 63.5%;
+	margin: auto auto auto 0;
+}
+
 .input {
-	border-radius: 20px;
+	width: 100%;
+	border-radius: 4px;
 	padding: 10px;
 	border: none;
 	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	color: #48484e;
 	background-color: #f1f1f1;
+	box-sizing: border-box;
 }
 
 .input::placeholder {
