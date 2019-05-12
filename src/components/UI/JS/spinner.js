@@ -2,9 +2,9 @@ import React from 'react';
 
 import styles from '../CSS/spinner.module.css';
 
-const spinner = () => {
+const spinner = ({ id }) => {
     return (
-        <div className={styles.lds_ripple}>
+        <div className={styles.lds_ripple} id={id}>
             <div></div>
             <div></div>
         </div>
