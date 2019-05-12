@@ -74,7 +74,7 @@ class Homepage extends Component {
 				) : null;
 			});
 		} else {
-			return <Spinner />;
+			return <Spinner id={styles.spinnerPos}/>;
 		}
 	};
 

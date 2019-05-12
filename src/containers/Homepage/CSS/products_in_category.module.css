@@ -5,3 +5,8 @@
 	justify-content: space-around;
 	padding: 30px 0;
 }
+
+#spinnerPos {
+	top: 40%;
+	left: 42%;
+}

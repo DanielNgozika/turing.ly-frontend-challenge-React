@@ -20,7 +20,7 @@ import CartCounter from "./cart_counter";
 
 class ProductsInCategory extends Component {
 	render() {
-		if (!this.props.allProducts) return <Spinner />;
+		if (!this.props.allProducts) return <Spinner id={styles.spinnerPos}/>;
 		return (
 			<>
 				<div className={styles.div}>

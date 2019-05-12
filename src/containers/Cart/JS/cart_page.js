@@ -130,7 +130,7 @@ class CartPage extends Component {
 		const checkoutModal = (
 			<Modal styles={styles.checkout_modal}>
 				{this.state.orderIdLoading ? (
-					<Spinner />
+					<Spinner id={styles.spinnerPos} />
 				) : (
 					<CheckoutFormContainer
 						orderId={this.state.orderId}
