@@ -9,7 +9,14 @@ import styles from "../CSS/search_product_form.module.css";
 //component
 import { renderInputField } from "../../../components/UI/JS/forms";
 
+//acions
+import { searchProducts } from "../../../actions/general/index";
+
 class SearchProductsForm extends Component {
+	search = e => {
+		this.props.searchProducts(e.search);
+	};
+
 	loggedInStatus =
 		localStorage.length === 0 ||
 		(Date.now() > localStorage.expiresIn &&
@@ -20,6 +27,7 @@ class SearchProductsForm extends Component {
 				className={
 					this.loggedInStatus ? styles.form : styles.form_wider
 				}
+				onSubmit={this.props.handleSubmit(e => this.search(e))}
 			>
 				<Field
 					name="search"
@@ -40,7 +48,12 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({}, dispatch);
+	return bindActionCreators(
+		{
+			searchProducts
+		},
+		dispatch
+	);
 }
 
 export default reduxForm({

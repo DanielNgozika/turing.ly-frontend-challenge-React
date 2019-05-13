@@ -14,7 +14,8 @@ const initialState = {
 	emptyCartWarningModal: false,
 	shippingRegions: [],
 	shippingTypesPerRegion: {},
-	checkoutModalShowing: false
+	checkoutModalShowing: false,
+	searchResults: null
 };
 
 export default function(state = initialState, action) {
@@ -157,6 +158,11 @@ export default function(state = initialState, action) {
 				backdropVisible: true,
 				checkoutModalShowing: true
 			};
+		case "SEARCH_PRODUCTS":
+			return {
+				...state,
+				searchResults: action.payload
+			}
 
 		default:
 			return state;

@@ -198,3 +198,19 @@ export const getShippingTypesPerRegion = regionID => {
 export const showCheckoutModal = () => ({
 	type: "SHOW_CHECKOUT_MODAL"
 });
+
+export const searchProducts = (query) => {
+	const result = fetch(`${url}/products/search?query_string=${query}`)
+	.then(res => {
+		if (res.ok) return res;
+
+		throw new Error("Something went wrong");
+	})
+	.then(data => data.json())
+	.catch(err => console.log(err));
+
+	return {
+		type: 'SEARCH_PRODUCTS',
+		payload: result
+	}
+}
