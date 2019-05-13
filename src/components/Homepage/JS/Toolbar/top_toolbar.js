@@ -15,7 +15,8 @@ const toolbar = props => (
 			<NavigationItems>{props.children}</NavigationItems>
 		</nav>
 		{localStorage.length === 0 ||
-		(Date.now() > localStorage.expiresIn && !localStorage.fbLoggedIn) ? (
+		(localStorage.fbLoggedIn === "false" &&
+			Date.now() > localStorage.expiresIn) ? (
 			<i className={styles.icon}>
 				<Hamburger
 					HamStyle={styles.HamStyle}

@@ -12,7 +12,8 @@ import { renderInputField } from "../../../components/UI/JS/forms";
 class SearchProductsForm extends Component {
 	loggedInStatus =
 		localStorage.length === 0 ||
-		(Date.now() > localStorage.expiresIn && !localStorage.fbLoggedIn);
+		(Date.now() > localStorage.expiresIn &&
+			localStorage.fbLoggedIn === "false");
 	render() {
 		return (
 			<form
