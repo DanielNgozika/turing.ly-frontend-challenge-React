@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { withRouter } from 'react-router-dom';
 
 //style
 import styles from "../CSS/search_product_form.module.css";
@@ -14,6 +15,8 @@ import { searchProducts } from "../../../actions/general/index";
 
 class SearchProductsForm extends Component {
 	search = e => {
+		if (window.location.pathname !== "/search_results")
+			this.props.history.push("/search_results");
 		this.props.searchProducts(e.search);
 	};
 
@@ -62,5 +65,5 @@ export default reduxForm({
 	connect(
 		mapStateToProps,
 		mapDispatchToProps
-	)(SearchProductsForm)
+	)(withRouter(SearchProductsForm))
 );
