@@ -25,8 +25,17 @@
 }
 
 .number {
-	margin-top: 60px;
-	margin-left: 10px;
+	margin-top: 65px;
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 	color: #4b4b4e;
+	text-align: center;
+}
+
+.result_div {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding-bottom: 60px;
+	box-sizing: border-box;
+	background-color: #fefefe;
 }

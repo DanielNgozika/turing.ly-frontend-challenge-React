@@ -61,17 +61,19 @@ class SearchResults extends Component {
 						{results.count}{" "}
 						{results.count === 1 ? "result" : "results"} found.
 					</h5>
-					{results.rows.map(product => (
-						<EachProduct
-							product={product}
-							key={product.product_id}
-							clicked={this.props.showProductDetail}
-							productDetailed={this.props.productDetailed}
-							clickBackDrop={this.props.clickBackDrop}
-							showAttrModal={this.props.showAttrModal}
-							attrModalOpen={this.props.attrModalOpen}
-						/>
-					))}
+					<div className={styles.result_div}>
+						{results.rows.map(product => (
+							<EachProduct
+								product={product}
+								key={product.product_id}
+								clicked={this.props.showProductDetail}
+								productDetailed={this.props.productDetailed}
+								clickBackDrop={this.props.clickBackDrop}
+								showAttrModal={this.props.showAttrModal}
+								attrModalOpen={this.props.attrModalOpen}
+							/>
+						))}
+					</div>
 					{this.props.backdropVisible ? (
 						<Backdrop onClick={this.props.clickBackDrop} />
 					) : null}
