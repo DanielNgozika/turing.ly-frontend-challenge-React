@@ -1,0 +1,32 @@
+.header {
+	display: flex;
+	align-items: center;
+	height: 50px;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	opacity: 1;
+	background-color: #fff;
+	border-bottom: 1px solid rgba(75, 75, 78, .1);
+	box-sizing: border-box;
+}
+
+.header i {
+	color: #4b4b4e;
+	margin-left: 13px;
+}
+
+.no_result {
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	color: rgba(75, 75, 78, .8);
+	text-align: center;
+	margin-top: 100px;
+}
+
+.number {
+	margin-top: 60px;
+	margin-left: 10px;
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	color: #4b4b4e;
+}
