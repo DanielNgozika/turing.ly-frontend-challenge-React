@@ -51,11 +51,13 @@ class Homepage extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.shippingRegions !== prevProps.shippingRegions)  {
-			const filtered = this.props.shippingRegions.filter(r => r.shipping_region_id !== 1);
-			filtered.map(region => (
+		if (this.props.shippingRegions !== prevProps.shippingRegions) {
+			const filtered = this.props.shippingRegions.filter(
+				r => r.shipping_region_id !== 1
+			);
+			filtered.map(region =>
 				this.props.getShippingTypesPerRegion(region.shipping_region_id)
-			))
+			);
 		}
 	}
 
@@ -74,7 +76,7 @@ class Homepage extends Component {
 				) : null;
 			});
 		} else {
-			return <Spinner id={styles.spinnerPos}/>;
+			return <Spinner id={styles.spinnerPos} />;
 		}
 	};
 
@@ -129,10 +131,16 @@ class Homepage extends Component {
 						onClick={this.props.openDeptSidebar}
 					/>
 					<ButtNavItem
-						buttName="search"
 						icon={<i className="fas fa-search" />}
 						onClick={this.searchIconClick}
 					/>
+					{localStorage.fbLoggedIn === "true" ||
+					Date.now() < localStorage.expiresIn ? (
+						<ButtNavItem
+							icon={<i className="fas fa-user" />}
+							onClick={this.searchIconClick}
+						/>
+					) : null}
 				</ButtToolbar>
 			</>
 		);

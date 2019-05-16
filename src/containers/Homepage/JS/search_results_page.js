@@ -49,6 +49,13 @@ class SearchResults extends Component {
 						icon={<i className="fas fa-search" />}
 						onClick={this.searchIconClick}
 					/>
+					{localStorage.fbLoggedIn === "true" ||
+					Date.now() < localStorage.expiresIn ? (
+						<ButtNavItem
+							icon={<i className="fas fa-user" />}
+							onClick={this.searchIconClick}
+						/>
+					) : null}
 				</ButtToolbar>
 			</>
 		);
