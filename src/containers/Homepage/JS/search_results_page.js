@@ -53,7 +53,7 @@ class SearchResults extends Component {
 					Date.now() < localStorage.expiresIn ? (
 						<ButtNavItem
 							icon={<i className="fas fa-user" />}
-							onClick={this.searchIconClick}
+							onClick={() => this.props.history.push("/profile")}
 						/>
 					) : null}
 				</ButtToolbar>
