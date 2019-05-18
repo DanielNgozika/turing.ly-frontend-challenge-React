@@ -57,7 +57,8 @@
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 	border-radius: 4px;
 	border: 1px solid rgba(75, 75, 78, .2);
-	box-shadow: 0 2px 7px 0 rgba(75, 75, 78, .1)
+	box-shadow: 0 2px 7px 0 rgba(75, 75, 78, .1);
+	background-color: #fff;
 }
 
 .section p, .section_2 p {
@@ -76,6 +77,6 @@
 }
 
 .title {
-	color: #4b4b4e;
+	color: rgba(75, 75, 78, .8);
 	font-weight: 600;
 }
