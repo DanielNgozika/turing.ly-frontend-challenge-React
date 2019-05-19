@@ -23,7 +23,7 @@ class Profile extends Component {
 			postal_code,
 			region,
 			shipping_region_id
-		} = JSON.parse(localStorage.userData).customer;
+		} = JSON.parse(localStorage.userData);
 
 		const { showingPersonalEditForm, showPersonalEditForm } = this.props;
 		return (
