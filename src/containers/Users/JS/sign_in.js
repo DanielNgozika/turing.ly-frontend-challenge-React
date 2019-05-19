@@ -43,7 +43,10 @@ class SignIn extends Component {
 					"expiresIn",
 					`${Date.now() + 3600000 * parseInt(`${data.expires_in}`)}`
 				);
-				localStorage.setItem("userData", `${JSON.stringify(data)}`);
+				localStorage.setItem(
+					"userData",
+					`${JSON.stringify(data.customer)}`
+				);
 				this.props.history.goBack();
 			})
 			.catch(err => {
