@@ -1,6 +1,13 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import styles from "../CSS/profile.module.css";
+
+//components
+import PersonalEditForm from "./personal_edit_form";
+
+//actions
+import { showPersonalEditForm } from "../../../actions/general/index";
 
 class Profile extends Component {
 	render() {
@@ -17,6 +24,8 @@ class Profile extends Component {
 			region,
 			shipping_region_id
 		} = JSON.parse(localStorage.userData).customer;
+
+		const { showingPersonalEditForm, showPersonalEditForm } = this.props;
 		return (
 			<div className={styles.div}>
 				<header className={styles.header}>
@@ -28,32 +37,39 @@ class Profile extends Component {
 				</header>
 				<div className={styles.sect_header}>
 					<h3>Personal</h3>
-					<span>Edit</span>
+					{showingPersonalEditForm ? null : (
+						<span onClick={() => showPersonalEditForm()}>Edit</span>
+					)}
 				</div>
-				<section className={styles.section}>
-					<span className={styles.title}>Name</span>
-					<p>{name}</p>
-					<span className={styles.title}>Email</span>
-					<p>{email}</p>
-					<span className={styles.title}>Day Phone</span>
-					{day_phone === null ? (
-						<span className={styles.not}>not yet set</span>
-					) : (
-						<p>{day_phone}</p>
-					)}
-					<span className={styles.title}>Evening Phone</span>
-					{eve_phone === null ? (
-						<span className={styles.not}>not yet set</span>
-					) : (
-						<p>{eve_phone}</p>
-					)}
-					<span className={styles.title}>Mobile Phone</span>
-					{mob_phone === null ? (
-						<span className={styles.not}>not yet set</span>
-					) : (
-						<p>{mob_phone}</p>
-					)}
-				</section>
+				{showingPersonalEditForm ? (
+					<PersonalEditForm />
+				) : (
+					<section className={styles.section}>
+						<span className={styles.title}>Name</span>
+						<p>{name}</p>
+						<span className={styles.title}>Email</span>
+						<p>{email}</p>
+						<span className={styles.title}>Day Phone</span>
+						{day_phone === null ? (
+							<span className={styles.not}>not yet set</span>
+						) : (
+							<p>{day_phone}</p>
+						)}
+						<span className={styles.title}>Evening Phone</span>
+						{eve_phone === null ? (
+							<span className={styles.not}>not yet set</span>
+						) : (
+							<p>{eve_phone}</p>
+						)}
+						<span className={styles.title}>Mobile Phone</span>
+						{mob_phone === null ? (
+							<span className={styles.not}>not yet set</span>
+						) : (
+							<p>{mob_phone}</p>
+						)}
+					</section>
+				)}
+
 				<div className={styles.sect_header}>
 					<h3>Location</h3>
 					<span>Edit</span>
@@ -95,4 +111,15 @@ class Profile extends Component {
 	}
 }
 
-export default Profile;
+const mapStateToProps = state => ({
+	showingPersonalEditForm: state.general.showingPersonalEditForm
+});
+
+const mapDispatchToProps = {
+	showPersonalEditForm
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Profile);
