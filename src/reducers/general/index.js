@@ -15,7 +15,8 @@ const initialState = {
 	shippingRegions: [],
 	shippingTypesPerRegion: {},
 	checkoutModalShowing: false,
-	searchResults: null
+	searchResults: null,
+	showingPersonalEditForm: false
 };
 
 export default function(state = initialState, action) {
@@ -162,7 +163,17 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				searchResults: action.payload
-			}
+			};
+		case "SHOW_PERSONAL_EDIT_FORM":
+			return {
+				...state,
+				showingPersonalEditForm: true
+			};
+		case "HIDE_PERSONAL_EDIT_FORM":
+			return {
+				...state,
+				showingPersonalEditForm: false
+			};
 
 		default:
 			return state;

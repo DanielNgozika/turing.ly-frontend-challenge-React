@@ -214,3 +214,11 @@ export const searchProducts = (query) => {
 		payload: result
 	}
 }
+
+export const hidePersonalEditForm = () => ({
+	type: 'HIDE_PERSONAL_EDIT_FORM'
+})
+
+export const showPersonalEditForm = () => ({
+	type: "SHOW_PERSONAL_EDIT_FORM"
+})
