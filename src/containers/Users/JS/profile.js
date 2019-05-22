@@ -126,6 +126,12 @@ class Profile extends Component {
 						) : (
 							<p>{region}</p>
 						)}
+						<span className={styles.title}>Postal code</span>
+						{postal_code === null ? (
+							<span className={styles.not}>not yet set</span>
+						) : (
+							<p>{postal_code}</p>
+						)}
 						<span className={styles.title}>Country</span>
 						{country === null ? (
 							<span className={styles.not}>not yet set</span>
