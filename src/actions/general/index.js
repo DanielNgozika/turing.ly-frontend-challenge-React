@@ -222,3 +222,11 @@ export const hidePersonalEditForm = () => ({
 export const showPersonalEditForm = () => ({
 	type: "SHOW_PERSONAL_EDIT_FORM"
 })
+
+export const showLocationEditForm = () => ({
+	type: "SHOW_LOCATION_EDIT_FORM"
+})
+
+export const hideLocationEditForm = () => ({
+	type: 'HIDE_LOCATION_EDIT_FORM'
+})
