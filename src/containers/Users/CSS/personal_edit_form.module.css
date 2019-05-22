@@ -18,11 +18,17 @@
 	border: 1px solid #d2d0ce;
 	padding: 10px;
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-weight: 500;
 	box-sizing: border-box;
 }
 
 .input:active, .input:focus, .error:focus, .error:active {
 	outline: none;
+}
+
+.input::placeholder {
+	font-weight: 600;
+	opacity: .7;
 }
 
 .error {
