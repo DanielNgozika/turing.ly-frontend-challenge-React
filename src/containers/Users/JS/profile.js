@@ -11,7 +11,8 @@ import LocationEditForm from "./location_edit_form";
 import {
 	showPersonalEditForm,
 	showLocationEditForm,
-	hideLocationEditForm
+	hideLocationEditForm,
+	hidePersonalEditForm
 } from "../../../actions/general/index";
 
 class Profile extends Component {
@@ -36,7 +37,8 @@ class Profile extends Component {
 			showPersonalEditForm,
 			showingLocationEditForm,
 			showLocationEditForm,
-			hideLocationEditForm
+			hideLocationEditForm,
+			hidePersonalEditForm
 		} = this.props;
 		return (
 			<div className={styles.div}>
@@ -49,7 +51,11 @@ class Profile extends Component {
 				</header>
 				<div className={styles.sect_header}>
 					<h3>Personal</h3>
-					{showingPersonalEditForm ? null : (
+					{showingPersonalEditForm ? (
+						<span onClick={() => hidePersonalEditForm()}>
+							cancel edit
+						</span>
+					) : (
 						<span onClick={() => showPersonalEditForm()}>Edit</span>
 					)}
 				</div>
@@ -147,7 +153,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
 	showPersonalEditForm,
 	showLocationEditForm,
-	hideLocationEditForm
+	hideLocationEditForm,
+	hidePersonalEditForm
 };
 
 export default connect(
