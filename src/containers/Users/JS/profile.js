@@ -5,9 +5,14 @@ import styles from "../CSS/profile.module.css";
 
 //components
 import PersonalEditForm from "./personal_edit_form";
+import LocationEditForm from "./location_edit_form";
 
 //actions
-import { showPersonalEditForm } from "../../../actions/general/index";
+import {
+	showPersonalEditForm,
+	showLocationEditForm,
+	hideLocationEditForm
+} from "../../../actions/general/index";
 
 class Profile extends Component {
 	render() {
@@ -26,7 +31,13 @@ class Profile extends Component {
 			shipping_region_id
 		} = JSON.parse(localStorage.userData);
 
-		const { showingPersonalEditForm, showPersonalEditForm } = this.props;
+		const {
+			showingPersonalEditForm,
+			showPersonalEditForm,
+			showingLocationEditForm,
+			showLocationEditForm,
+			hideLocationEditForm
+		} = this.props;
 		return (
 			<div className={styles.div}>
 				<header className={styles.header}>
@@ -73,57 +84,70 @@ class Profile extends Component {
 
 				<div className={styles.sect_header}>
 					<h3>Location</h3>
-					<span>Edit</span>
+					{showingLocationEditForm ? (
+						<span onClick={() => hideLocationEditForm()}>
+							cancel edit
+						</span>
+					) : (
+						<span onClick={() => showLocationEditForm()}>Edit</span>
+					)}
 				</div>
-				<section className={styles.section_2}>
-					<span className={styles.title}>Address 1</span>
-					{address_1 === null ? (
-						<span className={styles.not}>not yet set</span>
-					) : (
-						<p>{address_1}</p>
-					)}
-					<span className={styles.title}>Address 2</span>
-					{address_2 === null ? (
-						<span className={styles.not}>not yet set</span>
-					) : (
-						<p>{address_2}</p>
-					)}
-					<span className={styles.title}>City</span>
-					{city === null ? (
-						<span className={styles.not}>not yet set</span>
-					) : (
-						<p>{city}</p>
-					)}
-					<span className={styles.title}>Region</span>
-					{region === null ? (
-						<span className={styles.not}>not yet set</span>
-					) : (
-						<p>{region}</p>
-					)}
+				{showingLocationEditForm ? (
+					<LocationEditForm />
+				) : (
+					<section className={styles.section_2}>
+						<span className={styles.title}>Address 1</span>
+						{address_1 === null ? (
+							<span className={styles.not}>not yet set</span>
+						) : (
+							<p>{address_1}</p>
+						)}
+						<span className={styles.title}>Address 2</span>
+						{address_2 === null ? (
+							<span className={styles.not}>not yet set</span>
+						) : (
+							<p>{address_2}</p>
+						)}
+						<span className={styles.title}>City</span>
+						{city === null ? (
+							<span className={styles.not}>not yet set</span>
+						) : (
+							<p>{city}</p>
+						)}
+						<span className={styles.title}>Region</span>
+						{region === null ? (
+							<span className={styles.not}>not yet set</span>
+						) : (
+							<p>{region}</p>
+						)}
 						<span className={styles.title}>Country</span>
 						{country === null ? (
 							<span className={styles.not}>not yet set</span>
 						) : (
 							<p>{country}</p>
 						)}
-					<span className={styles.title}>Shipping region</span>
-					{shipping_region_id === null ? (
-						<span className={styles.not}>not yet set</span>
-					) : (
-						<p>{shipping_region_id}</p>
-					)}
-				</section>
+						<span className={styles.title}>Shipping region</span>
+						{shipping_region_id === null ? (
+							<span className={styles.not}>not yet set</span>
+						) : (
+							<p>{shipping_region_id}</p>
+						)}
+					</section>
+				)}
 			</div>
 		);
 	}
 }
 
 const mapStateToProps = state => ({
-	showingPersonalEditForm: state.general.showingPersonalEditForm
+	showingPersonalEditForm: state.general.showingPersonalEditForm,
+	showingLocationEditForm: state.general.showingLocationEditForm
 });
 
 const mapDispatchToProps = {
-	showPersonalEditForm
+	showPersonalEditForm,
+	showLocationEditForm,
+	hideLocationEditForm
 };
 
 export default connect(
