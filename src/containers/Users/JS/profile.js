@@ -22,6 +22,7 @@ class Profile extends Component {
 			city,
 			postal_code,
 			region,
+			country,
 			shipping_region_id
 		} = JSON.parse(localStorage.userData);
 
@@ -99,6 +100,12 @@ class Profile extends Component {
 					) : (
 						<p>{region}</p>
 					)}
+						<span className={styles.title}>Country</span>
+						{country === null ? (
+							<span className={styles.not}>not yet set</span>
+						) : (
+							<p>{country}</p>
+						)}
 					<span className={styles.title}>Shipping region</span>
 					{shipping_region_id === null ? (
 						<span className={styles.not}>not yet set</span>
