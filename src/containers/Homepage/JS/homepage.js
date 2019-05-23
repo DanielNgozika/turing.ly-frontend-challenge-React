@@ -35,19 +35,27 @@ import {
 
 class Homepage extends Component {
 	componentDidMount() {
-		this.props.getCategories();
-		this.props.getDepts();
-		if (!this.props.cartId) {
+		const {
+			getCategories,
+			getDepts,
+			cartId,
+			generateCartid,
+			getShippingRegions,
+			shippingRegions
+		} = this.props;
+		getCategories();
+		getDepts();
+		if (!cartId) {
 			//the check makes sure that a new cart id isn't
 			//generated after the component remounts
 
 			//cart id is generated here to make it available early enough
 			//seeing as Homepage is the first component to mount.
-			this.props.generateCartid();
+			generateCartid();
 		}
 		//fetching the shipping regions make them available for the cart
 		//and provides smooth UI update when the cart component gets mounted
-		this.props.getShippingRegions();
+		if (shippingRegions.length === 0) getShippingRegions();
 	}
 
 	componentDidUpdate(prevProps) {
