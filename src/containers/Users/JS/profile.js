@@ -12,10 +12,16 @@ import {
 	showPersonalEditForm,
 	showLocationEditForm,
 	hideLocationEditForm,
-	hidePersonalEditForm
+	hidePersonalEditForm,
+	getShippingRegions
 } from "../../../actions/general/index";
 
 class Profile extends Component {
+
+	componentDidMount() {
+		if (this.props.shippingRegions.length === 0) this.props.getShippingRegions()
+	}
+
 	render() {
 		const {
 			name,
@@ -153,14 +159,16 @@ class Profile extends Component {
 
 const mapStateToProps = state => ({
 	showingPersonalEditForm: state.general.showingPersonalEditForm,
-	showingLocationEditForm: state.general.showingLocationEditForm
+	showingLocationEditForm: state.general.showingLocationEditForm,
+	shippingRegions: state.general.shippingRegions
 });
 
 const mapDispatchToProps = {
 	showPersonalEditForm,
 	showLocationEditForm,
 	hideLocationEditForm,
-	hidePersonalEditForm
+	hidePersonalEditForm,
+	getShippingRegions
 };
 
 export default connect(
