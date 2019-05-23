@@ -36,9 +36,9 @@ class CartPage extends Component {
 	};
 
 	componentDidMount() {
-		//ToHandleLater: on cartpage reload,
-		//throw a "something went wrong" and
+		//onreload,
 		//redirect to homepage because cartId will be null
+		if (!this.props.cartId) this.props.history.push("/");
 	}
 
 	id = [];
