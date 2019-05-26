@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 //style
 import styles from "../CSS/homepage.module.css";
@@ -166,21 +165,18 @@ function mapStateToProps(state) {
 	};
 }
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators(
-		{
-			openNavSidebar,
-			clickBackDrop,
-			openDeptSidebar,
-			getCategories,
-			getDepts,
-			generateCartid,
-			getShippingRegions,
-			getShippingTypesPerRegion
-		},
-		dispatch
-	);
-}
+const mapDispatchToProps = dispatch => {
+	return {
+		openNavSidebar: () => dispatch(openNavSidebar()),
+		clickBackDrop: () => dispatch(clickBackDrop()),
+		openDeptSidebar: () => dispatch(openDeptSidebar()),
+		getCategories: () => dispatch(getCategories(dispatch)),
+		getDepts: () => dispatch(getDepts()),
+		generateCartid: () => dispatch(generateCartid()),
+		getShippingRegions: () => dispatch(getShippingRegions()),
+		getShippingTypesPerRegion: () => dispatch(getShippingTypesPerRegion())
+	};
+};
 
 export default connect(
 	mapStateToProps,
