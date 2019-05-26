@@ -199,34 +199,43 @@ export const showCheckoutModal = () => ({
 	type: "SHOW_CHECKOUT_MODAL"
 });
 
-export const searchProducts = (query) => {
+export const searchProducts = query => {
 	const result = fetch(`${url}/products/search?query_string=${query}`)
-	.then(res => {
-		if (res.ok) return res;
+		.then(res => {
+			if (res.ok) return res;
 
-		throw new Error("Something went wrong");
-	})
-	.then(data => data.json())
-	.catch(err => console.log(err));
+			throw new Error("Something went wrong");
+		})
+		.then(data => data.json())
+		.catch(err => console.log(err));
 
 	return {
-		type: 'SEARCH_PRODUCTS',
+		type: "SEARCH_PRODUCTS",
 		payload: result
-	}
-}
+	};
+};
 
 export const hidePersonalEditForm = () => ({
-	type: 'HIDE_PERSONAL_EDIT_FORM'
-})
+	type: "HIDE_PERSONAL_EDIT_FORM"
+});
 
 export const showPersonalEditForm = () => ({
 	type: "SHOW_PERSONAL_EDIT_FORM"
-})
+});
 
 export const showLocationEditForm = () => ({
 	type: "SHOW_LOCATION_EDIT_FORM"
-})
+});
 
 export const hideLocationEditForm = () => ({
-	type: 'HIDE_LOCATION_EDIT_FORM'
-})
+	type: "HIDE_LOCATION_EDIT_FORM"
+});
+
+export const showErrorModal = message => ({
+	type: "SHOW_ERROR_MODAL",
+	message
+});
+
+export const hideErrorModal = () => ({
+	type: "HIDE_ERROR_MODAL"
+});
