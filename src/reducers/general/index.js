@@ -17,7 +17,11 @@ const initialState = {
 	checkoutModalShowing: false,
 	searchResults: null,
 	showingPersonalEditForm: false,
-	showingLocationEditForm: false
+	showingLocationEditForm: false,
+	errorModal: {
+		showing: false,
+		message: null
+	}
 };
 
 export default function(state = initialState, action) {
@@ -184,6 +188,22 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				showingLocationEditForm: false
+			};
+		case "SHOW_ERROR_MODAL":
+			return {
+				...state,
+				errorModal: {
+					showing: true,
+					message: action.message
+				}
+			};
+		case "HIDE_ERROR_MODAL":
+			return {
+				...state,
+				errorModal: {
+					showing: false,
+					message: null
+				}
 			};
 
 		default:
