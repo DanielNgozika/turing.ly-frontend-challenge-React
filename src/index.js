@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose } from "redux";
-import promiseMiddleware from "redux-promise";
+import { createStore, compose } from "redux";
 import rootReducer from "./reducers/index";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
@@ -17,9 +16,7 @@ import SearchResultsPage from "./containers/Homepage/JS/search_results_page";
 import UserProfile from "./containers/Users/JS/profile";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const storeWithMiddleware = composeEnhancers(
-	applyMiddleware(promiseMiddleware)
-)(createStore);
+const store = composeEnhancers()(createStore);
 
 const App = () => {
 	return (
@@ -41,7 +38,7 @@ const App = () => {
 };
 
 ReactDOM.render(
-	<Provider store={storeWithMiddleware(rootReducer)}>
+	<Provider store={store(rootReducer)}>
 		<App />
 	</Provider>,
 	document.getElementById("root")
