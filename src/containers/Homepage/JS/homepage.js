@@ -38,7 +38,7 @@ class Homepage extends Component {
 			getCategories,
 			getDepts,
 			cartId,
-			generateCartid,
+			generateCartId,
 			getShippingRegions,
 			shippingRegions
 		} = this.props;
@@ -174,7 +174,7 @@ const mapDispatchToProps = dispatch => {
 		getDepts: () => getDepts(dispatch),
 		generateCartId: () => generateCartId(dispatch),
 		getShippingRegions: () => getShippingRegions(dispatch),
-		getShippingTypesPerRegion: () => getShippingTypesPerRegion(dispatch)
+		getShippingTypesPerRegion: (...args) => getShippingTypesPerRegion(dispatch, ...args)
 	};
 };
 
