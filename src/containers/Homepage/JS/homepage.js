@@ -27,7 +27,7 @@ import {
 	openDeptSidebar,
 	getCategories,
 	getDepts,
-	generateCartid,
+	generateCartId,
 	getShippingRegions,
 	getShippingTypesPerRegion
 } from "../../../actions/general/index";
@@ -50,7 +50,7 @@ class Homepage extends Component {
 
 			//cart id is generated here to make it available early enough
 			//seeing as Homepage is the first component to mount.
-			generateCartid();
+			generateCartId();
 		}
 		//fetching the shipping regions make them available for the cart
 		//and provides smooth UI update when the cart component gets mounted
@@ -172,7 +172,7 @@ const mapDispatchToProps = dispatch => {
 		openDeptSidebar: () => dispatch(openDeptSidebar()),
 		getCategories: () => getCategories(dispatch),
 		getDepts: () => getDepts(dispatch),
-		generateCartid: () => generateCartid(dispatch),
+		generateCartId: () => generateCartId(dispatch),
 		getShippingRegions: () => getShippingRegions(dispatch),
 		getShippingTypesPerRegion: () => getShippingTypesPerRegion(dispatch)
 	};

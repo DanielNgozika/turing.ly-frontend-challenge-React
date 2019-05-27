@@ -56,7 +56,7 @@ export const showProductDetail = productId => ({
 	payload: productId
 });
 
-export const generateCartid = () => {
+export const generateCartId = () => {
 	const request = fetch(`${url}/shoppingcart/generateUniqueId`)
 		.then(res => res.json())
 		.catch(err => console.log(err.message));
