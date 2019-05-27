@@ -170,11 +170,11 @@ const mapDispatchToProps = dispatch => {
 		openNavSidebar: () => dispatch(openNavSidebar()),
 		clickBackDrop: () => dispatch(clickBackDrop()),
 		openDeptSidebar: () => dispatch(openDeptSidebar()),
-		getCategories: () => dispatch(getCategories(dispatch)),
-		getDepts: () => dispatch(getDepts()),
-		generateCartid: () => dispatch(generateCartid()),
-		getShippingRegions: () => dispatch(getShippingRegions()),
-		getShippingTypesPerRegion: () => dispatch(getShippingTypesPerRegion())
+		getCategories: () => getCategories(dispatch),
+		getDepts: () => getDepts(dispatch),
+		generateCartid: () => generateCartid(dispatch),
+		getShippingRegions: () => getShippingRegions(dispatch),
+		getShippingTypesPerRegion: () => getShippingTypesPerRegion(dispatch)
 	};
 };
 
