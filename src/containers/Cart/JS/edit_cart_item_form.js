@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 import { renderInputField } from "../../../components/UI/JS/forms";
 
 //styles
-import styles from '../CSS/edit_cart_item_form.module.css';
+import styles from "../CSS/edit_cart_item_form.module.css";
 
 //actions
-import { updateCartItem, removeCartitemEditForm } from "../../../actions/general/index";
+import {
+	updateCartItem,
+	removeCartitemEditForm
+} from "../../../actions/general/index";
 
 class EditCartItemForm extends Component {
 	submit = e => {
@@ -20,7 +22,10 @@ class EditCartItemForm extends Component {
 
 	render() {
 		return (
-			<form onSubmit={this.props.handleSubmit(e => this.submit(e))} className={styles.form}>
+			<form
+				onSubmit={this.props.handleSubmit(e => this.submit(e))}
+				className={styles.form}
+			>
 				<Field
 					name="new_quantity"
 					type="number"
@@ -38,15 +43,10 @@ const mapStateToProps = state => ({
 	itemId: state.general.cartItemIdUpdated
 });
 
-const mapDispatchToProps = dispatch => {
-	return bindActionCreators(
-		{
-			updateCartItem,
-			removeCartitemEditForm
-		},
-		dispatch
-	);
-};
+const mapDispatchToProps = dispatch => ({
+	updateCartItem: (...args) => updateCartItem(dispatch, ...args),
+	removeCartitemEditForm: () => dispatch(removeCartitemEditForm())
+});
 
 export default reduxForm({
 	form: "cart item edit form"

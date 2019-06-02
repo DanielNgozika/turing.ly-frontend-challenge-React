@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 //style
 import styles from "../CSS/search_product_form.module.css";
@@ -44,20 +43,13 @@ class SearchProductsForm extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		searchInputFocus: state.general.searchInputFocus
-	};
-}
+const mapStateToProps = state => ({
+	searchInputFocus: state.general.searchInputFocus
+});
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators(
-		{
-			searchProducts
-		},
-		dispatch
-	);
-}
+const mapDispatchToProps = dispatch => ({
+	searchProducts: query => searchProducts(dispatch, query)
+});
 
 export default reduxForm({
 	form: "search products"

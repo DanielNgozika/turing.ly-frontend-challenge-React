@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 //styles
 import styles from "../CSS/attribute_input.module.css";
@@ -14,8 +13,9 @@ import { addToCart, clickBackDrop } from "../../../actions/general/index";
 
 class AttributeInput extends Component {
 	submit = e => {
-		this.props.addToCart(this.props.cartId, this.props.productId, e);
-		this.props.clickBackDrop();
+		const { addToCart, cartId, productId, clickBackDrop } = this.props;
+		addToCart(cartId, productId, e);
+		clickBackDrop();
 	};
 	render() {
 		return (
@@ -46,15 +46,10 @@ function mapStateToProps(state) {
 	};
 }
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators(
-		{
-			addToCart,
-			clickBackDrop
-		},
-		dispatch
-	);
-}
+const mapDispatchToProps = dispatch => ({
+	addToCart: (...args) => addToCart(dispatch, ...args),
+	clickBackDrop: () => dispatch(clickBackDrop())
+});
 
 export default reduxForm({
 	form: "attribute form"
