@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 //styles
 import styles from "../CSS/select.module.css";
@@ -30,7 +29,9 @@ class ShippingType extends Component {
 			if (this.filteredRegion.length > 0)
 				return allShippingTypes[
 					this.filteredRegion[0].shipping_region_id
-				].map(type => type.shipping_type).concat(['select shipping type']);
+				]
+					.map(type => type.shipping_type)
+					.concat(["select shipping type"]);
 			else return ["select region above"];
 		};
 
@@ -55,5 +56,5 @@ const mapStateToProps = state => ({
 
 export default reduxForm({
 	form: "shipping_type_select_field",
-	initialValues: {shipping_type: "select shipping type"}
+	initialValues: { shipping_type: "select shipping type" }
 })(connect(mapStateToProps)(ShippingType));
