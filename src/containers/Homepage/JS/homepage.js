@@ -19,6 +19,7 @@ import Spinner from "../../../components/UI/JS/spinner";
 import EachCategoryDiv from "./each_category_div";
 import DeptsSideNav from "./depts_side_nav";
 import CartCounter from "./cart_counter";
+import ErrorModal from "../../../components/UI/JS/error_modal";
 
 //actions
 import {
@@ -88,8 +89,15 @@ class Homepage extends Component {
 	};
 
 	render() {
+		const { showing, message } = this.props.errorModal;
 		return (
 			<>
+				{showing ? (
+					<ErrorModal
+						message={message}
+						show={showing ? true : false}
+					/>
+				) : null}
 				<Toolbar hamburgerClick={this.props.openNavSidebar} />
 				<Banner />
 				<div className={styles.body}>
@@ -161,7 +169,8 @@ function mapStateToProps(state) {
 		deptSidebarOpen: state.general.deptSidebarOpen,
 		categories: state.general.categories,
 		cartId: state.general.cartId,
-		shippingRegions: state.general.shippingRegions
+		shippingRegions: state.general.shippingRegions,
+		errorModal: state.general.errorModal
 	};
 }
 
@@ -174,7 +183,8 @@ const mapDispatchToProps = dispatch => {
 		getDepts: () => getDepts(dispatch),
 		generateCartId: () => generateCartId(dispatch),
 		getShippingRegions: () => getShippingRegions(dispatch),
-		getShippingTypesPerRegion: (...args) => getShippingTypesPerRegion(dispatch, ...args)
+		getShippingTypesPerRegion: (...args) =>
+			getShippingTypesPerRegion(dispatch, ...args)
 	};
 };
 
