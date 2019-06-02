@@ -18,37 +18,55 @@ export const openDeptSidebar = () => {
 	};
 };
 
-export const getCategories = () => {
-	const request = fetch(`${url}/categories`)
-		.then(response => response.json())
-		.catch(err => console.log(err.message));
-
-	return {
-		type: "GET_CATEGORIES",
-		payload: request
-	};
+export const getCategories = async dispatch => {
+	try {
+		const request = await fetch(`${url}/categories`);
+		if (!request.ok) {
+			const error = await request.json();
+			throw Error(error.error.message);
+		}
+		const data = await request.json();
+		dispatch({
+			type: "GET_CATEGORIES",
+			payload: data
+		});
+	} catch (err) {
+		errorHandler(err, dispatch);
+	}
 };
 
-export const getDepts = () => {
-	const request = fetch(`${url}/departments`)
-		.then(response => response.json())
-		.catch(err => console.log(err.message));
-
-	return {
-		type: "GET_DEPTS",
-		payload: request
-	};
+export const getDepts = async dispatch => {
+	try {
+		const request = await fetch(`${url}/departments`);
+		if (!request.ok) {
+			const error = await request.json();
+			throw Error(error.error.message);
+		}
+		const data = await request.json();
+		dispatch({
+			type: "GET_DEPTS",
+			payload: data
+		});
+	} catch (err) {
+		errorHandler(err, dispatch);
+	}
 };
 
-export const getProductsInCategory = catId => {
-	const request = fetch(`${url}/products/inCategory/${catId}`)
-		.then(res => res.json())
-		.catch(err => console.log(err.message));
-
-	return {
-		type: "GET_PRODUCTS_IN_CATEGORY",
-		payload: request
-	};
+export const getProductsInCategory = async (dispatch, catId) => {
+	try {
+		const request = await fetch(`${url}/products/inCategory/${catId}`);
+		if (!request.ok) {
+			const error = await request.json();
+			throw Error(error.error.message);
+		}
+		const data = await request.json();
+		dispatch({
+			type: "GET_PRODUCTS_IN_CATEGORY",
+			payload: data
+		});
+	} catch (err) {
+		errorHandler(err, dispatch);
+	}
 };
 
 export const showProductDetail = productId => ({
@@ -56,15 +74,21 @@ export const showProductDetail = productId => ({
 	payload: productId
 });
 
-export const generateCartId = () => {
-	const request = fetch(`${url}/shoppingcart/generateUniqueId`)
-		.then(res => res.json())
-		.catch(err => console.log(err.message));
-
-	return {
-		type: "GENERATE_CART_ID",
-		payload: request
-	};
+export const generateCartId = async dispatch => {
+	try {
+		const request = await fetch(`${url}/shoppingcart/generateUniqueId`);
+		if (!request.ok) {
+			const error = await request.json();
+			throw Error(error.error.message);
+		}
+		const data = await request.json();
+		dispatch({
+			type: "GENERATE_CART_ID",
+			payload: data
+		});
+	} catch (err) {
+		errorHandler(err, dispatch);
+	}
 };
 
 export const showAttrModal = productId => ({
@@ -72,30 +96,53 @@ export const showAttrModal = productId => ({
 	payload: productId
 });
 
-export const addToCart = (cart_id, product_id, attributes) => {
-	const cart = fetch(`${url}/shoppingcart/add`, {
-		method: "POST",
-		headers: {
-			Accept: "application/json",
-			"Content-Type": "application/x-www-form-urlencoded"
-		},
-		body: `cart_id=${cart_id}&product_id=${product_id}&attributes=${
-			attributes.attributes
-		}`
-	})
-		.then(res => {
-			if (res.ok) {
-				return res.json();
-			}
-			throw new Error("Something went wrong", res.status);
-		})
-		.then(data => data)
-		.catch(err => alert(`${err}`));
+export const addToCart = async (dispatch, cart_id, product_id, attributes) => {
+	try {
+		const request = await fetch(`${url}/shoppingcart/add`, {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: `cart_id=${cart_id}&product_id=${product_id}&attributes=${
+				attributes.attributes
+			}`
+		});
+		if (!request.ok) {
+			const error = await request.json();
+			throw Error(error.error.message);
+		}
+		const cart = await request.json();
+		dispatch({
+			type: "ADD_TO_CART",
+			payload: cart
+		});
+	} catch (err) {
+		errorHandler(err, dispatch);
+	}
+	// 	const cart = fetch(`${url}/shoppingcart/add`, {
+	// 		method: "POST",
+	// 		headers: {
+	// 			Accept: "application/json",
+	// 			"Content-Type": "application/x-www-form-urlencoded"
+	// 		},
+	// 		body: `cart_id=${cart_id}&product_id=${product_id}&attributes=${
+	// 			attributes.attributes
+	// 		}`
+	// 	})
+	// 		.then(res => {
+	// 			if (res.ok) {
+	// 				return res.json();
+	// 			}
+	// 			throw new Error("Something went wrong", res.status);
+	// 		})
+	// 		.then(data => data)
+	// 		.catch(err => alert(`${err}`));
 
-	return {
-		type: "ADD_TO_CART",
-		payload: cart
-	};
+	// 	return {
+	// 		type: "ADD_TO_CART",
+	// 		payload: cart
+	// 	};
 };
 
 export const showCartItemUpdateForm = itemId => ({
@@ -103,40 +150,71 @@ export const showCartItemUpdateForm = itemId => ({
 	payload: itemId
 });
 
-export const updateCartItem = (itemId, qty) => {
-	const payload = { itemId, qty };
-	fetch(`${url}/shoppingcart/update/${itemId}`, {
-		method: "PUT",
-		headers: {
-			Accept: "application/json",
-			"Content-Type": "application/x-www-form-urlencoded"
-		},
-		body: `quantity=${qty}`
-	});
+export const updateCartItem = async (dispatch, itemId, qty) => {
+	try {
+		const payload = { itemId, qty };
+		const request = await fetch(`${url}/shoppingcart/update/${itemId}`, {
+			method: "PUT",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: `quantity=${qty}`
+		});
+		if (!request.ok) {
+			const error = await request.json();
+			throw Error(error.error.message);
+		}
+		dispatch({
+			type: "UPDATE_CART_ITEM",
+			payload: payload
+		});
+	} catch (err) {
+		errorHandler(err, dispatch);
+	}
+	// const payload = { itemId, qty };
+	// fetch(`${url}/shoppingcart/update/${itemId}`, {
+	// 	method: "PUT",
+	// 	headers: {
+	// 		Accept: "application/json",
+	// 		"Content-Type": "application/x-www-form-urlencoded"
+	// 	},
+	// 	body: `quantity=${qty}`
+	// });
 
-	return {
-		type: "UPDATE_CART_ITEM",
-		payload
-	};
+	// return {
+	// 	type: "UPDATE_CART_ITEM",
+	// 	payload
+	// };
 };
 
 export const removeCartitemEditForm = () => ({
 	type: "REMOVE_CART_ITEM_EDIT_FORM"
 });
 
-export const removeCartItem = itemId => {
-	fetch(`${url}/shoppingcart/removeProduct/${itemId}`, {
-		method: "DELETE",
-		headers: {
-			Accept: "application/json",
-			"Content-Type": "application/x-www-form-urlencoded"
+export const removeCartItem = async (dispatch, itemId) => {
+	try {
+		const request = await fetch(
+			`${url}/shoppingcart/removeProduct/${itemId}`,
+			{
+				method: "DELETE",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/x-www-form-urlencoded"
+				}
+			}
+		);
+		if (!request.ok) {
+			const error = await request.json();
+			throw Error(error.error.message);
 		}
-	});
-
-	return {
-		type: "REMOVE_CART_ITEM",
-		payload: itemId
-	};
+		dispatch({
+			type: "REMOVE_CART_ITEM",
+			payload: itemId
+		});
+	} catch (err) {
+		errorHandler(err, dispatch);
+	}
 };
 
 export const showRemoveNoticeModal = itemId => ({
@@ -148,71 +226,80 @@ export const showEmptyCartWarning = () => ({
 	type: "SHOW_EMPTY_CART_WARNING"
 });
 
-export const emptyCart = cartId => {
-	fetch(`${url}/shoppingcart/empty/${cartId}`, {
-		method: "DELETE",
-		headers: {
-			Accept: "application/json",
-			"Content-Type": "application/x-www-form-urlencoded"
+export const emptyCart = async (dispatch, cartId) => {
+	try {
+		const request = await fetch(`${url}/shoppingcart/empty/${cartId}`, {
+			method: "DELETE",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/x-www-form-urlencoded"
+			}
+		});
+		if (!request.ok) {
+			const error = await request.json();
+			throw Error(error.error.message);
 		}
-	});
-
-	return {
-		type: "EMPTY_CART"
-	};
+		dispatch({ type: "EMPTY_CART" });
+	} catch (err) {
+		errorHandler(err, dispatch);
+	}
 };
 
-export const getShippingRegions = () => {
-	const regions = fetch(`${url}/shipping/regions
-	`)
-		.then(res => {
-			if (res.ok) return res;
-
-			throw new Error("Something went wrong");
-		})
-		.then(data => data.json())
-		.catch(err => console.log(err));
-
-	return {
-		type: "GET_SHIPPING_REGIONS",
-		payload: regions
-	};
+export const getShippingRegions = async dispatch => {
+	try {
+		const request = await fetch(`${url}/shipping/regions`);
+		if (!request.ok) {
+			const error = await request.json();
+			throw Error(error.error.message);
+		}
+		const regions = await request.json();
+		dispatch({
+			type: "GET_SHIPPING_REGIONS",
+			payload: regions
+		});
+	} catch (err) {
+		errorHandler(err, dispatch);
+	}
 };
 
-export const getShippingTypesPerRegion = regionID => {
-	const shippingTypes = fetch(`${url}/shipping/regions/${regionID}`)
-		.then(res => {
-			if (res.ok) return res;
-
-			throw new Error("Something went wrong");
-		})
-		.then(data => data.json())
-		.catch(err => console.log(err));
-
-	return {
-		type: "GET_SHIPPING_TYPES_PER_REGION",
-		payload: shippingTypes
-	};
+export const getShippingTypesPerRegion = async (dispatch, regionID) => {
+	try {
+		const request = await fetch(`${url}/shipping/regions/${regionID}`);
+		if (!request.ok) {
+			const error = await request.json();
+			throw Error(error.error.message);
+		}
+		const shippingTypes = await request.json();
+		dispatch({
+			type: "GET_SHIPPING_TYPES_PER_REGION",
+			payload: shippingTypes
+		});
+	} catch (err) {
+		errorHandler(err, dispatch);
+	}
 };
 
 export const showCheckoutModal = () => ({
 	type: "SHOW_CHECKOUT_MODAL"
 });
 
-export const searchProducts = query => {
-	const result = fetch(`${url}/products/search?query_string=${query}`)
-		.then(res => {
-			if (res.ok) return res;
-
-			throw new Error("Something went wrong");
-		})
-		.then(data => data.json())
-		.catch(err => console.log(err));
-
-	return {
-		type: "SEARCH_PRODUCTS",
-		payload: result
-	};
+export const searchProducts = async (dispatch, query) => {
+	try {
+		const request = await fetch(
+			`${url}/products/search?query_string=${query}`
+		);
+		if (!request.ok) {
+			const error = await request.json();
+			throw Error(error.error.message);
+		}
+		const result = await request.json();
+		dispatch({
+			type: "SEARCH_PRODUCTS",
+			payload: result
+		});
+	} catch (err) {
+		errorHandler(err, dispatch);
+	}
 };
 
 export const hidePersonalEditForm = () => ({
@@ -239,3 +326,15 @@ export const showErrorModal = message => ({
 export const hideErrorModal = () => ({
 	type: "HIDE_ERROR_MODAL"
 });
+
+export const errorHandler = async (err, dispatch) => {
+	if (err.message === "Failed to fetch") {
+		dispatch(
+			showErrorModal("Connection lost. Check your network and retry.")
+		);
+		await setTimeout(() => dispatch(hideErrorModal()), 3000);
+	} else {
+		dispatch(showErrorModal(`${err.message}`));
+		await setTimeout(() => dispatch(hideErrorModal()), 3000);
+	}
+};
