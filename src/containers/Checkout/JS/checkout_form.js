@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import { connect } from "react-redux";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 //styles
 import styles from "../CSS/checkout_form.module.css";
@@ -24,13 +24,13 @@ class CheckoutForm extends Component {
 	componentDidUpdate() {
 		if (this.state.completed === true) {
 			setTimeout(() => {
-				this.props.removeModal()
+				this.props.removeModal();
 				this.props.history.push("/");
 			}, 2700);
 		}
 
 		if (this.state.error.status === true)
-			setTimeout(() => this.props.removeModal(), 2700);
+			setTimeout(() => this.props.removeModal(), 3700);
 	}
 
 	submit = async ev => {
@@ -41,6 +41,12 @@ class CheckoutForm extends Component {
 				? describeFormState.values.description
 				: null;
 		let { token } = await this.props.stripe.createToken({ name: "Name" });
+		if (!token) {
+			this.setState({
+				error: { status: true, message: "Something is wrong" }
+			});
+			return;
+		}
 		let response = await fetch(
 			"https://backendapi.turing.com/stripe/charge",
 			{
@@ -61,8 +67,9 @@ class CheckoutForm extends Component {
 			this.setState({ completed: true });
 			console.log(response);
 		} else {
+			const error = await response.json();
 			this.setState({
-				error: { status: true, message: response.statusText }
+				error: { status: true, message: error.error.message }
 			});
 		}
 	};
@@ -74,7 +81,7 @@ class CheckoutForm extends Component {
 					<span className={styles.error_div}>
 						<i className="fas fa-exclamation-triangle" />
 					</span>
-					<p className={styles.error}>Something went wrong.</p>
+					<p className={styles.error}>{this.state.error.message}.</p>
 				</>
 			);
 		if (this.state.completed)
@@ -97,9 +104,9 @@ class CheckoutForm extends Component {
 	}
 }
 
-const mapDispatchToProps = dispatch => ({
-	removeModal: () => dispatch(clickBackDrop())
-});
+const mapDispatchToProps = {
+	clickBackDrop
+};
 
 const mapStateToProps = state => ({
 	describeFormState: state.form.description_form

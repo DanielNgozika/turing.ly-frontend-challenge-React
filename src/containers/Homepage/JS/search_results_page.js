@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 import styles from "../CSS/search_results_page.module.css";
 
@@ -10,6 +9,7 @@ import Backdrop from "../../../components/UI/JS/top_backdrop";
 import ButtToolbar from "../../../components/Homepage/JS/Toolbar/bottom_toolbar";
 import ButtNavItem from "../../../components/Homepage/JS/Toolbar/butt_nav_item";
 import CartCounter from "./cart_counter";
+import ErrorModal from "../../../components/UI/JS/error_modal";
 
 //actions
 import {
@@ -27,6 +27,7 @@ class SearchResults extends Component {
 	}
 
 	render() {
+		const { showing, message } = this.props.errorModal;
 		const { results } = this.props;
 		const top = (
 			<header className={styles.header}>
@@ -63,6 +64,12 @@ class SearchResults extends Component {
 		if (results !== null && results.count && results.count !== 0)
 			return (
 				<>
+					{showing ? (
+						<ErrorModal
+							message={message}
+							show={showing ? true : false}
+						/>
+					) : null}
 					{top}
 					<h5 className={styles.number}>
 						{results.count}{" "}
@@ -103,18 +110,15 @@ const mapStateToProps = state => ({
 	results: state.general.searchResults,
 	productDetailed: state.general.productDetailedId,
 	backdropVisible: state.general.backdropVisible,
-	attrModalOpen: state.general.productIdAttrModalOpen
+	attrModalOpen: state.general.productIdAttrModalOpen,
+	errorModal: state.general.errorModal
 });
 
-const mapDispatchToProps = dispatch =>
-	bindActionCreators(
-		{
-			showProductDetail,
-			clickBackDrop,
-			showAttrModal
-		},
-		dispatch
-	);
+const mapDispatchToProps = {
+	showProductDetail,
+	clickBackDrop,
+	showAttrModal
+};
 
 export default connect(
 	mapStateToProps,

@@ -6,6 +6,7 @@ import styles from "../CSS/profile.module.css";
 //components
 import PersonalEditForm from "./personal_edit_form";
 import LocationEditForm from "./location_edit_form";
+import ErrorModal from "../../../components/UI/JS/error_modal";
 
 //actions
 import {
@@ -17,9 +18,9 @@ import {
 } from "../../../actions/general/index";
 
 class Profile extends Component {
-
 	componentDidMount() {
-		if (this.props.shippingRegions.length === 0) this.props.getShippingRegions()
+		if (this.props.shippingRegions.length === 0)
+			this.props.getShippingRegions();
 	}
 
 	render() {
@@ -46,8 +47,15 @@ class Profile extends Component {
 			hideLocationEditForm,
 			hidePersonalEditForm
 		} = this.props;
+		const { showing, message } = this.props.errorModal;
 		return (
 			<div className={styles.div}>
+				{showing ? (
+					<ErrorModal
+						message={message}
+						show={showing ? true : false}
+					/>
+				) : null}
 				<header className={styles.header}>
 					<i
 						className="fas fa-arrow-left"
@@ -74,19 +82,19 @@ class Profile extends Component {
 						<span className={styles.title}>Email</span>
 						<p>{email}</p>
 						<span className={styles.title}>Day Phone</span>
-						{day_phone === null ? (
+						{day_phone === null || day_phone === "null" ? (
 							<span className={styles.not}>not yet set</span>
 						) : (
 							<p>{day_phone}</p>
 						)}
 						<span className={styles.title}>Evening Phone</span>
-						{eve_phone === null ? (
+						{eve_phone === null || eve_phone === "null" ? (
 							<span className={styles.not}>not yet set</span>
 						) : (
 							<p>{eve_phone}</p>
 						)}
 						<span className={styles.title}>Mobile Phone</span>
-						{mob_phone === null ? (
+						{mob_phone === null || mob_phone === "null" ? (
 							<span className={styles.not}>not yet set</span>
 						) : (
 							<p>{mob_phone}</p>
@@ -109,43 +117,43 @@ class Profile extends Component {
 				) : (
 					<section className={styles.section_2}>
 						<span className={styles.title}>Address 1</span>
-						{address_1 === null ? (
+						{address_1 === null || address_1 === "null" ? (
 							<span className={styles.not}>not yet set</span>
 						) : (
 							<p>{address_1}</p>
 						)}
 						<span className={styles.title}>Address 2</span>
-						{address_2 === null ? (
+						{address_2 === null || address_2 === "null" ? (
 							<span className={styles.not}>not yet set</span>
 						) : (
 							<p>{address_2}</p>
 						)}
 						<span className={styles.title}>City</span>
-						{city === null ? (
+						{city === null || city === "null" ? (
 							<span className={styles.not}>not yet set</span>
 						) : (
 							<p>{city}</p>
 						)}
 						<span className={styles.title}>Region</span>
-						{region === null ? (
+						{region === null || region === "null" ? (
 							<span className={styles.not}>not yet set</span>
 						) : (
 							<p>{region}</p>
 						)}
 						<span className={styles.title}>Postal code</span>
-						{postal_code === null ? (
+						{postal_code === null || postal_code === "null" ? (
 							<span className={styles.not}>not yet set</span>
 						) : (
 							<p>{postal_code}</p>
 						)}
 						<span className={styles.title}>Country</span>
-						{country === null ? (
+						{country === null || country === "null" ? (
 							<span className={styles.not}>not yet set</span>
 						) : (
 							<p>{country}</p>
 						)}
 						<span className={styles.title}>Shipping region</span>
-						{shipping_region_id === null ? (
+						{shipping_region_id === null || shipping_region_id === "null" ? (
 							<span className={styles.not}>not yet set</span>
 						) : (
 							<p>{shipping_region_id}</p>
@@ -160,16 +168,17 @@ class Profile extends Component {
 const mapStateToProps = state => ({
 	showingPersonalEditForm: state.general.showingPersonalEditForm,
 	showingLocationEditForm: state.general.showingLocationEditForm,
-	shippingRegions: state.general.shippingRegions
+	shippingRegions: state.general.shippingRegions,
+	errorModal: state.general.errorModal
 });
 
-const mapDispatchToProps = {
-	showPersonalEditForm,
-	showLocationEditForm,
-	hideLocationEditForm,
-	hidePersonalEditForm,
-	getShippingRegions
-};
+const mapDispatchToProps = dispatch => ({
+	showPersonalEditForm: () => dispatch(showPersonalEditForm()),
+	showLocationEditForm: () => dispatch(showLocationEditForm()),
+	hideLocationEditForm: () => dispatch(hideLocationEditForm()),
+	hidePersonalEditForm: () => dispatch(hidePersonalEditForm()),
+	getShippingRegions: () => getShippingRegions(dispatch)
+});
 
 export default connect(
 	mapStateToProps,

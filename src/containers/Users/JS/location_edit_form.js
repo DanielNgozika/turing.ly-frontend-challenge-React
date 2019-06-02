@@ -13,12 +13,15 @@ import {
 import { USCanada, Europe, restOfTheWorld } from "./countries";
 
 //actions
-import { hideLocationEditForm } from "../../../actions/general/index";
+import {
+	hideLocationEditForm,
+	errorHandler
+} from "../../../actions/general/index";
 
 class LocationEditForm extends Component {
 	selectCountries = [];
 
-	submit = e => {
+	submit = async e => {
 		const {
 			address_1,
 			address_2,
@@ -29,24 +32,29 @@ class LocationEditForm extends Component {
 			shipping_region_id
 		} = e;
 		const token = localStorage.accessToken;
-		fetch("https://backendapi.turing.com/customers/address", {
-			method: "PUT",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"User-key": token
-			},
-			body: `address_1=${address_1}&address_2=${address_2}&city=${city}&region=${region}&postal_code=${postal_code}&country=${country}&shipping_region_id=${shipping_region_id}`
-		})
-			.then(res => {
-				if (!res.ok) throw Error(res.statusText);
-				return res.json();
-			})
-			.then(data => {
-				localStorage.setItem("userData", JSON.stringify(data));
-				this.props.hideLocationEditForm();
-			})
-			.catch(err => console.log(err));
+		try {
+			const request = await fetch(
+				"https://backendapi.turing.com/customers/address",
+				{
+					method: "PUT",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/x-www-form-urlencoded",
+						"User-key": token
+					},
+					body: `address_1=${address_1}&address_2=${address_2}&city=${city}&region=${region}&postal_code=${postal_code}&country=${country}&shipping_region_id=${shipping_region_id}`
+				}
+			);
+			if (!request.ok) {
+				const error = await request.json();
+				throw Error(error.error.message);
+			}
+			const data = await request.json();
+			localStorage.setItem("userData", JSON.stringify(data));
+			this.props.hideLocationEditForm();
+		} catch (err) {
+			this.props.errorHandler(err);
+		}
 	};
 
 	render() {
@@ -157,9 +165,10 @@ const mapStateToProps = state => ({
 	regionValue: state.form.location_edit_form
 });
 
-const mapDispatchToProps = {
-	hideLocationEditForm
-};
+const mapDispatchToProps = dispatch => ({
+	hideLocationEditForm: () => dispatch(hideLocationEditForm()),
+	errorHandler: (...args) => errorHandler(dispatch, ...args)
+});
 
 const {
 	address_1,

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 //styles
 import styles from "../CSS/products_in_category.module.css";
@@ -15,10 +14,10 @@ import Backdrop from "../../../components/UI/JS/top_backdrop";
 import CartCounter from "./cart_counter";
 import LeftSidedrawer from "../../../components/UI/JS/left_side_drawer";
 import DeptsSideNav from "./depts_side_nav";
+import ErrorModal from "../../../components/UI/JS/error_modal";
 
 //actions
 import {
-	getProductsInCategory,
 	showProductDetail,
 	showAttrModal,
 	clickBackDrop,
@@ -27,9 +26,27 @@ import {
 
 class ProductsInCategory extends Component {
 	render() {
-		if (!this.props.allProducts) return <Spinner id={styles.spinnerPos} />;
-		return (
+		const {
+			allProducts,
+			productDetailed,
+			backdropVisible,
+			attrModalOpen,
+			deptSidebarOpen,
+			showProductDetail,
+			clickBackDrop,
+			showAttrModal,
+			openDeptSidebar,
+			errorModal
+		} = this.props;
+		const { showing, message } = errorModal;
+		const top = (
 			<>
+				{showing ? (
+					<ErrorModal
+						message={message}
+						show={showing ? true : false}
+					/>
+				) : null}
 				<header className={styles.header}>
 					<i
 						className="fas fa-arrow-left"
@@ -37,31 +54,41 @@ class ProductsInCategory extends Component {
 					/>
 					<h4>{window.location.pathname.split("/")[1]}</h4>
 				</header>
+			</>
+		);
+		if (!allProducts)
+			return (
+				<>
+					{top}
+					<Spinner id={styles.spinnerPos} />
+				</>
+			);
+		return (
+			<>
+				{top}
 				<div className={styles.div}>
-					{this.props.allProducts.map(prod => (
+					{allProducts.map(prod => (
 						<EachProduct
 							key={prod.product_id}
 							product={prod}
-							clicked={this.props.showProductDetail}
-							productDetailed={this.props.productDetailed}
-							clickBackDrop={this.props.clickBackDrop}
-							showAttrModal={this.props.showAttrModal}
-							attrModalOpen={this.props.attrModalOpen}
+							clicked={showProductDetail}
+							productDetailed={productDetailed}
+							clickBackDrop={clickBackDrop}
+							showAttrModal={showAttrModal}
+							attrModalOpen={attrModalOpen}
 						/>
 					))}
 				</div>
 				<>
 					<LeftSidedrawer
-						open={this.props.deptSidebarOpen ? true : false}
-						onClick={this.props.clickBackDrop}
+						open={deptSidebarOpen ? true : false}
+						onClick={clickBackDrop}
 					>
 						<DeptsSideNav />
 					</LeftSidedrawer>
 				</>
 				<CartCounter />
-				{this.props.backdropVisible ? (
-					<Backdrop onClick={this.props.clickBackDrop} />
-				) : null}
+				{backdropVisible ? <Backdrop onClick={clickBackDrop} /> : null}
 				<ButtToolbar>
 					<ButtNavItem
 						buttName="department"
@@ -70,13 +97,13 @@ class ProductsInCategory extends Component {
 								<CategoryIcon />
 							</i>
 						}
-						onClick={this.props.openDeptSidebar}
+						onClick={openDeptSidebar}
 					/>
 					{localStorage.fbLoggedIn === "true" ||
 					Date.now() < localStorage.expiresIn ? (
 						<ButtNavItem
 							icon={<i className="fas fa-user" />}
-							onClick={this.searchIconClick}
+							onClick={() => this.props.history.push("/profile")}
 						/>
 					) : null}
 				</ButtToolbar>
@@ -85,28 +112,21 @@ class ProductsInCategory extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		allProducts: state.general.productsInCategory,
-		productDetailed: state.general.productDetailedId,
-		backdropVisible: state.general.backdropVisible,
-		attrModalOpen: state.general.productIdAttrModalOpen,
-		deptSidebarOpen: state.general.deptSidebarOpen
-	};
-}
+const mapStateToProps = state => ({
+	allProducts: state.general.productsInCategory,
+	productDetailed: state.general.productDetailedId,
+	backdropVisible: state.general.backdropVisible,
+	attrModalOpen: state.general.productIdAttrModalOpen,
+	deptSidebarOpen: state.general.deptSidebarOpen,
+	errorModal: state.general.errorModal
+});
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators(
-		{
-			getProductsInCategory,
-			showProductDetail,
-			clickBackDrop,
-			showAttrModal,
-			openDeptSidebar
-		},
-		dispatch
-	);
-}
+const mapDispatchToProps = dispatch => ({
+	showProductDetail: prodId => dispatch(showProductDetail(prodId)),
+	clickBackDrop: () => dispatch(clickBackDrop()),
+	showAttrModal: prodId => dispatch(showAttrModal(prodId)),
+	openDeptSidebar: () => dispatch(openDeptSidebar())
+});
 
 export default connect(
 	mapStateToProps,

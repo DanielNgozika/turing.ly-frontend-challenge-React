@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 //styles
 import styles from "../CSS/cart_page.module.css";
@@ -13,7 +12,8 @@ import {
 	showRemoveNoticeModal,
 	clickBackDrop,
 	showEmptyCartWarning,
-	showCheckoutModal
+	showCheckoutModal,
+	errorHandler
 } from "../../../actions/general/index";
 
 //components
@@ -24,6 +24,7 @@ import RegionSelect from "./region_select";
 import ShippingType from "./shipping _type_select";
 import CheckoutFormContainer from "../../Checkout/JS/checkout_form_container";
 import Spinner from "../../../components/UI/JS/spinner";
+import ErrorModal from "../../../components/UI/JS/error_modal";
 
 class CartPage extends Component {
 	state = {
@@ -48,37 +49,45 @@ class CartPage extends Component {
 		this.props.clickBackDrop();
 	};
 
-	createOrder = () => {
-		if (localStorage.length === 0) this.props.history.push("./sign_up");
-		else if (Date.now() > localStorage.expiresIn)
-			this.props.history.push("/sign_in");
-		else if (this.state.orderId) this.props.showCheckoutModal();
-		else {
-			this.setState({ orderIdLoading: true });
-			this.props.showCheckoutModal();
-			const token = localStorage.accessToken;
-			const shippingId = this.id[0][0].shipping_id;
-			const cartId = this.props.cartId;
-			fetch("https://backendapi.turing.com/orders", {
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/x-www-form-urlencoded",
-					"User-Key": token
-				},
-				body: `cart_id=${cartId}&shipping_id=${shippingId}&tax_id=2`
-			})
-				.then(res => {
-					if (!res.ok) throw Error("Something went wrong");
-					return res.json();
-				})
-				.then(data =>
-					this.setState({
-						orderId: data.orderId,
-						orderIdLoading: false
-					})
-				)
-				.catch(err => console.log(err));
+	createOrder = async () => {
+		try {
+			if (localStorage.length === 0) this.props.history.push("./sign_up");
+			else if (Date.now() > localStorage.expiresIn)
+				this.props.history.push("/sign_in");
+			else if (this.state.orderId) this.props.showCheckoutModal();
+			else {
+				this.setState({ orderIdLoading: true });
+				this.props.showCheckoutModal();
+				const token = localStorage.accessToken;
+				const shippingId = this.id[0][0].shipping_id;
+				const cartId = this.props.cartId;
+				const request = await fetch(
+					"https://backendapi.turing.com/orders",
+					{
+						method: "POST",
+						headers: {
+							Accept: "application/json",
+							"Content-Type": "application/x-www-form-urlencoded",
+							"User-Key": token
+						},
+						body: `cart_id=${cartId}&shipping_id=${shippingId}&tax_id=2`
+					}
+				);
+				if (!request.ok) {
+					const error = await request.json();
+					throw Error(error.error.message);
+				}
+				const data = await request.json();
+				this.setState({
+					orderId: data.orderId,
+					orderIdLoading: false
+				});
+			}
+		} catch (err) {
+			this.props.errorHandler(err);
+			this.setState({
+				orderIdLoading: false
+			});
 		}
 	};
 
@@ -116,7 +125,6 @@ class CartPage extends Component {
 						)
 					)
 					.filter(t => t.length > 0);
-			else console.log("unavailable");
 		};
 
 		const areYouSureModal = (
@@ -194,8 +202,15 @@ class CartPage extends Component {
 					</div>
 				);
 		};
+		const { showing, message } = this.props.errorModal;
 		return (
 			<>
+				{showing ? (
+					<ErrorModal
+						message={message}
+						show={showing ? true : false}
+					/>
+				) : null}
 				<header className={styles.header}>
 					<i
 						className="fas fa-arrow-left"
@@ -230,24 +245,22 @@ const mapStateToProps = state => ({
 	regionValue: state.form.region_select_field,
 	allShippingTypes: state.general.shippingTypesPerRegion,
 	shippingTypeSelect: state.form.shipping_type_select_field,
-	checkoutModalShowing: state.general.checkoutModalShowing
+	checkoutModalShowing: state.general.checkoutModalShowing,
+	errorModal: state.general.errorModal
 });
 
-const mapDispatchToProps = dispatch =>
-	bindActionCreators(
-		{
-			emptyCart,
-			removeCartItem,
-			showCartItemUpdateForm,
-			showRemoveNoticeModal,
-			//ToBeHandledLater: put the onClick on backdrop Component
-			// at the component itself since the same action is called all the time
-			clickBackDrop,
-			showEmptyCartWarning,
-			showCheckoutModal
-		},
-		dispatch
-	);
+const mapDispatchToProps = dispatch => ({
+	emptyCart: cartId => emptyCart(dispatch, cartId),
+	removeCartItem: itemId => removeCartItem(dispatch, itemId),
+	showCartItemUpdateForm: itemId => dispatch(showCartItemUpdateForm(itemId)),
+	showRemoveNoticeModal: itemId => dispatch(showRemoveNoticeModal(itemId)),
+	//ToBeHandledLater: put the onClick on backdrop Component
+	// at the component itself since the same action is called all the time
+	clickBackDrop: () => dispatch(clickBackDrop()),
+	showEmptyCartWarning: () => dispatch(showEmptyCartWarning()),
+	showCheckoutModal: () => dispatch(showCheckoutModal()),
+	errorHandler: (...args) => errorHandler(...args, dispatch)
+});
 
 export default connect(
 	mapStateToProps,

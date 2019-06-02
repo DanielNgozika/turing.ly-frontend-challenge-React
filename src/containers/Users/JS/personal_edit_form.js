@@ -9,30 +9,38 @@ import styles from "../CSS/personal_edit_form.module.css";
 import { renderInputField } from "../../../components/UI/JS/forms";
 
 //actions
-import { hidePersonalEditForm } from "../../../actions/general/index";
+import {
+	hidePersonalEditForm,
+	errorHandler
+} from "../../../actions/general/index";
 
 class PersonalEditForm extends Component {
-	submit = e => {
+	submit = async e => {
 		const { name, email, password, day_phone, eve_phone, mob_phone } = e;
 		const token = localStorage.accessToken;
-		fetch("https://backendapi.turing.com/customer", {
-			method: "PUT",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"User-key": token
-			},
-			body: `name=${name}&email=${email}&password=${password}&day_phone=${day_phone}&eve_phone=${eve_phone}&mob_phone=${mob_phone}`
-		})
-			.then(res => {
-				if (!res.ok) throw Error(res.statusText);
-				return res.json();
-			})
-			.then(data => {
-				localStorage.setItem("userData", JSON.stringify(data));
-				this.props.hidePersonalEditForm();
-			})
-			.catch(err => console.log(err));
+		try {
+			const request = await fetch(
+				"https://backendapi.turing.com/customer",
+				{
+					method: "PUT",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/x-www-form-urlencoded",
+						"User-key": token
+					},
+					body: `name=${name}&email=${email}&password=${password}&day_phone=${day_phone}&eve_phone=${eve_phone}&mob_phone=${mob_phone}`
+				}
+			);
+			if (!request.ok) {
+				const error = await request.json();
+				throw Error(error.error.message);
+			}
+			const data = await request.json();
+			localStorage.setItem("userData", JSON.stringify(data));
+			this.props.hidePersonalEditForm();
+		} catch (err) {
+			this.props.errorHandler(err);
+		}
 	};
 
 	render() {
@@ -93,9 +101,10 @@ class PersonalEditForm extends Component {
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = {
-	hidePersonalEditForm
-};
+const mapDispatchToProps = dispatch => ({
+	hidePersonalEditForm: () => dispatch(hidePersonalEditForm()),
+	errorHandler: (...args) => errorHandler(dispatch, ...args)
+});
 
 const { name, email, eve_phone, mob_phone, day_phone } = JSON.parse(
 	localStorage.userData

@@ -4,6 +4,9 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
 import { renderInputField } from "../../../components/UI/JS/forms";
+import ErrorModal from "../../../components/UI/JS/error_modal";
+
+import { errorHandler } from "../../../actions/general/index";
 
 //style
 import styles from "../CSS/sign_in.module.css";
@@ -23,37 +26,38 @@ class SignIn extends Component {
 		}
 	}
 
-	signIn = e => {
-		const { email, password } = e;
-		fetch("https://backendapi.turing.com/customers/login", {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/x-www-form-urlencoded"
-			},
-			body: `email=${email}&password=${password}`
-		})
-			.then(res => {
-				if (!res.ok) throw Error(res.statusText);
-				return res.json();
-			})
-			.then(data => {
-				localStorage.setItem("accessToken", `${data.accessToken}`);
-				localStorage.setItem(
-					"expiresIn",
-					`${Date.now() + 3600000 * parseInt(`${data.expires_in}`)}`
-				);
-				localStorage.setItem(
-					"userData",
-					`${JSON.stringify(data.customer)}`
-				);
-				this.props.history.goBack();
-			})
-			.catch(err => {
-				if (err.message === "Failed to fetch")
-					alert("Connection lost. Check your network and retry");
-				else console.log(err.message);
-			});
+	signIn = async e => {
+		try {
+			const { email, password } = e;
+			const request = await fetch(
+				"https://backendapi.turing.com/customers/login",
+				{
+					method: "POST",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					body: `email=${email}&password=${password}`
+				}
+			);
+			if (!request.ok) {
+				const error = await request.json();
+				throw Error(error.error.message);
+			}
+			const data = await request.json();
+			localStorage.setItem("accessToken", `${data.accessToken}`);
+			localStorage.setItem(
+				"expiresIn",
+				`${Date.now() + 3600000 * parseInt(`${data.expires_in}`)}`
+			);
+			localStorage.setItem(
+				"userData",
+				`${JSON.stringify(data.customer)}`
+			);
+			this.props.history.goBack();
+		} catch (err) {
+			this.props.errorHandler(err);
+		}
 	};
 
 	fbLogin = () => {
@@ -82,6 +86,7 @@ class SignIn extends Component {
 	};
 
 	render() {
+		const { showing, message } = this.props.errorModal;
 		const { form } = this.props;
 		const isTruthy =
 			(form && !form.values) ||
@@ -89,6 +94,12 @@ class SignIn extends Component {
 			(form && !form.values.email);
 		return (
 			<div className={styles.div}>
+				{showing ? (
+					<ErrorModal
+						message={message}
+						show={showing ? true : false}
+					/>
+				) : null}
 				<div className={styles.header}>
 					<i
 						className="fas fa-arrow-left"
@@ -131,7 +142,12 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = state => ({
-	form: state.form.sign_in_form
+	form: state.form.sign_in_form,
+	errorModal: state.general.errorModal
+});
+
+const mapDispatchToProps = dispatch => ({
+	errorHandler: (...args) => errorHandler(...args, dispatch)
 });
 
 const validate = values => {
@@ -149,6 +165,6 @@ export default reduxForm({
 })(
 	connect(
 		mapStateToProps,
-		null
+		mapDispatchToProps
 	)(SignIn)
 );

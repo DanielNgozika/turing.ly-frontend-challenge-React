@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
 import Spinner from "../../../components/UI/JS/spinner";
 import EachProduct from "../../../components/Homepage/JS/each_product";
 
 //actions
-import { showProductDetail, showAttrModal } from "../../../actions/general/index";
+import {
+	showProductDetail,
+	showAttrModal,
+	errorHandler
+} from "../../../actions/general/index";
 
 //styles
 import styles from "../CSS/each_category_div.module.css";
@@ -16,22 +19,29 @@ class EachCategoryDiv extends Component {
 		products: null
 	};
 
-	componentDidMount() {
-		fetch(
-			`https://backendapi.turing.com/products/inCategory/${
-				this.props.category.category_id
-			}?limit=10`
-		)
-			.then(res => res.json())
-			.then(data => this.setState({ products: data.rows }))
-			.catch(err => console.log(err));
+	async componentDidMount() {
+		try {
+			const request = await fetch(
+				`https://backendapi.turing.com/products/inCategory/${
+					this.props.category.category_id
+				}?limit=10`
+			);
+			if (!request.ok) {
+				const error = await request.json();
+				throw Error(error.error.message);
+			}
+			const data = await request.json();
+			this.setState({ products: data.rows });
+		} catch (err) {
+			this.props.errorHandler(err);
+		}
 	}
 
 	products = () => {
 		if (this.state.products)
-		return this.state.products.map(product => {
-			return (
-				<EachProduct
+			return this.state.products.map(product => {
+				return (
+					<EachProduct
 						key={product.product_id}
 						product={product}
 						clicked={this.props.showProductDetail}
@@ -56,22 +66,16 @@ class EachCategoryDiv extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		productDetailed: state.general.productDetailedId,
-		attrModalOpen: state.general.productIdAttrModalOpen
-	};
-}
+const mapStateToProps = state => ({
+	productDetailed: state.general.productDetailedId,
+	attrModalOpen: state.general.productIdAttrModalOpen
+});
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators(
-		{
-			showProductDetail,
-			showAttrModal
-		},
-		dispatch
-	);
-}
+const mapDispatchToProps = dispatch => ({
+	showProductDetail: prodId => dispatch(showProductDetail(prodId)),
+	showAttrModal: prodId => dispatch(showAttrModal(prodId)),
+	errorHandler: (...args) => errorHandler(...args, dispatch)
+});
 
 export default connect(
 	mapStateToProps,
