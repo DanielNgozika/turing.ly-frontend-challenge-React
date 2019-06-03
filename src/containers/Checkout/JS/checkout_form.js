@@ -65,7 +65,6 @@ class CheckoutForm extends Component {
 
 		if (response.ok) {
 			this.setState({ completed: true });
-			console.log(response);
 		} else {
 			const error = await response.json();
 			this.setState({
