@@ -6,7 +6,7 @@ class CheckoutFormContainer extends Component {
 	render() {
 		const { orderId, amount } = this.props;
 		return (
-			<StripeProvider apiKey="pk_test_UKg2JJbjbjlHYzQWZmtnJDB100NDilPkVF">
+			<StripeProvider apiKey="pk_test_NcwpaplBCuTL6I0THD44heRe">
 				<Elements>
 					<CheckoutForm orderId={orderId} amount={amount} />
 				</Elements>
