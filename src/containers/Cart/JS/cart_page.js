@@ -146,7 +146,7 @@ class CartPage extends Component {
 				) : (
 					<CheckoutFormContainer
 						orderId={this.state.orderId}
-						amount={this.state.totalAmount}
+						amount={this.computeTotalAmount}
 					/>
 				)}
 			</Modal>
