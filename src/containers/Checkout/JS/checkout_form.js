@@ -24,13 +24,13 @@ class CheckoutForm extends Component {
 	componentDidUpdate() {
 		if (this.state.completed === true) {
 			setTimeout(() => {
-				this.props.removeModal();
+				this.props.clickBackDrop();
 				this.props.history.push("/");
 			}, 2700);
 		}
 
 		if (this.state.error.status === true)
-			setTimeout(() => this.props.removeModal(), 3700);
+			setTimeout(() => this.props.clickBackDrop(), 3700);
 	}
 
 	submit = async ev => {
