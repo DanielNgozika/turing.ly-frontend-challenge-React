@@ -59,7 +59,7 @@ class CheckoutForm extends Component {
 					token.id
 				}&order_id=${orderId}&description=${userDescription}&amount=${parseFloat(
 					amount
-				)}`
+				) * 100}`
 			}
 		);
 
