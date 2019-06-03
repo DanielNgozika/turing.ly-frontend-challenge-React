@@ -28,10 +28,6 @@ import ErrorModal from "../../../components/UI/JS/error_modal";
 
 class CartPage extends Component {
 	state = {
-		totalAmount: this.props.cart
-			.map(i => parseFloat(i.subtotal))
-			.reduce((a, b) => a + b, 0)
-			.toFixed(2),
 		orderId: null,
 		orderIdLoading: false
 	};
@@ -48,6 +44,14 @@ class CartPage extends Component {
 		this.props.emptyCart(this.props.cartId);
 		this.props.clickBackDrop();
 	};
+
+	computeTotalAmount = () => {
+		const amount = this.props.cart
+			.map(i => parseFloat(i.subtotal))
+			.reduce((a, b) => a + b, 0)
+			.toFixed(2);
+			return amount;
+	}
 
 	createOrder = async () => {
 		try {
@@ -186,7 +190,7 @@ class CartPage extends Component {
 						<hr className={styles.items_hr} />
 						<div className={styles.total_div}>
 							<span>Total:</span>
-							<span>$ {this.state.totalAmount}</span>
+							<span>$ {this.computeTotalAmount()}</span>
 						</div>
 						<h3>Shipping Region</h3>
 						<RegionSelect />
