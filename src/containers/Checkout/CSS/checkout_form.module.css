@@ -19,8 +19,9 @@
 
 .div button:active, .div button:focus {
 	outline: none;
-	box-shadow: 0 6px 14px 0 rgba(129, 124, 135, 0.9);
+	box-shadow: 0 6px 7px 0 rgba(129, 124, 135, 0.2);
 	width: 98%;
+	background-color: rgba(37, 179, 24, .3);
 }
 
 .error {
