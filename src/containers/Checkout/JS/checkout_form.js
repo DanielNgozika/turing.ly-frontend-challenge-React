@@ -10,7 +10,7 @@ import styles from "../CSS/checkout_form.module.css";
 import DescriptionForm from "./description_form";
 
 //actions
-import { clickBackDrop } from "../../../actions/general/index";
+import { clickBackDrop, emptyCart } from "../../../actions/general/index";
 
 class CheckoutForm extends Component {
 	state = {
@@ -64,6 +64,7 @@ class CheckoutForm extends Component {
 		);
 
 		if (response.ok) {
+			this.props.emptyCart(this.props.cartId);
 			this.setState({ completed: true });
 		} else {
 			const error = await response.json();
@@ -103,12 +104,14 @@ class CheckoutForm extends Component {
 	}
 }
 
-const mapDispatchToProps = {
-	clickBackDrop
-};
+const mapDispatchToProps = dispatch => ({
+	clickBackDrop: () => dispatch(clickBackDrop()),
+	emptyCart: cartId => emptyCart(dispatch, cartId)
+});
 
 const mapStateToProps = state => ({
-	describeFormState: state.form.description_form
+	describeFormState: state.form.description_form,
+	cartId: state.general.cartId
 });
 
 export default connect(
