@@ -30,3 +30,36 @@
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 	background-color: #fff;
 }
+
+@media (min-width: 600px) {
+	.form {
+		width: 50%;
+	}
+	.form_wider {
+		width: 50%;
+		margin-left: 25px;
+	}
+}
+
+@media (min-width: 900px) {
+	.form {
+		margin-left: 10%;
+	}
+	.form_wider {
+		width: 60%;
+		margin-left: 45px;
+	}
+	.input {
+		text-align: center;
+	}
+}
+
+@media (min-width: 1200px) {
+	.form {
+		margin-left: 10%;
+	}
+	.form_wider {
+		width: 50%;
+		margin-left: 15%;
+	}
+}

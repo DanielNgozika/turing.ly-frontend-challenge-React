@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 //style
 import styles from "../CSS/homepage.module.css";
@@ -98,7 +99,14 @@ class Homepage extends Component {
 						show={showing ? true : false}
 					/>
 				) : null}
-				<Toolbar hamburgerClick={this.props.openNavSidebar} />
+				<Toolbar hamburgerClick={this.props.openNavSidebar}>
+					<Link className={styles.nav_item} to={"/sign_up"}>
+						SIGN UP
+					</Link>
+					<Link className={styles.nav_item} to={"/sign_in"}>
+						SIGN IN
+					</Link>
+				</Toolbar>
 				<Banner />
 				<div className={styles.body}>
 					<>

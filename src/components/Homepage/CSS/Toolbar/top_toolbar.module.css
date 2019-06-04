@@ -34,8 +34,51 @@
 	border-radius: 1.5px;
 }
 
-@media (min-width: 720px) {
+.user_icon {
+	display: none;
+}
+
+@media (min-width: 600px) {
 	.icon {
 		display: none;
+	}
+	.nav {
+		display: flex;
+		flex: 1;
+	}
+	.user_icon {
+		display: flex;
+		height: 100%;
+		align-items: center;
+		color: #48484e;
+		margin-right: 30px;
+		text-decoration: none;
+		cursor: pointer;
+	}
+	.user_icon i {
+		border: 1px solid grey;
+		height: 70%;
+		width: 35px;
+		text-align: center;
+		padding: 5px;
+		padding-top: 7px;
+		border-radius: 50%;
+		box-sizing: border-box;
+	}
+	.username {
+		font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+		margin-left: 5px;
+	}
+}
+
+@media (min-width: 900px) {
+	.nav {
+		padding: 0 20px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.nav {
+		padding: 0 70px;
 	}
 }

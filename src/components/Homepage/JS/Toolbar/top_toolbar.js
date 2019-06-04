@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Logo from "../../../UI/JS/logo";
 import NavigationItems from "./navigation_items";
@@ -11,9 +12,15 @@ const toolbar = props => (
 	<header className={styles.Toolbar}>
 		<Logo />
 		<SearchProductInput />
-		<nav className={styles.nav}>
-			<NavigationItems>{props.children}</NavigationItems>
-		</nav>
+		{localStorage.length === 0 ||
+		(localStorage.fbLoggedIn === "false" &&
+			Date.now() > localStorage.expiresIn) ? (
+			<nav className={styles.nav}>
+				<NavigationItems horizontal={true}>
+					{props.children}
+				</NavigationItems>
+			</nav>
+		) : null}
 		{localStorage.length === 0 ||
 		(localStorage.fbLoggedIn === "false" &&
 			Date.now() > localStorage.expiresIn) ? (
@@ -24,7 +31,14 @@ const toolbar = props => (
 					onClick={props.hamburgerClick}
 				/>
 			</i>
-		) : null}
+		) : (
+			<Link className={styles.user_icon} to="/profile">
+				<i className="fas fa-user" />
+				<span className={styles.username}>
+					{JSON.parse(localStorage.userData).name.split(" ")[0]}
+				</span>
+			</Link>
+		)}
 	</header>
 );
 
