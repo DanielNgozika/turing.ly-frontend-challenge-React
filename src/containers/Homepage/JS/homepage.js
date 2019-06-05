@@ -107,37 +107,36 @@ class Homepage extends Component {
 						SIGN IN
 					</Link>
 				</Toolbar>
-				<Banner />
+				<>
+					<LeftSidedrawer
+						open={this.props.deptSidebarOpen ? true : false}
+						onClick={this.props.clickBackDrop}
+					>
+						<DeptsSideNav />
+					</LeftSidedrawer>
+				</>
+				<RightSidedrawer
+					open={this.props.navSidebarOpen ? true : false}
+					onClick={this.props.clickBackDrop}
+				>
+					<NavigationItems>
+						<NavigationItem to="/" itemName="Home" />
+						<NavigationItem to="/sign_up" itemName="Sign Up" />
+						<NavigationItem to="/sign_in" itemName="Sign In" />
+					</NavigationItems>
+				</RightSidedrawer>
+				<div className={styles.left_nav}>
+					<DeptsSideNav />
+				</div>
 				<div className={styles.body}>
-					<>
-						<LeftSidedrawer
-							open={this.props.deptSidebarOpen ? true : false}
-							onClick={this.props.clickBackDrop}
-						>
-							<DeptsSideNav />
-						</LeftSidedrawer>
-					</>
-					<>
-						<RightSidedrawer
-							open={this.props.navSidebarOpen ? true : false}
-							onClick={this.props.clickBackDrop}
-						>
-							<NavigationItems>
-								<NavigationItem to="/" itemName="Home" />
-								<NavigationItem
-									to="/sign_up"
-									itemName="Sign Up"
-								/>
-								<NavigationItem
-									to="/sign_in"
-									itemName="Sign In"
-								/>
-							</NavigationItems>
-						</RightSidedrawer>
-						<section className={styles.categories}>
-							{this.showCategories()}
-						</section>
-					</>
+					<section className={styles.left_side}>
+						<div className={styles.empty} />
+					</section>
+					<section className={styles.right_side}>
+						<Banner />
+						{this.showCategories()}
+						<footer className={styles.footer}>&copy; Copyright, 2019</footer>
+					</section>
 				</div>
 				{this.props.backdropVisible ? (
 					<Backdrop onClick={this.props.clickBackDrop} />

@@ -1,7 +1,13 @@
+.div {
+	margin: 20px 10px;
+}
+
 .div div {
 	display: flex;
 	flex-wrap: nowrap;
 	overflow-x: auto;
+	margin-top: 9px;
+	margin-bottom: 25px;
 }
 
 .div div::-webkit-scrollbar {
@@ -12,5 +18,15 @@
 	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	color: #4b4b4e;
 	margin-left: 10px;
-	margin-bottom: 0;
+	display: inline;
+}
+
+.div span {
+	font-family: 'Roboto', Arial, Helvetica, sans-serif
+}
+
+@media (min-width: 600px) {
+	.div {
+		margin: 20px 15px;
+	}
 }

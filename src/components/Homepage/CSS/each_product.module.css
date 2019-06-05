@@ -3,12 +3,14 @@
 	flex-direction: column;
 	flex: 0 0 auto;
 	width: 40%;
+	max-width: 130px;
 	height: 190px;
 	margin: 10px;
 	border-radius: 4px;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 	box-sizing: border-box;
 	background-color: #fff;
+	cursor: pointer;
 }
 
 .div img {

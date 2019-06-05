@@ -1,6 +1,6 @@
 .div {
 	margin: 0;
-	padding-left: 30px;
+	/* padding-left: 30px; */
 	height: 100%;
 	width: 100%;
 	box-sizing: border-box;
@@ -8,7 +8,12 @@
 
 .name {
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-	padding: 5px 0;
+	padding: 7px 50px;
+	cursor: pointer;
+}
+
+.name:hover {
+	background-color: #d3d3d3;
 }
 
 .name:active, .name:focus {

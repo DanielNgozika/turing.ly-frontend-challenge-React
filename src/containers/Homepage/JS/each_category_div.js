@@ -58,7 +58,8 @@ class EachCategoryDiv extends Component {
 		return (
 			<>
 				<div className={styles.div}>
-					<h4>{this.props.category.name}</h4>
+					<h4>{this.props.category.name}</h4>{" "}
+					<span>(Best selling)</span>
 					<div className={styles.product_div}>{this.products()}</div>
 				</div>
 			</>
