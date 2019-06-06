@@ -131,11 +131,11 @@ class SignIn extends Component {
 					<button type="submit" disabled={isTruthy}>
 						Sign in
 					</button>
+					<p>or</p>
+					<button className={styles.fb_login} onClick={this.fbLogin}>
+						Log in with facebook
+					</button>
 				</form>
-				<p>or</p>
-				<button className={styles.fb_login} onClick={this.fbLogin}>
-					Log in with facebook
-				</button>
 			</div>
 		);
 	}
