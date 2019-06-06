@@ -46,6 +46,7 @@
 @media (min-width: 900px) {
 	.div {
 		top: 80%;
+		cursor: pointer;
 	}
 }
 

@@ -24,6 +24,10 @@
 	transform: rotate(180deg);
 }
 
+.header i {
+	cursor: pointer;
+}
+
 .header span {
 	font-weight: 600;
 }
@@ -45,6 +49,7 @@
 	border-radius: 5px;
 	top: 25% !important;
 	width: 90%;
+	max-width: 350px;
 	padding: 10px;
 	text-align: center;
 	color: #4b4b4e;
@@ -61,6 +66,7 @@
 	border-radius: 4px;
 	width: 90%;
 	margin: 10px auto;
+	cursor: pointer;
 }
 
 .warning_modal button:active button:focus {
@@ -87,6 +93,7 @@
 .items_hr {
 	height: 1.5px;
 	width: 95%;
+	max-width: 450px;
 	margin: 10px auto;
 	background-color: #4b4b4e;
 	border-radius: 20%;
@@ -96,6 +103,7 @@
 	display: flex;
 	justify-content: space-between;
 	width: 95%;
+	max-width: 450px;
 	margin: 0 auto;
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 	color: #4b4b4e;
@@ -116,8 +124,10 @@
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 	border-radius: 4px;
 	width: 95%;
+	max-width: 450px;
 	margin: 30px auto;
-	box-shadow: 0 3px 7px rgba(129, 124, 135, 0.8)
+	box-shadow: 0 3px 7px rgba(129, 124, 135, 0.8);
+	cursor: pointer;
 }
 
 .order:active, .order:focus {
@@ -136,6 +146,7 @@
 	border-radius: 5px;
 	top: 25% !important;
 	width: 90%;
+	max-width: 350px;
 	height: 230px;
 	padding: 10px;
 	text-align: center;
@@ -148,4 +159,48 @@
 #spinnerPos {
 	top: 35%;
 	left: 40%;
+}
+
+@media (min-width: 600px) {
+	.items h3 {
+		max-width: 450px;
+		margin-right: auto;
+		margin-left: auto;
+	}
+}
+
+@media (min-width: 600px) and (max-width: 720px) {
+	.warning_modal, .checkout_modal {
+		left: 23% !important;
+	}
+}
+
+@media (min-width: 721px) and (max-width: 899px) {
+	.warning_modal, .checkout_modal {
+		left: 27% !important;
+	}
+}
+
+@media (min-width: 600px) {
+	.warning_modal button, .checkout_modal button {
+		cursor: pointer;
+	}
+}
+
+@media (min-width: 900px) and (max-width: 1000px) {
+	.warning_modal, .checkout_modal {
+		left: 30% !important;
+	}
+}
+
+@media (min-width: 1001px) and (max-width: 1200px) {
+	.warning_modal, .checkout_modal {
+		left: 35% !important;
+	}
+}
+
+@media (min-width: 1200px) {
+	.warning_modal, .checkout_modal {
+		left: 37.5% !important;
+	}
 }
