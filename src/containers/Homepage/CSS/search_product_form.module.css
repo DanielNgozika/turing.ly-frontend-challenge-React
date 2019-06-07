@@ -1,16 +1,19 @@
 .form {
 	padding: 0;
 	margin: auto;
+	height: 76%;
 }
 
 .form_wider {
 	padding: 0;
 	width: 63.5%;
+	height: 76%;
 	margin: auto auto auto 0;
 }
 
 .input {
 	width: 100%;
+	height: 100%;
 	border-radius: 4px;
 	padding: 10px;
 	border: none;
@@ -23,6 +26,7 @@
 .input::placeholder {
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 	color: #48484e;
+	font-weight: 500
 }
 
 .input:active, .input:focus {

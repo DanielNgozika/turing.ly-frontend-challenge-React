@@ -15,7 +15,8 @@
 .header i {
 	color: #4b4b4e;
 	margin-left: 13px;
-	margin-right: auto;
+	margin-right: 10px;
+	cursor: pointer;
 }
 
 .no_result {
@@ -39,4 +40,25 @@
 	padding-bottom: 60px;
 	box-sizing: border-box;
 	background-color: #fefefe;
+}
+
+@media (min-width: 600px) {
+	.header {
+		height: 64px;
+	}
+	.number {
+		margin-top: 79px;
+	}
+}
+
+@media (min-width: 900px) {
+	.header i {
+		margin-right: 100px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.header i {
+		margin-right: 150px;
+	}
 }
