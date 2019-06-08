@@ -11,6 +11,7 @@
 	box-sizing: border-box;
 	background-color: #fff;
 	cursor: pointer;
+	transition: transform 0.1s ease-in;
 }
 
 .div img {
@@ -45,6 +46,7 @@
 	flex-direction: column;
 	top: 15% !important;
 	width: 90%;
+	max-width: 470px;
 	/* height: 62%; */
 	padding: 10px;
 	background-color: #fffffa;
@@ -61,7 +63,8 @@
 	margin: 0 10px 10px 0;
 	border-radius: 4px;
 	height: 150px;
-	width: 47%
+	width: 47%;
+	max-width: 150px;
 }
 
 .top .name {
@@ -111,8 +114,49 @@
 	flex-direction: column;
 	top: 20% !important;
 	width: 90%;
+	max-width: 430px;
 	padding: 10px;
 	background-color: #fff;
 	border-radius: 4px;
 	box-sizing: border-box;
+}
+
+.div:hover {
+	transform: translateY(-8px);
+}
+
+@media (min-width: 600px) and (max-width: 720px) {
+	.prodDetailModal, .attributeModal {
+		left: 23% !important;
+	}
+}
+
+@media (min-width: 721px) and (max-width: 899px) {
+	.prodDetailModal, .attributeModal {
+		left: 27% !important;
+	}
+}
+
+@media (min-width: 600px) {
+	.prodDetailModal button, .checkout_modal button {
+		cursor: pointer;
+	}
+}
+
+@media (min-width: 900px) and (max-width: 1000px) {
+	.prodDetailModal, .attributeModal {
+		left: 30% !important;
+	}
+}
+
+@media (min-width: 1001px) and (max-width: 1200px) {
+	.prodDetailModal, .attributeModal {
+		left: 35% !important;
+	}
+}
+
+@media (min-width: 1200px) {
+	.prodDetailModal, .attributeModal {
+		left: 37.5% !important;
+	}
 }
