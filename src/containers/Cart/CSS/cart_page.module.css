@@ -48,7 +48,10 @@
 	background-color: #fff;
 	border-radius: 5px;
 	top: 25% !important;
-	width: 90%;
+	left: 10% !important;
+	right: 10% !important;
+	margin: 0 auto;
+	width: 80%;
 	max-width: 350px;
 	padding: 10px;
 	text-align: center;
@@ -145,7 +148,10 @@
 	background-color: #fff;
 	border-radius: 5px;
 	top: 25% !important;
-	width: 90%;
+	left: 10% !important;
+	right: 10% !important;
+	margin: 0 auto;
+	width: 80%;
 	max-width: 350px;
 	height: 230px;
 	padding: 10px;
@@ -156,51 +162,24 @@
 	box-sizing: border-box;
 }
 
+.checkout_modal button {
+	cursor: pointer;
+}
+
 #spinnerPos {
 	top: 35%;
 	left: 40%;
 }
 
 @media (min-width: 600px) {
+	.warning_modal, .checkout_modal {
+		left: 20% !important;
+		right: 20% !important;
+		margin: 0 auto;
+	}
 	.items h3 {
 		max-width: 450px;
 		margin-right: auto;
 		margin-left: auto;
-	}
-}
-
-@media (min-width: 600px) and (max-width: 720px) {
-	.warning_modal, .checkout_modal {
-		left: 23% !important;
-	}
-}
-
-@media (min-width: 721px) and (max-width: 899px) {
-	.warning_modal, .checkout_modal {
-		left: 27% !important;
-	}
-}
-
-@media (min-width: 600px) {
-	.warning_modal button, .checkout_modal button {
-		cursor: pointer;
-	}
-}
-
-@media (min-width: 900px) and (max-width: 1000px) {
-	.warning_modal, .checkout_modal {
-		left: 30% !important;
-	}
-}
-
-@media (min-width: 1001px) and (max-width: 1200px) {
-	.warning_modal, .checkout_modal {
-		left: 35% !important;
-	}
-}
-
-@media (min-width: 1200px) {
-	.warning_modal, .checkout_modal {
-		left: 37.5% !important;
 	}
 }

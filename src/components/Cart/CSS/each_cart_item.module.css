@@ -24,14 +24,18 @@
 
 .remove {
 	font-size: 22px;
-	font-weight: 500
+	font-weight: 500;
+	cursor: pointer;
 }
 
 .remove_notice {
 	background-color: #fff;
 	border-radius: 5px;
 	top: 25% !important;
-	width: 90%;
+	left: 10% !important;
+	right: 10% !important;
+	margin: 0 auto;
+	width: 80%;
 	max-width: 350px;
 	padding: 10px;
 	text-align: center;
@@ -49,6 +53,7 @@
 	border-radius: 4px;
 	width: 90%;
 	margin: 10px auto;
+	cursor: pointer;
 }
 
 .remove_notice button:active button:focus {
@@ -78,6 +83,7 @@
 
 .change {
 	color: #E11010;
+	cursor: pointer;
 }
 
 .subTotal {
@@ -85,44 +91,10 @@
 	justify-content: space-between;
 }
 
-@media (min-width: 600px) and (max-width: 720px) {
-	.remove_notice {
-		left: 23% !important;
-	}
-}
-
-@media (min-width: 721px) and (max-width: 899px) {
-	.remove_notice {
-		left: 27% !important;
-	}
-}
-
 @media (min-width: 600px) {
-	.remove_notice button {
-		cursor: pointer;
-	}
-}
-
-@media (min-width: 900px) and (max-width: 1000px) {
 	.remove_notice {
-		left: 30% !important;
-	}
-}
-
-@media (min-width: 1001px) and (max-width: 1200px) {
-	.remove_notice {
-		left: 35% !important;
-	}
-}
-
-@media (min-width: 1200px) {
-	.remove_notice {
-		left: 37.5% !important;
-	}
-}
-
-@media (min-width: 900px) {
-	.change, .remove {
-		cursor: pointer;
+		left: 20% !important;
+		right: 20% !important;
+		margin: 0 auto;
 	}
 }
