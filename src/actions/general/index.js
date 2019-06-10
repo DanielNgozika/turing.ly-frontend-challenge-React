@@ -53,6 +53,7 @@ export const getDepts = async dispatch => {
 };
 
 export const getProductsInCategory = async (dispatch, catId) => {
+	dispatch(showRightSideCategoryProducts());
 	try {
 		const request = await fetch(`${url}/products/inCategory/${catId}`);
 		if (!request.ok) {
@@ -325,6 +326,10 @@ export const showErrorModal = message => ({
 
 export const hideErrorModal = () => ({
 	type: "HIDE_ERROR_MODAL"
+});
+
+export const showRightSideCategoryProducts = () => ({
+	type: "SHOW_RIGHTSIDE_PRODUCTS"
 });
 
 export const errorHandler = async (err, dispatch) => {

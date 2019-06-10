@@ -21,6 +21,7 @@ import EachCategoryDiv from "./each_category_div";
 import DeptsSideNav from "./depts_side_nav";
 import CartCounter from "./cart_counter";
 import ErrorModal from "../../../components/UI/JS/error_modal";
+import ProductsOnCategoryClick from "./productsOnCategoryClick";
 
 //actions
 import {
@@ -91,6 +92,7 @@ class Homepage extends Component {
 
 	render() {
 		const { showing, message } = this.props.errorModal;
+		const { showingProducts } = this.props;
 		return (
 			<>
 				{showing ? (
@@ -133,9 +135,17 @@ class Homepage extends Component {
 						<div className={styles.empty} />
 					</section>
 					<section className={styles.right_side}>
-						<Banner />
-						{this.showCategories()}
-						<footer className={styles.footer}>&copy; Copyright, 2019</footer>
+						{showingProducts && window.innerWidth > 900 ? (
+							<ProductsOnCategoryClick />
+						) : (
+							<>
+								<Banner />
+								{this.showCategories()}
+							</>
+						)}
+						<footer className={styles.footer}>
+							&copy; Copyright, 2019
+						</footer>
 					</section>
 				</div>
 				{this.props.backdropVisible ? (
@@ -177,7 +187,8 @@ function mapStateToProps(state) {
 		categories: state.general.categories,
 		cartId: state.general.cartId,
 		shippingRegions: state.general.shippingRegions,
-		errorModal: state.general.errorModal
+		errorModal: state.general.errorModal,
+		showingProducts: state.general.rightSideCategoryProductsShowing
 	};
 }
 

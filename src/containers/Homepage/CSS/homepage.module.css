@@ -45,6 +45,7 @@
 	width: 100%;
 	margin-bottom: 0;
 	box-sizing: border-box;
+	height: 100vh;
 }
 
 .body {
@@ -72,6 +73,9 @@
 	.body {
 		display: flex;
 	}
+	#spinnerPos {
+		left: 54%;
+	}
 	.left_nav {
 		display: block;
 		position: fixed;
@@ -96,5 +100,9 @@
 		text-align: center;
 		font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 		padding: 20px;
+		width: fit-content;
+		bottom: 0;
+		position: fixed;
+		box-sizing: border-box;
 	}
 }

@@ -10,12 +10,18 @@
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 	padding: 7px 50px;
 	cursor: pointer;
+	background-color: inherit;
+	font-size: 14px;
 }
 
 .name:hover {
 	background-color: #d3d3d3;
 }
 
-.name:active, .name:focus {
+.nameActive {
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	padding: 7px 50px;
+	cursor: pointer;
 	background-color: #d3d3d3;
+	font-size: 14px;
 }

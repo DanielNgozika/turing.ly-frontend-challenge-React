@@ -35,8 +35,14 @@ class CategoryList extends Component {
 	}
 
 	clicked = (name, id) => {
-		this.props.history.push(`/${name}/products`);
-		this.props.getProductsInCategory(id);
+		this.props.clicked(name);
+		const deviceWidth = window.innerWidth;
+		if (deviceWidth < 900) {
+			this.props.history.push(`/${name}/products`);
+			this.props.getProductsInCategory(id);
+		} else {
+			this.props.getProductsInCategory(id);
+		}
 	};
 
 	render() {
@@ -49,7 +55,11 @@ class CategoryList extends Component {
 						onClick={() =>
 							this.clicked(category.name, category.category_id)
 						}
-						className={styles.name}
+						className={
+							this.props.active === category.name
+								? styles.nameActive
+								: styles.name
+						}
 					>
 						{category.name}
 					</div>

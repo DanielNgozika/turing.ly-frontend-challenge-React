@@ -21,7 +21,8 @@ const initialState = {
 	errorModal: {
 		showing: false,
 		message: null
-	}
+	},
+	rightSideCategoryProductsShowing: false
 };
 
 export default function(state = initialState, action) {
@@ -205,6 +206,8 @@ export default function(state = initialState, action) {
 					message: null
 				}
 			};
+		case "SHOW_RIGHTSIDE_PRODUCTS":
+			return {...state, rightSideCategoryProductsShowing: true}
 
 		default:
 			return state;

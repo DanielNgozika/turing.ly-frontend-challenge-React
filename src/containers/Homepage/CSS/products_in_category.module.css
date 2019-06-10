@@ -35,3 +35,9 @@
 	flex: 1;
 	text-align: center;
 }
+
+@media (min-width: 900px) {
+	#spinnerPos {
+		left: 53%
+	}
+}
