@@ -13,6 +13,7 @@ const toolbar = props => (
 		<Logo />
 		<SearchProductInput />
 		{localStorage.length === 0 ||
+		!localStorage.userData ||
 		(localStorage.fbLoggedIn === "false" &&
 			Date.now() > localStorage.expiresIn) ? (
 			<nav className={styles.nav}>
@@ -22,6 +23,7 @@ const toolbar = props => (
 			</nav>
 		) : null}
 		{localStorage.length === 0 ||
+		!localStorage.userData ||
 		(localStorage.fbLoggedIn === "false" &&
 			Date.now() > localStorage.expiresIn) ? (
 			<i className={styles.icon}>
