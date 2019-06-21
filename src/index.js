@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, compose } from "redux";
 import rootReducer from "./reducers/index";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
 //components
@@ -15,7 +15,19 @@ import CartPage from "./containers/Cart/JS/cart_page";
 import SearchResultsPage from "./containers/Homepage/JS/search_results_page";
 import Spinner from "./components/UI/JS/spinner";
 
-const UserProfile = lazy(() => import("./containers/Users/JS/profile"));
+const UserProfile = () => {
+	if (localStorage.length === 0 || !localStorage.userData) {
+		return <Redirect to="/sign_up" />;
+	} else if (
+		(localStorage.fbLoggedIn === "false" &&
+			Date.now() > localStorage.expiresIn) ||
+		Date.now() > localStorage.expiresIn
+	) {
+		return <Redirect to="/sign_in" />;
+	} else {
+		lazy(() => import("./containers/Users/JS/profile"));
+	}
+};
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = composeEnhancers()(createStore);
