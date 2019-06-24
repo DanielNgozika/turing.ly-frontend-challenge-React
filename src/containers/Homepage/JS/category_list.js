@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -11,7 +11,7 @@ import {
 	errorHandler
 } from "../../../actions/general/index";
 
-class CategoryList extends Component {
+class CategoryList extends PureComponent {
 	state = {
 		categories: null
 	};
@@ -69,10 +69,6 @@ class CategoryList extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	catId: state.general.productFindCatId
-});
-
 const mapDispatchToProps = dispatch => ({
 	getProductsInCategory: (...args) =>
 		getProductsInCategory(dispatch, ...args),
@@ -80,6 +76,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-	mapStateToProps,
+	null,
 	mapDispatchToProps
 )(withRouter(CategoryList));

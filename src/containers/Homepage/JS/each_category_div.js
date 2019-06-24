@@ -37,6 +37,17 @@ class EachCategoryDiv extends Component {
 		}
 	}
 
+	shouldComponentUpdate(prevProps, PrevState) {
+		if (PrevState.products && this.state.products) {
+			if (
+				prevProps === this.props &&
+				PrevState.products.length === this.state.products.length
+			)
+				return false;
+		}
+		return true;
+	}
+
 	products = () => {
 		if (this.state.products)
 			return this.state.products.map(product => {

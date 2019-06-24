@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
 import Logo from "../../../UI/JS/logo";
@@ -44,4 +44,4 @@ const toolbar = props => (
 	</header>
 );
 
-export default toolbar;
+export default memo(toolbar);

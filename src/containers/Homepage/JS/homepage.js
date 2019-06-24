@@ -43,10 +43,15 @@ class Homepage extends Component {
 			cartId,
 			generateCartId,
 			getShippingRegions,
-			shippingRegions
+			shippingRegions,
+			categories,
+			departments
 		} = this.props;
-		getCategories();
-		getDepts();
+
+		if (!categories) getCategories();
+
+		if (!departments) getDepts();
+
 		if (!cartId) {
 			//the check makes sure that a new cart id isn't
 			//generated after the component remounts
@@ -109,27 +114,37 @@ class Homepage extends Component {
 						SIGN IN
 					</Link>
 				</Toolbar>
-				<>
-					<LeftSidedrawer
-						open={this.props.deptSidebarOpen ? true : false}
-						onClick={this.props.clickBackDrop}
-					>
+				{window.innerWidth < 900 ? (
+					<>
+						<LeftSidedrawer
+							open={this.props.deptSidebarOpen ? true : false}
+							onClick={this.props.clickBackDrop}
+						>
+							<DeptsSideNav />
+						</LeftSidedrawer>
+						<RightSidedrawer
+							open={this.props.navSidebarOpen ? true : false}
+							onClick={this.props.clickBackDrop}
+						>
+							<NavigationItems>
+								<NavigationItem to="/" itemName="Home" />
+								<NavigationItem
+									to="/sign_up"
+									itemName="Sign Up"
+								/>
+								<NavigationItem
+									to="/sign_in"
+									itemName="Sign In"
+								/>
+							</NavigationItems>
+						</RightSidedrawer>
+					</>
+				) : null}
+				{window.innerWidth > 900 ? (
+					<div className={styles.left_nav}>
 						<DeptsSideNav />
-					</LeftSidedrawer>
-				</>
-				<RightSidedrawer
-					open={this.props.navSidebarOpen ? true : false}
-					onClick={this.props.clickBackDrop}
-				>
-					<NavigationItems>
-						<NavigationItem to="/" itemName="Home" />
-						<NavigationItem to="/sign_up" itemName="Sign Up" />
-						<NavigationItem to="/sign_in" itemName="Sign In" />
-					</NavigationItems>
-				</RightSidedrawer>
-				<div className={styles.left_nav}>
-					<DeptsSideNav />
-				</div>
+					</div>
+				) : null}
 				<div className={styles.body}>
 					<section className={styles.left_side}>
 						<div className={styles.empty} />
@@ -188,7 +203,8 @@ function mapStateToProps(state) {
 		cartId: state.general.cartId,
 		shippingRegions: state.general.shippingRegions,
 		errorModal: state.general.errorModal,
-		showingProducts: state.general.rightSideCategoryProductsShowing
+		showingProducts: state.general.rightSideCategoryProductsShowing,
+		departments: state.general.departments
 	};
 }
 

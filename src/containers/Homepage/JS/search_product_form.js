@@ -43,10 +43,6 @@ class SearchProductsForm extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	searchInputFocus: state.general.searchInputFocus
-});
-
 const mapDispatchToProps = dispatch => ({
 	searchProducts: query => searchProducts(dispatch, query)
 });
@@ -55,7 +51,7 @@ export default reduxForm({
 	form: "search products"
 })(
 	connect(
-		mapStateToProps,
+		null,
 		mapDispatchToProps
 	)(withRouter(SearchProductsForm))
 );

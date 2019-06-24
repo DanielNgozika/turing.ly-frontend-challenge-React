@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 
 //components
 import Modal from "../../UI/JS/modal";
-import AttributeInput from '../../../containers/Homepage/JS/attribute_input';
+import AttributeInput from "../../../containers/Homepage/JS/attribute_input";
 
 //style
 import styles from "../CSS/each_product.module.css";
@@ -49,7 +49,10 @@ const eachProduct = props => {
 
 	return (
 		<>
-			<div className={styles.div} onClick={() => clicked(product.product_id)}>
+			<div
+				className={styles.div}
+				onClick={() => clicked(product.product_id)}
+			>
 				<img src={url + product.thumbnail} alt={product.name} />
 				<p className={styles.price}>$ {product.discounted_price}</p>
 				<p className={styles.name}>{product.name}</p>
@@ -62,4 +65,4 @@ const eachProduct = props => {
 	);
 };
 
-export default eachProduct;
+export default memo(eachProduct);
