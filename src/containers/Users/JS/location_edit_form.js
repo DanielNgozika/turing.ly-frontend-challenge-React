@@ -57,9 +57,10 @@ class LocationEditForm extends Component {
 		}
 	};
 
+	regionNames = this.props.regions.map(region => region.shipping_region);
+
 	render() {
-		const { regions, regionValue } = this.props;
-		const regionNames = regions.map(region => region.shipping_region);
+		const { regionValue } = this.props;
 		const isRegionValueAvailable =
 			regionValue &&
 			regionValue.values &&
@@ -120,7 +121,7 @@ class LocationEditForm extends Component {
 				<Field
 					name="region"
 					component={renderSelectField}
-					options={regionNames}
+					options={this.regionNames}
 					className={styles.input}
 					error={styles.error}
 				/>
