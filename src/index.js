@@ -12,7 +12,7 @@ import SignUp from "./containers/Users/JS/sign_up";
 import SignIn from "./containers/Users/JS/sign_in";
 import ProductsInCategory from "./containers/Homepage/JS/products_in_category";
 import CartPage from "./containers/Cart/JS/cart_page";
-import SearchResultsPage from "./containers/Homepage/JS/search_results_page";
+import SearchResultsPage from "./containers/SearchResult/JS/search_results_page";
 import Spinner from "./components/UI/JS/spinner";
 
 const UserProfile = () => {

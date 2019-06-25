@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 
 import styles from "../CSS/search_results_page.module.css";
 
-import SearchProductsForm from "./search_product_form";
+import SearchProductsForm from "../../Homepage/JS/search_product_form";
 import EachProduct from "../../../components/Homepage/JS/each_product";
 import Backdrop from "../../../components/UI/JS/top_backdrop";
 import ButtToolbar from "../../../components/Homepage/JS/Toolbar/bottom_toolbar";
 import ButtNavItem from "../../../components/Homepage/JS/Toolbar/butt_nav_item";
-import CartCounter from "./cart_counter";
+import CartCounter from "../../Homepage/JS/cart_counter";
 import ErrorModal from "../../../components/UI/JS/error_modal";
 
 //actions
