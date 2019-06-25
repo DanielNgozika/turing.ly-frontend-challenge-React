@@ -40,6 +40,14 @@ class CartPage extends Component {
 
 	id = [];
 
+	areYouSureModal = (
+		<Modal styles={styles.warning_modal}>
+			<p>All cart items will be removed</p>
+			<button onClick={() => this.emptyCartFunc()}>continue</button>
+			<button onClick={() => this.props.clickBackDrop()}>cancel</button>
+		</Modal>
+	);
+
 	emptyCartFunc = () => {
 		this.props.emptyCart(this.props.cartId);
 		this.props.clickBackDrop();
@@ -50,12 +58,49 @@ class CartPage extends Component {
 			.map(i => parseFloat(i.subtotal))
 			.reduce((a, b) => a + b, 0)
 			.toFixed(2);
-			return amount;
-	}
+		return amount;
+	};
+
+	checkoutModal = (
+		<Modal styles={styles.checkout_modal}>
+			{this.state.orderIdLoading ? (
+				<Spinner id={styles.spinnerPos} />
+			) : (
+				<CheckoutFormContainer
+					orderId={this.state.orderId}
+					amount={this.computeTotalAmount}
+				/>
+			)}
+		</Modal>
+	);
+
+	isTruthy = null;
+
+	getShippingId = () => {
+		const { shippingTypeSelect, regions, allShippingTypes } = this.props;
+		if (
+			shippingTypeSelect &&
+			shippingTypeSelect.values &&
+			shippingTypeSelect.values.shipping_type !== "select shipping type"
+		)
+			this.id = regions
+				.map(reg => reg.shipping_region_id)
+				.filter(each => each !== 1)
+				.map(i =>
+					allShippingTypes[i].filter(st =>
+						st.shipping_type ===
+						shippingTypeSelect.values.shipping_type
+							? st.shipping_id
+							: null
+					)
+				)
+				.filter(t => t.length > 0);
+	};
 
 	createOrder = async () => {
 		try {
-			if (localStorage.length === 0) this.props.history.push("./sign_up");
+			if (localStorage.length === 0 || !localStorage.userData)
+				this.props.history.push("./sign_up");
 			else if (Date.now() > localStorage.expiresIn)
 				this.props.history.push("/sign_in");
 			else if (this.state.orderId) this.props.showCheckoutModal();
@@ -95,64 +140,59 @@ class CartPage extends Component {
 		}
 	};
 
+	showCart = () => {
+		const { cart, backdropVisible } = this.props;
+		if (cart.length === 0) return <p>Cart empty</p>;
+		else
+			return (
+				<div className={styles.items}>
+					{cart.map(item => (
+						<EachCartItem
+							key={item.item_id}
+							item={item}
+							removeItem={this.props.removeCartItem}
+							showUpdateForm={this.props.showCartItemUpdateForm}
+							itemUpdated={this.props.itemUpdated}
+							showRemoveModal={this.props.showRemoveNoticeModal}
+							removeModalOpen={this.props.removalModal}
+							cancelRemoval={this.props.clickBackDrop}
+							backdrop={backdropVisible}
+							clickBackdrop={clickBackDrop}
+						/>
+					))}
+					<hr className={styles.items_hr} />
+					<div className={styles.total_div}>
+						<span>Total:</span>
+						<span>$ {this.computeTotalAmount()}</span>
+					</div>
+					<h3>Shipping Region</h3>
+					<RegionSelect />
+					<h3>Shipping Type</h3>
+					<ShippingType />
+					<button
+						className={styles.order}
+						disabled={this.isTruthy}
+						onClick={this.createOrder}
+					>
+						Create order
+					</button>
+				</div>
+			);
+	};
+
 	render() {
 		const {
-			cart,
 			history,
 			showEmptyCartWarning,
 			warningModal,
 			backdropVisible,
 			clickBackDrop,
 			regionValue,
-			regions,
-			allShippingTypes,
 			shippingTypeSelect,
 			checkoutModalShowing
 		} = this.props;
 
-		const getShippingId = () => {
-			if (
-				shippingTypeSelect &&
-				shippingTypeSelect.values &&
-				shippingTypeSelect.values.shipping_type !==
-					"select shipping type"
-			)
-				this.id = regions
-					.map(reg => reg.shipping_region_id)
-					.filter(each => each !== 1)
-					.map(i =>
-						allShippingTypes[i].filter(st =>
-							st.shipping_type ===
-							shippingTypeSelect.values.shipping_type
-								? st.shipping_id
-								: null
-						)
-					)
-					.filter(t => t.length > 0);
-		};
-
-		const areYouSureModal = (
-			<Modal styles={styles.warning_modal}>
-				<p>All cart items will be removed</p>
-				<button onClick={() => this.emptyCartFunc()}>continue</button>
-				<button onClick={() => clickBackDrop()}>cancel</button>
-			</Modal>
-		);
-
-		const checkoutModal = (
-			<Modal styles={styles.checkout_modal}>
-				{this.state.orderIdLoading ? (
-					<Spinner id={styles.spinnerPos} />
-				) : (
-					<CheckoutFormContainer
-						orderId={this.state.orderId}
-						amount={this.computeTotalAmount}
-					/>
-				)}
-			</Modal>
-		);
-
-		const isTruthy =
+		this.isTruthy =
 			(regionValue &&
 				regionValue.values &&
 				regionValue.values.select_shipping_region ===
@@ -164,48 +204,6 @@ class CartPage extends Component {
 				? true
 				: false;
 
-		const showCart = () => {
-			if (cart.length === 0) return <p>Cart empty</p>;
-			else
-				return (
-					<div className={styles.items}>
-						{cart.map(item => (
-							<EachCartItem
-								key={item.item_id}
-								item={item}
-								removeItem={this.props.removeCartItem}
-								showUpdateForm={
-									this.props.showCartItemUpdateForm
-								}
-								itemUpdated={this.props.itemUpdated}
-								showRemoveModal={
-									this.props.showRemoveNoticeModal
-								}
-								removeModalOpen={this.props.removalModal}
-								cancelRemoval={this.props.clickBackDrop}
-								backdrop={backdropVisible}
-								clickBackdrop={clickBackDrop}
-							/>
-						))}
-						<hr className={styles.items_hr} />
-						<div className={styles.total_div}>
-							<span>Total:</span>
-							<span>$ {this.computeTotalAmount()}</span>
-						</div>
-						<h3>Shipping Region</h3>
-						<RegionSelect />
-						<h3>Shipping Type</h3>
-						<ShippingType />
-						<button
-							className={styles.order}
-							disabled={isTruthy}
-							onClick={this.createOrder}
-						>
-							Create order
-						</button>
-					</div>
-				);
-		};
 		const { showing, message } = this.props.errorModal;
 		return (
 			<>
@@ -226,13 +224,13 @@ class CartPage extends Component {
 						onClick={() => showEmptyCartWarning()}
 					/>
 				</header>
-				{showCart()}
+				{this.showCart()}
 				{backdropVisible ? (
 					<Backdrop onClick={() => clickBackDrop()} />
 				) : null}
-				{warningModal ? areYouSureModal : null}
-				{getShippingId()}
-				{checkoutModalShowing ? checkoutModal : null}
+				{warningModal ? this.areYouSureModal : null}
+				{this.getShippingId()}
+				{checkoutModalShowing ? this.checkoutModal : null}
 			</>
 		);
 	}

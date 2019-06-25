@@ -3,22 +3,21 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
 //styles
-import styles from '../CSS/select.module.css';
+import styles from "../CSS/select.module.css";
 
 //components
 import { renderSelectField } from "../../../components/UI/JS/forms";
 
 class RegionSelect extends Component {
+	regionName = this.props.regions.map(region => region.shipping_region);
 
 	render() {
-		const { regions} = this.props;
-		const regionName = regions.map(region => region.shipping_region)
 		return (
 			<form className={styles.form}>
 				<Field
 					name="select_shipping_region"
 					component={renderSelectField}
-					options={regionName}
+					options={this.regionName}
 					className={styles.select}
 				/>
 			</form>
@@ -27,7 +26,6 @@ class RegionSelect extends Component {
 }
 
 const mapStateToProps = state => ({
-	regionValue: state.form.region_select_field,
 	regions: state.general.shippingRegions
 });
 

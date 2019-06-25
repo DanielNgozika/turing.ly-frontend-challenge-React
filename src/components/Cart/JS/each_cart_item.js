@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 //COMPONENTS
 import Modal from "../../UI/JS/modal";
@@ -62,4 +62,4 @@ const eachOrder = props => {
 	);
 };
 
-export default eachOrder;
+export default memo(eachOrder);

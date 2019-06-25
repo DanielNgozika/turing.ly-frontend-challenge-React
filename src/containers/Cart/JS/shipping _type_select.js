@@ -11,8 +11,18 @@ import { renderSelectField } from "../../../components/UI/JS/forms";
 class ShippingType extends Component {
 	filteredRegion = [];
 
+	shippingTypes = () => {
+		if (this.filteredRegion.length > 0)
+			return this.props.allShippingTypes[
+				this.filteredRegion[0].shipping_region_id
+			]
+				.map(type => type.shipping_type)
+				.concat(["select shipping type"]);
+		else return ["select region above"];
+	};
+
 	render() {
-		const { allShippingTypes, regionValue, regions } = this.props;
+		const { regionValue, regions } = this.props;
 
 		if (
 			regionValue &&
@@ -25,22 +35,12 @@ class ShippingType extends Component {
 					regionValue.values.select_shipping_region
 			);
 
-		const shippingTypes = () => {
-			if (this.filteredRegion.length > 0)
-				return allShippingTypes[
-					this.filteredRegion[0].shipping_region_id
-				]
-					.map(type => type.shipping_type)
-					.concat(["select shipping type"]);
-			else return ["select region above"];
-		};
-
 		return (
 			<form className={styles.form}>
 				<Field
 					name="shipping_type"
 					component={renderSelectField}
-					options={shippingTypes()}
+					options={this.shippingTypes()}
 					className={styles.select}
 				/>
 			</form>
