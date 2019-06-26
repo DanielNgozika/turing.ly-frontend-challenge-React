@@ -16,13 +16,17 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	z-index: 200;
 }
 
 .div i.fa-arrow-left {
 	color: #48484e;
 	font-size: 24px;
+}
+
+.div i:hover {
+	cursor: pointer;
 }
 
 .header a {
@@ -34,7 +38,7 @@
 .div h1 {
 	margin-top: 12vh;
 	color: #4b4b4e;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 }
 
 .form {
@@ -43,17 +47,20 @@
 }
 
 .input {
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	margin: 10px auto;
 	width: 80%;
 	padding: 10px;
 	box-sizing: border-box;
 	border-radius: 20px;
 	border: 1px solid #d2d0ce;
-	transition: width .1s ease-in; 
+	transition: width 0.1s ease-in;
 }
 
-.input:active, .input:focus, .error:active, .error:focus {
+.input:active,
+.input:focus,
+.error:active,
+.error:focus {
 	outline: none;
 	box-shadow: 0 2px 7px rgba(121, 83, 83, 0.17);
 	width: 85%;
@@ -61,19 +68,20 @@
 }
 
 .input::placeholder {
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-	color: #48484e;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
+	color: rgba(72, 72, 78, 0.7);
+	font-weight: 500;
 }
 
 .error {
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	margin: 10px auto;
 	width: 80%;
 	padding: 10px;
 	box-sizing: border-box;
 	border-radius: 20px;
 	border: 1px solid red;
-	transition: width .1s ease-in;
+	transition: width 0.1s ease-in;
 }
 
 .div button {
@@ -81,15 +89,16 @@
 	margin: 10px auto;
 	padding: 13px;
 	width: 80%;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	border: none;
 	color: #fff;
 	background-color: #48484e;
 	border-radius: 20px;
-	transition: box-shadow 500 ease-out
+	transition: box-shadow 500 ease-out;
 }
 
-.div button:active, .div button:focus {
+.div button:active,
+.div button:focus {
 	outline: none;
 	box-shadow: 0 2px 10px rgba(128, 128, 128, 1);
 }
@@ -102,12 +111,17 @@
 }
 
 .div p {
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	color: #48484e;
 }
 
 .div .fb_login {
 	background-color: #3b5998;
+}
+
+.fb_login:hover {
+	cursor: pointer;
+	box-shadow: 0 2px 7px rgba(121, 83, 83, 0.5);
 }
 
 @media (min-width: 600px) {
@@ -116,9 +130,9 @@
 		max-width: 400px;
 		margin: 0 auto;
 		padding: 40px 0;
-		border-radius: 8px;
+		border-radius: 10px;
 		background-color: #fff;
 		box-sizing: border-box;
-		box-shadow: 0 2px 5px rgba(128, 128, 128, .2);
+		box-shadow: 0 2px 5px rgba(128, 128, 128, 0.2);
 	}
 }
