@@ -7,14 +7,31 @@ import styles from "../CSS/products_in_category.module.css";
 //components
 import EachProduct from "../../../components/Homepage/JS/each_product";
 import Spinner from "../../../components/UI/JS/spinner";
+import Paginator from "./paginator";
 
 //actions
 import {
 	showProductDetail,
-	showAttrModal
+	showAttrModal,
+	getProductsInCategory
 } from "../../../actions/general/index";
 
 class ProductsOnCategoryClick extends Component {
+	state = {
+		page: 1
+	};
+
+	nextPage = async () => {
+		const { getProducts, categoryActive } = this.props;
+		await this.setState(state => ({ page: state.page + 1 }));
+		getProducts(categoryActive, this.state.page);
+	};
+	prevPage = async () => {
+		const { getProducts, categoryActive } = this.props;
+		await this.setState(state => ({ page: state.page - 1 }));
+		getProducts(categoryActive, this.state.page);
+	};
+
 	render() {
 		const {
 			allProducts,
@@ -38,6 +55,12 @@ class ProductsOnCategoryClick extends Component {
 						attrModalOpen={attrModalOpen}
 					/>
 				))}
+				<Paginator
+					page={this.state.page}
+					nextPage={this.nextPage}
+					prevPage={this.prevPage}
+					nosOfProducts={allProducts.length}
+				/>
 			</div>
 		);
 	}
@@ -47,12 +70,14 @@ const mapStateToProps = state => ({
 	allProducts: state.general.productsInCategory,
 	productDetailed: state.general.productDetailedId,
 	attrModalOpen: state.general.productIdAttrModalOpen,
-	deptSidebarOpen: state.general.deptSidebarOpen
+	deptSidebarOpen: state.general.deptSidebarOpen,
+	categoryActive: state.general.categoryActive
 });
 
 const mapDispatchToProps = dispatch => ({
 	showProductDetail: prodId => dispatch(showProductDetail(prodId)),
-	showAttrModal: prodId => dispatch(showAttrModal(prodId))
+	showAttrModal: prodId => dispatch(showAttrModal(prodId)),
+	getProducts: (...args) => getProductsInCategory(dispatch, ...args)
 });
 
 export default connect(

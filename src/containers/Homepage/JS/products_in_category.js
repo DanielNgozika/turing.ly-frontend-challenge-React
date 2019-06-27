@@ -15,16 +15,33 @@ import CartCounter from "./cart_counter";
 import LeftSidedrawer from "../../../components/UI/JS/left_side_drawer";
 import DeptsSideNav from "./depts_side_nav";
 import ErrorModal from "../../../components/UI/JS/error_modal";
+import Paginator from "./paginator";
 
 //actions
 import {
 	showProductDetail,
 	showAttrModal,
 	clickBackDrop,
-	openDeptSidebar
+	openDeptSidebar,
+	getProductsInCategory
 } from "../../../actions/general/index";
 
 class ProductsInCategory extends Component {
+	state = {
+		page: 1
+	};
+
+	nextPage = async () => {
+		const { getProducts, categoryActive } = this.props;
+		await this.setState(state => ({ page: state.page + 1 }));
+		getProducts(categoryActive, this.state.page);
+	};
+	prevPage = async () => {
+		const { getProducts, categoryActive } = this.props;
+		await this.setState(state => ({ page: state.page - 1 }));
+		getProducts(categoryActive, this.state.page);
+	};
+
 	render() {
 		const {
 			allProducts,
@@ -78,6 +95,12 @@ class ProductsInCategory extends Component {
 							attrModalOpen={attrModalOpen}
 						/>
 					))}
+					<Paginator
+						page={this.state.page}
+						nextPage={this.nextPage}
+						prevPage={this.prevPage}
+						nosOfProducts={allProducts.length}
+					/>
 				</div>
 				<>
 					<LeftSidedrawer
@@ -118,14 +141,16 @@ const mapStateToProps = state => ({
 	backdropVisible: state.general.backdropVisible,
 	attrModalOpen: state.general.productIdAttrModalOpen,
 	deptSidebarOpen: state.general.deptSidebarOpen,
-	errorModal: state.general.errorModal
+	errorModal: state.general.errorModal,
+	categoryActive: state.general.categoryActive
 });
 
 const mapDispatchToProps = dispatch => ({
 	showProductDetail: prodId => dispatch(showProductDetail(prodId)),
 	clickBackDrop: () => dispatch(clickBackDrop()),
 	showAttrModal: prodId => dispatch(showAttrModal(prodId)),
-	openDeptSidebar: () => dispatch(openDeptSidebar())
+	openDeptSidebar: () => dispatch(openDeptSidebar()),
+	getProducts: (...args) => getProductsInCategory(dispatch, ...args)
 });
 
 export default connect(
