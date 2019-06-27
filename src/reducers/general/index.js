@@ -22,7 +22,8 @@ const initialState = {
 		showing: false,
 		message: null
 	},
-	rightSideCategoryProductsShowing: false
+	rightSideCategoryProductsShowing: false,
+	categoryActive: null
 };
 
 export default function(state = initialState, action) {
@@ -70,6 +71,7 @@ export default function(state = initialState, action) {
 		case "GET_PRODUCTS_IN_CATEGORY":
 			return {
 				...state,
+				categoryActive: action.catId,
 				productsInCategory: action.payload.rows
 			};
 		case "PRODUCT_DETAIL":
@@ -207,7 +209,7 @@ export default function(state = initialState, action) {
 				}
 			};
 		case "SHOW_RIGHTSIDE_PRODUCTS":
-			return {...state, rightSideCategoryProductsShowing: true}
+			return { ...state, rightSideCategoryProductsShowing: true };
 
 		default:
 			return state;
