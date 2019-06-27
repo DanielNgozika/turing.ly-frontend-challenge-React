@@ -39,9 +39,9 @@ class CategoryList extends PureComponent {
 		const deviceWidth = window.innerWidth;
 		if (deviceWidth < 900) {
 			this.props.history.push(`/${name}/products`);
-			this.props.getProductsInCategory(id);
+			this.props.getProductsInCategory(id, 1);
 		} else {
-			this.props.getProductsInCategory(id);
+			this.props.getProductsInCategory(id, 1);
 		}
 	};
 
