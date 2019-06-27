@@ -52,10 +52,12 @@ export const getDepts = async dispatch => {
 	}
 };
 
-export const getProductsInCategory = async (dispatch, catId) => {
+export const getProductsInCategory = async (dispatch, catId, page) => {
 	dispatch(showRightSideCategoryProducts());
 	try {
-		const request = await fetch(`${url}/products/inCategory/${catId}`);
+		const request = await fetch(
+			`${url}/products/inCategory/${catId}?page=${page}`
+		);
 		if (!request.ok) {
 			const error = await request.json();
 			throw Error(error.error.message);
@@ -63,6 +65,7 @@ export const getProductsInCategory = async (dispatch, catId) => {
 		const data = await request.json();
 		dispatch({
 			type: "GET_PRODUCTS_IN_CATEGORY",
+			catId,
 			payload: data
 		});
 	} catch (err) {
