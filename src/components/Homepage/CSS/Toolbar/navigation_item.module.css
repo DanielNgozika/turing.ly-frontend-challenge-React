@@ -2,12 +2,12 @@
 	height: 100%;
 	margin: 0;
 	padding: 13px 20px;
-	box-sizing: border-box; 
+	box-sizing: border-box;
 	list-style: none;
 }
 
 .NavigationItem span {
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	text-transform: uppercase;
 	font-size: 14px;
 	font-weight: 500;
@@ -16,20 +16,19 @@
 .NavigationItem a {
 	margin: 0;
 	padding: 11px 0;
-	color: grey;
+	color: #4b4b4e;
 	text-decoration: none;
 	height: 100%;
-	box-sizing: border-box;   
+	box-sizing: border-box;
 	outline: none;
 }
 
 .Active {
-	color: #1850a5;
-	border-bottom: 1px solid #4b4b4e;
+	border-bottom: 2px solid #34a853;
 }
 
 @media (min-width: 600px) {
 	.NavigationItem span {
-		display: inline
+		display: inline;
 	}
 }
