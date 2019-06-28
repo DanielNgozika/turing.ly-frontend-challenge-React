@@ -6,21 +6,32 @@
 }
 
 .logo_div div {
-	border: 1.5px solid #48484e;
-	border-bottom: none;
-	padding: 3px 0 0 5px;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-	font-weight: 600;
+	height: 35px;
+	width: 35px;
+	border-radius: 50%;
+	padding-top: 5px;
+	text-align: center;
+	border: 1.5px solid;
+	border-top-color: #ea4335;
+	border-right-color: #4285f4;
+	border-bottom-color: #34a853;
+	border-left-color: #fbbc05;
+	margin-right: 5px;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
+	font-weight: 700;
+	font-size: 18px;
+	color: #4285f4;
+	box-sizing: border-box;
 }
 
 .logo_div h2 {
 	display: none;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 900px) {
 	.logo_div h2 {
-		font-family: 'Lato';
-		color: #ff3300;
+		font-family: "Montserrat", Arial, Helvetica, sans-serif;
+		color: #48484e;
 		font-weight: 700;
 		display: block;
 	}

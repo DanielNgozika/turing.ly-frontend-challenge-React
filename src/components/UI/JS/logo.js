@@ -1,14 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import classes from '../CSS/logo.module.css';
+import classes from "../CSS/logo.module.css";
 
-const logo = () => {
-	return (
-		<div className={classes.logo_div}>
-			<div>in</div>
-			<h2>Stock</h2>
-		</div>
-	)
-}
+const logo = () => (
+	<div className={classes.logo_div}>
+		<div>S</div>
+		<h2>Shirtsy</h2>
+	</div>
+);
 
 export default logo;
