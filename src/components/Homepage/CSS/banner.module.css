@@ -1,28 +1,52 @@
 body {
 	margin: 0;
-	padding: 0
+	padding: 0;
 }
 
 .banner {
 	width: 100%;
 	height: 60vh;
 	margin: 50px 0;
-	background: linear-gradient(to bottom right, #ff7a59, #f2545b);
-	padding-top: 15vh;
+	background-color: rgba(4, 4, 5, 0.6);
 	box-sizing: border-box;
 	text-align: center;
 }
 
 .banner h1 {
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	color: #fff;
 	font-weight: 700;
-	font-size: 30px;
+	font-size: 36px;
+	margin-top: -37vh;
+	opacity: 0;
+	animation: showH1 4s ease-out;
+	animation-delay: 1s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes showH1 {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.back_photo {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	background-position: center;
+	background-size: cover;
+	z-index: -1;
 }
 
 @media (min-width: 600px) {
 	.banner {
 		height: 40vh;
+	}
+	.banner h1 {
 		padding-top: 10vh;
 	}
 }
