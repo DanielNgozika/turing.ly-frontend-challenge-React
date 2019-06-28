@@ -4,11 +4,11 @@
 	position: fixed;
 	top: 0;
 	right: -100%;
+	padding-top: 40px;
 	z-index: 1000;
 	overflow-x: auto;
 	overflow-y: auto;
 	box-sizing: border-box;
-	/* background: linear-gradient(to right, #fff, #fbfbfb); */
 	background-color: #fffffe;
 	box-shadow: -10px 0 50px rgba(0, 0, 0, 0.9);
 	opacity: 1;
@@ -16,9 +16,9 @@
 }
 
 .rightSideDrawerClose {
-	transform: translateX(100%)
+	transform: translateX(100%);
 }
 
 .rightSideDrawerOpen {
-	transform: translateX(-100%)
+	transform: translateX(-100%);
 }
