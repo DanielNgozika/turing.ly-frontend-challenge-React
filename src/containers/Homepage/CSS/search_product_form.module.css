@@ -19,17 +19,19 @@
 	border: none;
 	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	color: #48484e;
-	background-color: #f1f1f1;
+	font-weight: 600;
+	background-color: #d2d0ce;
 	box-sizing: border-box;
 }
 
 .input::placeholder {
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-	color: #48484e;
-	font-weight: 500
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
+	color: rgba(72, 72, 78, 0.8);
+	font-weight: 600;
 }
 
-.input:active, .input:focus {
+.input:active,
+.input:focus {
 	outline: none;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 	background-color: #fff;
