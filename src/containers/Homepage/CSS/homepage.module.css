@@ -24,7 +24,7 @@
 } */
 
 .nav_item {
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	color: #4b4b4e;
 	font-weight: 600;
 	font-size: 14px;
@@ -37,8 +37,8 @@
 }
 
 .nav_item:hover {
-	color: #db3236;
-	border-bottom: 3px solid #db3236;
+	color: #ea4335;
+	border-bottom: 3px solid #ea4335;
 }
 
 .right_side {
@@ -53,7 +53,8 @@
 	padding: 0;
 }
 
-.left_side, .left_nav {
+.left_side,
+.left_nav {
 	display: none;
 }
 
@@ -66,7 +67,7 @@
 }
 
 #spinnerPos {
-	left: 41%
+	left: 41%;
 }
 
 @media (min-width: 900px) {
@@ -98,7 +99,7 @@
 	.footer {
 		display: block;
 		text-align: center;
-		font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+		font-family: "Montserrat", Arial, Helvetica, sans-serif;
 		padding: 20px;
 		width: fit-content;
 		bottom: 0;
