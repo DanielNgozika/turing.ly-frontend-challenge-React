@@ -6,6 +6,7 @@
 	top: 0;
 	left: 0;
 	z-index: 1000;
+	background-color: #fff;
 	overflow-x: auto;
 	overflow-y: auto;
 	box-sizing: border-box;
@@ -14,7 +15,7 @@
 }
 
 .leftSideDrawerClose {
-	transform: translateX(-100%)
+	transform: translateX(-100%);
 }
 
 .leftSideDrawerOpen {
