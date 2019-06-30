@@ -80,7 +80,11 @@ class Homepage extends Component {
 		let searchInput = document.querySelector(
 			".search_product_form_input__3hB0a"
 		);
-		searchInput.focus();
+		let searchInputWider = document.querySelector(
+			".search_product_form_input__109dd"
+		);
+		if (searchInput === null) searchInputWider.focus();
+		else searchInput.focus();
 	}
 
 	showCategories = () => {
