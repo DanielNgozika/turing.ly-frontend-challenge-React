@@ -20,7 +20,7 @@ body {
 	margin-top: -37vh;
 	opacity: 0;
 	animation: showH1 4s ease-out;
-	animation-delay: 1s;
+	animation-delay: 4s;
 	animation-fill-mode: forwards;
 }
 
