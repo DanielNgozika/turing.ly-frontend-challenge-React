@@ -164,16 +164,21 @@ class Homepage extends Component {
 					</section>
 					<section className={styles.right_side}>
 						{showingProducts && window.innerWidth > 900 ? (
-							<ProductsOnCategoryClick />
+							<>
+								<ProductsOnCategoryClick />
+								<footer className={styles.footer}>
+									&copy; Copyright, 2019 Daniel Ngozika
+								</footer>
+							</>
 						) : (
 							<>
 								<Banner />
 								{this.showCategories()}
+								<footer className={styles.footer}>
+									&copy; Copyright, 2019 Daniel Ngozika
+								</footer>
 							</>
 						)}
-						<footer className={styles.footer}>
-							&copy; Copyright, 2019
-						</footer>
 					</section>
 				</div>
 				{this.props.backdropVisible ? (

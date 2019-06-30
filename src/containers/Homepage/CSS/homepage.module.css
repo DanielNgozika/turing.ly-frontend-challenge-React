@@ -97,13 +97,14 @@
 		overflow-x: hidden;
 	}
 	.footer {
-		display: block;
-		text-align: center;
+		display: flex;
+		justify-content: center;
 		font-family: "Montserrat", Arial, Helvetica, sans-serif;
+		font-weight: 500;
+		color: #4b4b4e;
+		font-size: 14px;
 		padding: 20px;
-		width: fit-content;
-		bottom: 0;
-		position: fixed;
+		width: 100%;
 		box-sizing: border-box;
 	}
 }
