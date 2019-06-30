@@ -335,6 +335,10 @@ export const showRightSideCategoryProducts = () => ({
 	type: "SHOW_RIGHTSIDE_PRODUCTS"
 });
 
+export const removeSplashScreen = () => ({
+	type: "REMOVE_SPLASH_SCREEN"
+});
+
 export const errorHandler = async (err, dispatch) => {
 	if (err.message === "Failed to fetch") {
 		dispatch(

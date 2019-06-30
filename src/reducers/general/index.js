@@ -1,4 +1,5 @@
 const initialState = {
+	splashScreenShowing: true,
 	navSidebarOpen: false,
 	deptSidebarOpen: false,
 	backdropVisible: false,
@@ -210,6 +211,11 @@ export default function(state = initialState, action) {
 			};
 		case "SHOW_RIGHTSIDE_PRODUCTS":
 			return { ...state, rightSideCategoryProductsShowing: true };
+		case "REMOVE_SPLASH_SCREEN":
+			return {
+				...state,
+				splashScreenShowing: false
+			};
 
 		default:
 			return state;

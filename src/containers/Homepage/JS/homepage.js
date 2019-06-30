@@ -22,6 +22,7 @@ import DeptsSideNav from "./depts_side_nav";
 import CartCounter from "./cart_counter";
 import ErrorModal from "../../../components/UI/JS/error_modal";
 import ProductsOnCategoryClick from "./productsOnCategoryClick";
+import SplashScreen from "../../../components/Homepage/JS/splash_screen";
 
 //actions
 import {
@@ -32,7 +33,8 @@ import {
 	getDepts,
 	generateCartId,
 	getShippingRegions,
-	getShippingTypesPerRegion
+	getShippingTypesPerRegion,
+	removeSplashScreen
 } from "../../../actions/general/index";
 
 class Homepage extends Component {
@@ -45,7 +47,9 @@ class Homepage extends Component {
 			getShippingRegions,
 			shippingRegions,
 			categories,
-			departments
+			departments,
+			splashScreenShowing,
+			removeSplashScreen
 		} = this.props;
 
 		if (!categories) getCategories();
@@ -59,6 +63,10 @@ class Homepage extends Component {
 			//cart id is generated here to make it available early enough
 			//seeing as Homepage is the first component to mount.
 			generateCartId();
+		}
+
+		if (splashScreenShowing) {
+			setTimeout(() => removeSplashScreen(), 6000);
 		}
 		//fetching the shipping regions make them available for the cart
 		//and provides smooth UI update when the cart component gets mounted
@@ -101,9 +109,10 @@ class Homepage extends Component {
 
 	render() {
 		const { showing, message } = this.props.errorModal;
-		const { showingProducts } = this.props;
+		const { showingProducts, splashScreenShowing } = this.props;
 		return (
 			<>
+				{splashScreenShowing ? <SplashScreen /> : null}
 				{showing ? (
 					<ErrorModal
 						message={message}
@@ -208,7 +217,8 @@ function mapStateToProps(state) {
 		shippingRegions: state.general.shippingRegions,
 		errorModal: state.general.errorModal,
 		showingProducts: state.general.rightSideCategoryProductsShowing,
-		departments: state.general.departments
+		departments: state.general.departments,
+		splashScreenShowing: state.general.splashScreenShowing
 	};
 }
 
@@ -222,7 +232,8 @@ const mapDispatchToProps = dispatch => {
 		generateCartId: () => generateCartId(dispatch),
 		getShippingRegions: () => getShippingRegions(dispatch),
 		getShippingTypesPerRegion: (...args) =>
-			getShippingTypesPerRegion(dispatch, ...args)
+			getShippingTypesPerRegion(dispatch, ...args),
+		removeSplashScreen: () => dispatch(removeSplashScreen())
 	};
 };
 
