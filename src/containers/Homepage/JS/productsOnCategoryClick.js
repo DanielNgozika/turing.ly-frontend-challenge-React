@@ -7,7 +7,7 @@ import styles from "../CSS/products_in_category.module.css";
 //components
 import EachProduct from "../../../components/Homepage/JS/each_product";
 import Spinner from "../../../components/UI/JS/spinner";
-import Paginator from "./paginator";
+import Paginator from "../../../components/Homepage/JS/paginator";
 
 //actions
 import {

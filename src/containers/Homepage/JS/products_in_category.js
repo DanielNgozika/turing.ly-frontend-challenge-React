@@ -15,7 +15,7 @@ import CartCounter from "./cart_counter";
 import LeftSidedrawer from "../../../components/UI/JS/left_side_drawer";
 import DeptsSideNav from "./depts_side_nav";
 import ErrorModal from "../../../components/UI/JS/error_modal";
-import Paginator from "./paginator";
+import Paginator from "../../../components/Homepage/JS/paginator";
 
 //actions
 import {
