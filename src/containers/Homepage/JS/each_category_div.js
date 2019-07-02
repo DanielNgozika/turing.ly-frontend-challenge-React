@@ -65,13 +65,43 @@ class EachCategoryDiv extends Component {
 		else return <Spinner />;
 	};
 
+	scrollRight = () => {
+		const id = this.props.category.category_id;
+		document
+			.querySelector(`#${styles.product_div.concat(`${id}`)}`)
+			.scrollBy(130, 0);
+	};
+
+	scrollLeft = () => {
+		const id = this.props.category.category_id;
+		document
+			.querySelector(`#${styles.product_div.concat(`${id}`)}`)
+			.scrollBy(-130, 0);
+	};
+
 	render() {
+		const id = this.props.category.category_id;
 		return (
 			<>
 				<div className={styles.div}>
-					<h4>{this.props.category.name}</h4>{" "}
-					<span>(Best selling)</span>
-					<div className={styles.product_div}>{this.products()}</div>
+					<section className={styles.top}>
+						<h4>{this.props.category.name}</h4>{" "}
+						<span>(Best selling)</span>
+					</section>
+					<section className={styles.button_div}>
+						<button onClick={this.scrollLeft}>
+							<i className="fas fa-chevron-left" />
+						</button>
+						<button onClick={this.scrollRight}>
+							<i className="fas fa-chevron-right" />
+						</button>
+					</section>
+					<div
+						className={styles.product_div}
+						id={styles.product_div.concat(`${id}`)}
+					>
+						{this.products()}
+					</div>
 				</div>
 			</>
 		);

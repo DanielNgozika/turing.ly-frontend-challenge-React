@@ -1,32 +1,82 @@
 .div {
 	margin: 20px 10px;
+	box-sizing: border-box;
+	position: relative;
 }
 
-.div div {
+.div div.product_div {
 	display: flex;
 	flex-wrap: nowrap;
 	overflow-x: auto;
 	margin-top: 9px;
 	margin-bottom: 25px;
+	scroll-behavior: smooth;
 }
 
-.div div::-webkit-scrollbar {
-	display: none;
+.div div.product_div::-webkit-scrollbar {
+	width: 3px;
+}
+
+.top {
+	display: flex;
+	align-items: center;
 }
 
 .div h4 {
 	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	color: #4b4b4e;
-	margin-left: 10px;
-	display: inline;
+	margin: 0 10px;
 }
 
 .div span {
-	font-family: 'Roboto', Arial, Helvetica, sans-serif
+	font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+.div .button_div {
+	display: none;
 }
 
 @media (min-width: 600px) {
 	.div {
 		margin: 20px 15px;
+	}
+}
+
+@media (min-width: 900px) {
+	.div .button_div {
+		display: flex;
+		justify-content: space-between;
+		position: absolute;
+		top: 100px;
+		padding: 5px;
+		width: 100%;
+		box-sizing: border-box;
+	}
+	.div .button_div button {
+		background-color: #fff;
+		border: none;
+		z-index: 1;
+		width: 40px;
+		height: 40px;
+		padding: 10px;
+		border-radius: 50%;
+		box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+		box-sizing: border-box;
+	}
+	.div .button_div button:focus,
+	.div .button_div button:active {
+		outline: none;
+	}
+	.div .button_div button:hover {
+		cursor: pointer;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+	}
+	.div .button_div button i {
+		color: #4b4b4e;
+		font-size: 16px;
+		transition: font-size 0.2s ease-in;
+	}
+	.div .button_div button:hover i {
+		font-size: 20px;
 	}
 }
