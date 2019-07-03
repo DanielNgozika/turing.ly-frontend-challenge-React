@@ -153,7 +153,7 @@ class Homepage extends Component {
 						</RightSidedrawer>
 					</>
 				) : null}
-				{window.innerWidth > 900 ? (
+				{window.innerWidth >= 900 ? (
 					<div className={styles.left_nav}>
 						<DeptsSideNav />
 					</div>
@@ -163,7 +163,7 @@ class Homepage extends Component {
 						<div className={styles.empty} />
 					</section>
 					<section className={styles.right_side}>
-						{showingProducts && window.innerWidth > 900 ? (
+						{showingProducts && window.innerWidth >= 900 ? (
 							<>
 								<ProductsOnCategoryClick />
 								<footer className={styles.footer}>
