@@ -7,7 +7,7 @@
 }
 
 .form p {
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	color: #817c87;
 	font-size: 14px;
 	font-weight: 600;
@@ -18,22 +18,25 @@
 	border-radius: 20px;
 	border: 1px solid #d2d0ce;
 	padding: 10px;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	font-weight: 500;
 	box-sizing: border-box;
 }
 
-.input:active, .input:focus, .error:focus, .error:active {
+.input:active,
+.input:focus,
+.error:focus,
+.error:active {
 	outline: none;
 }
 
 .input::placeholder {
 	font-weight: 600;
-	opacity: .7;
+	opacity: 0.7;
 }
 
 .error {
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	width: 100%;
 	padding: 10px;
 	box-sizing: border-box;
@@ -50,21 +53,23 @@
 	border: none;
 	background-color: seagreen;
 	color: #fff;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	font-weight: 500;
-	box-shadow: 0 2px 5px 0 rgba(75, 75, 78, .2);
+	box-shadow: 0 2px 5px 0 rgba(75, 75, 78, 0.2);
+	cursor: pointer;
 }
 
-.form button:active, .form button:focus {
+.form button:active,
+.form button:focus {
 	outline: none;
 	cursor: not-allowed;
-	background-color: rgba(46, 139, 87, .2)
+	background-color: rgba(46, 139, 87, 0.2);
 }
 
 @media (min-width: 600px) {
 	.form {
 		border: 1px solid #dadce0;
-		border-radius: 6px;
+		border-radius: 10px;
 		padding: 20px 20px;
 	}
 }
