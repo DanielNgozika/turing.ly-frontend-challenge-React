@@ -16,7 +16,8 @@ import styles from "../CSS/each_category_div.module.css";
 
 class EachCategoryDiv extends Component {
 	state = {
-		products: null
+		products: null,
+		scrolledWidth: window.innerWidth - 230
 	};
 
 	async componentDidMount() {
@@ -38,10 +39,12 @@ class EachCategoryDiv extends Component {
 	}
 
 	shouldComponentUpdate(prevProps, PrevState) {
-		if (PrevState.products && this.state.products) {
+		const { products, scrolledWidth } = this.state;
+		if (PrevState.products && products && scrolledWidth) {
 			if (
 				prevProps === this.props &&
-				PrevState.products.length === this.state.products.length
+				PrevState.products.length === products.length &&
+				PrevState.scrolledWidth === scrolledWidth
 			)
 				return false;
 		}
@@ -69,18 +72,28 @@ class EachCategoryDiv extends Component {
 		const id = this.props.category.category_id;
 		document
 			.querySelector(`#${styles.product_div.concat(`${id}`)}`)
-			.scrollBy(130, 0);
+			.scrollBy(230, 0);
+		this.setState(state => ({ scrolledWidth: state.scrolledWidth + 230 }));
 	};
 
 	scrollLeft = () => {
 		const id = this.props.category.category_id;
 		document
 			.querySelector(`#${styles.product_div.concat(`${id}`)}`)
-			.scrollBy(-130, 0);
+			.scrollBy(-230, 0);
+		this.setState(state => ({ scrolledWidth: state.scrolledWidth - 230 }));
 	};
 
 	render() {
+		const { products, scrolledWidth } = this.state;
 		const id = this.props.category.category_id;
+		const isWindowLarger =
+			products &&
+			window.innerWidth - 230 >
+				products.length * 130 + (products.length - 1) * 20 + 20 &&
+			window.innerWidth > 900
+				? true
+				: false;
 		return (
 			<>
 				<div className={styles.div}>
@@ -88,14 +101,30 @@ class EachCategoryDiv extends Component {
 						<h4>{this.props.category.name}</h4>{" "}
 						<span>(Best selling)</span>
 					</section>
-					<section className={styles.button_div}>
-						<button onClick={this.scrollLeft}>
-							<i className="fas fa-chevron-left" />
-						</button>
-						<button onClick={this.scrollRight}>
-							<i className="fas fa-chevron-right" />
-						</button>
-					</section>
+					{!isWindowLarger ? (
+						<section className={styles.button_div}>
+							<button
+								onClick={this.scrollLeft}
+								disabled={
+									scrolledWidth === window.innerWidth - 230
+								}
+							>
+								<i className="fas fa-chevron-left" />
+							</button>
+							<button
+								onClick={this.scrollRight}
+								disabled={
+									products &&
+									scrolledWidth >=
+										products.length * 130 +
+											(products.length - 1) * 20 +
+											20
+								}
+							>
+								<i className="fas fa-chevron-right" />
+							</button>
+						</section>
+					) : null}
 					<div
 						className={styles.product_div}
 						id={styles.product_div.concat(`${id}`)}
