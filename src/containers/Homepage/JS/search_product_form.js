@@ -10,13 +10,14 @@ import styles from "../CSS/search_product_form.module.css";
 import { renderInputField } from "../../../components/UI/JS/forms";
 
 //acions
-import { searchProducts } from "../../../actions/general/index";
+import { searchProducts, setSearchQuery } from "../../../actions/general/index";
 
 class SearchProductsForm extends Component {
 	search = e => {
 		if (window.location.pathname !== "/search_results")
 			this.props.history.push("/search_results");
-		this.props.searchProducts(e.search);
+		this.props.searchProducts(e.search, 1);
+		this.props.setSearchQuery(e.search);
 	};
 
 	loggedInStatus =
@@ -44,7 +45,8 @@ class SearchProductsForm extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-	searchProducts: query => searchProducts(dispatch, query)
+	searchProducts: (...args) => searchProducts(dispatch, ...args),
+	setSearchQuery: query => dispatch(setSearchQuery(query))
 });
 
 export default reduxForm({
