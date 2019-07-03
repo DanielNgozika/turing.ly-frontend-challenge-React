@@ -10,15 +10,32 @@ import ButtToolbar from "../../../components/Homepage/JS/Toolbar/bottom_toolbar"
 import ButtNavItem from "../../../components/Homepage/JS/Toolbar/butt_nav_item";
 import CartCounter from "../../Homepage/JS/cart_counter";
 import ErrorModal from "../../../components/UI/JS/error_modal";
+import Paginator from "../../../components/Homepage/JS/paginator";
 
 //actions
 import {
 	showProductDetail,
 	clickBackDrop,
-	showAttrModal
+	showAttrModal,
+	searchProducts
 } from "../../../actions/general/index";
 
 class SearchResults extends Component {
+	state = {
+		page: 1
+	};
+
+	nextPage = async () => {
+		const { query, searchProducts } = this.props;
+		await this.setState(state => ({ page: state.page + 1 }));
+		searchProducts(query, this.state.page);
+	};
+	prevPage = async () => {
+		const { query, searchProducts } = this.props;
+		await this.setState(state => ({ page: state.page - 1 }));
+		searchProducts(query, this.state.page);
+	};
+
 	searchIconClick() {
 		let searchInput = document.querySelector(
 			".search_product_form_input__3hB0a"
@@ -91,6 +108,12 @@ class SearchResults extends Component {
 								attrModalOpen={this.props.attrModalOpen}
 							/>
 						))}
+						<Paginator
+							page={this.state.page}
+							nextPage={this.nextPage}
+							prevPage={this.prevPage}
+							nosOfProducts={results.rows.length}
+						/>
 					</div>
 					{this.props.backdropVisible ? (
 						<Backdrop onClick={this.props.clickBackDrop} />
@@ -115,14 +138,16 @@ const mapStateToProps = state => ({
 	productDetailed: state.general.productDetailedId,
 	backdropVisible: state.general.backdropVisible,
 	attrModalOpen: state.general.productIdAttrModalOpen,
-	errorModal: state.general.errorModal
+	errorModal: state.general.errorModal,
+	query: state.general.searchQuery
 });
 
-const mapDispatchToProps = {
-	showProductDetail,
-	clickBackDrop,
-	showAttrModal
-};
+const mapDispatchToProps = dispatch => ({
+	showProductDetail: prodId => dispatch(showProductDetail(prodId)),
+	showAttrModal: prodId => dispatch(showAttrModal(prodId)),
+	clickBackDrop: () => dispatch(clickBackDrop()),
+	searchProducts: (...args) => searchProducts(dispatch, ...args)
+});
 
 export default connect(
 	mapStateToProps,
