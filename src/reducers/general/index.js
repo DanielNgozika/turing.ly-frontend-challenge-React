@@ -24,7 +24,8 @@ const initialState = {
 		message: null
 	},
 	rightSideCategoryProductsShowing: false,
-	categoryActive: null
+	categoryActive: null,
+	searchQuery: null
 };
 
 export default function(state = initialState, action) {
@@ -215,6 +216,11 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				splashScreenShowing: false
+			};
+		case "SET_SEARCH_QUERY":
+			return {
+				...state,
+				searchQuery: action.payload
 			};
 
 		default:

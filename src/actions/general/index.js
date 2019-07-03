@@ -124,29 +124,6 @@ export const addToCart = async (dispatch, cart_id, product_id, attributes) => {
 	} catch (err) {
 		errorHandler(err, dispatch);
 	}
-	// 	const cart = fetch(`${url}/shoppingcart/add`, {
-	// 		method: "POST",
-	// 		headers: {
-	// 			Accept: "application/json",
-	// 			"Content-Type": "application/x-www-form-urlencoded"
-	// 		},
-	// 		body: `cart_id=${cart_id}&product_id=${product_id}&attributes=${
-	// 			attributes.attributes
-	// 		}`
-	// 	})
-	// 		.then(res => {
-	// 			if (res.ok) {
-	// 				return res.json();
-	// 			}
-	// 			throw new Error("Something went wrong", res.status);
-	// 		})
-	// 		.then(data => data)
-	// 		.catch(err => alert(`${err}`));
-
-	// 	return {
-	// 		type: "ADD_TO_CART",
-	// 		payload: cart
-	// 	};
 };
 
 export const showCartItemUpdateForm = itemId => ({
@@ -176,20 +153,6 @@ export const updateCartItem = async (dispatch, itemId, qty) => {
 	} catch (err) {
 		errorHandler(err, dispatch);
 	}
-	// const payload = { itemId, qty };
-	// fetch(`${url}/shoppingcart/update/${itemId}`, {
-	// 	method: "PUT",
-	// 	headers: {
-	// 		Accept: "application/json",
-	// 		"Content-Type": "application/x-www-form-urlencoded"
-	// 	},
-	// 	body: `quantity=${qty}`
-	// });
-
-	// return {
-	// 	type: "UPDATE_CART_ITEM",
-	// 	payload
-	// };
 };
 
 export const removeCartitemEditForm = () => ({
@@ -287,10 +250,10 @@ export const showCheckoutModal = () => ({
 	type: "SHOW_CHECKOUT_MODAL"
 });
 
-export const searchProducts = async (dispatch, query) => {
+export const searchProducts = async (dispatch, query, page) => {
 	try {
 		const request = await fetch(
-			`${url}/products/search?query_string=${query}`
+			`${url}/products/search?query_string=${query}&page=${page}`
 		);
 		if (!request.ok) {
 			const error = await request.json();
@@ -305,6 +268,11 @@ export const searchProducts = async (dispatch, query) => {
 		errorHandler(err, dispatch);
 	}
 };
+
+export const setSearchQuery = query => ({
+	type: "SET_SEARCH_QUERY",
+	payload: query
+});
 
 export const hidePersonalEditForm = () => ({
 	type: "HIDE_PERSONAL_EDIT_FORM"
