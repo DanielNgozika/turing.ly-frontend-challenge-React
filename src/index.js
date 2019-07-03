@@ -15,6 +15,8 @@ import CartPage from "./containers/Cart/JS/cart_page";
 import SearchResultsPage from "./containers/SearchResult/JS/search_results_page";
 import Spinner from "./components/UI/JS/spinner";
 
+import spinnerStyle from "./containers/Homepage/CSS/products_in_category.module.css";
+
 const UserProfile = () => {
 	if (localStorage.length === 0 || !localStorage.userData) {
 		return <Redirect to="/sign_up" />;
@@ -25,7 +27,7 @@ const UserProfile = () => {
 	) {
 		return <Redirect to="/sign_in" />;
 	} else {
-		lazy(() => import("./containers/Users/JS/profile"));
+		return lazy(() => import("./containers/Users/JS/profile"));
 	}
 };
 
@@ -45,8 +47,8 @@ const App = () => {
 				<Route path="/sign_in" component={SignIn} />
 				<Route path="/cart" component={CartPage} />
 				<Route exact path="/" component={Homepage} />
-				<Suspense fallback={<Spinner />}>
-					<Route path="/profile" component={UserProfile} />
+				<Suspense fallback={<Spinner id={spinnerStyle.spinnerPos}/>}>
+					<Route path="/profile" component={UserProfile()} />
 				</Suspense>
 			</Switch>
 		</BrowserRouter>
