@@ -9,11 +9,12 @@
 	border: none;
 	padding: 10px;
 	margin-bottom: 10px;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	text-align: center;
 	box-sizing: border-box;
 }
 
-.input:active, .input:focus {
+.input:active,
+.input:focus {
 	outline: none;
 }

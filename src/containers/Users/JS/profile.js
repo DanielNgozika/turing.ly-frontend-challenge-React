@@ -153,7 +153,8 @@ class Profile extends Component {
 							<p>{country}</p>
 						)}
 						<span className={styles.title}>Shipping region</span>
-						{shipping_region_id === null || shipping_region_id === "null" ? (
+						{shipping_region_id === null ||
+						shipping_region_id === "null" ? (
 							<span className={styles.not}>not yet set</span>
 						) : (
 							<p>{shipping_region_id}</p>

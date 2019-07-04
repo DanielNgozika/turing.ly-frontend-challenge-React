@@ -28,35 +28,31 @@
 .catBar1 {
 	width: 100%;
 	background-color: #48484e;
-	/* background: linear-gradient(to bottom right, #f2545b, #ff7a59); */
 	height: 3px;
 	margin-bottom: 1.5px;
-	border-radius: 1.5px
+	border-radius: 1.5px;
 }
 
 .catBar2 {
 	width: 80%;
 	background-color: #48484e;
-	/* background: linear-gradient(to bottom right, #f2545b, #ff7a59); */
 	height: 3px;
 	margin-bottom: 1.5px;
-	border-radius: 1.5px
+	border-radius: 1.5px;
 }
 
 .catBar3 {
 	width: 90%;
 	background-color: #48484e;
-	/* background: linear-gradient(to bottom right, #f2545b, #ff7a59); */
 	height: 3px;
 	margin-bottom: 1.5px;
-	border-radius: 1.5px
+	border-radius: 1.5px;
 }
 
 .catBar4 {
 	width: 60%;
 	background-color: #48484e;
-	/* background: linear-gradient(to bottom right, #f2545b, #ff7a59); */
 	height: 3px;
 	margin-bottom: 1.5px;
-	border-radius: 1.5px
+	border-radius: 1.5px;
 }
