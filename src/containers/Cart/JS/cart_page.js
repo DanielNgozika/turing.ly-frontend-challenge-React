@@ -220,7 +220,7 @@ class CartPage extends Component {
 					/>
 					<span>CART</span>
 					<i
-						className="fas fa-shopping-basket"
+						className="fas fa-trash"
 						onClick={() => showEmptyCartWarning()}
 					/>
 				</header>

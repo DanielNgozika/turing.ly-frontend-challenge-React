@@ -6,7 +6,7 @@
 	width: 100%;
 	height: 50px;
 	margin-bottom: 10px;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	font-weight: 500;
 	color: #4b4b4b;
 	box-sizing: border-box;
@@ -18,29 +18,12 @@
 	background-color: #fff;
 }
 
-.header i:nth-of-type(2) {
-	animation: emptyCart 1.5s ease-out infinite;
-	transform: rotate(180deg);
-}
-
 .header i {
 	cursor: pointer;
 }
 
 .header span {
 	font-weight: 600;
-}
-
-@keyframes emptyCart {
-	0% {
-		transform: translateY(-7px);
-	}
-	50% {
-		transform: translateY(7px);
-	}
-	100% {
-		transform: translateY(-7px)
-	}
 }
 
 .warning_modal {
@@ -55,7 +38,7 @@
 	padding: 10px;
 	text-align: center;
 	color: #4b4b4e;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	box-sizing: border-box;
 }
 
@@ -64,7 +47,7 @@
 	border: none;
 	padding: 15px;
 	color: #0b0b0c;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	border-radius: 4px;
 	width: 90%;
 	margin: 10px auto;
@@ -89,7 +72,7 @@
 	height: 100vh;
 	background-color: #fbfbfb;
 	box-sizing: border-box;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 }
 
 .items_hr {
@@ -107,7 +90,7 @@
 	width: 95%;
 	max-width: 450px;
 	margin: 0 auto;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	color: #4b4b4e;
 	font-weight: 600;
 }
@@ -123,7 +106,7 @@
 	padding: 15px;
 	background-color: #0b0b0c;
 	color: #fff;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	border-radius: 4px;
 	width: 95%;
 	max-width: 450px;
@@ -132,7 +115,8 @@
 	cursor: pointer;
 }
 
-.order:active, .order:focus {
+.order:active,
+.order:focus {
 	outline: none;
 }
 
@@ -156,7 +140,7 @@
 	padding: 10px;
 	text-align: center;
 	color: #4b4b4e;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	font-weight: 500;
 	box-sizing: border-box;
 }
@@ -171,7 +155,8 @@
 }
 
 @media (min-width: 600px) {
-	.warning_modal, .checkout_modal {
+	.warning_modal,
+	.checkout_modal {
 		left: 20% !important;
 		right: 20% !important;
 		margin: 0 auto;
