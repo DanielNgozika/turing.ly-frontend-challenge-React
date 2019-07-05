@@ -153,11 +153,9 @@ class Homepage extends Component {
 						</RightSidedrawer>
 					</>
 				) : null}
-				{window.innerWidth >= 900 ? (
-					<div className={styles.left_nav}>
-						<DeptsSideNav />
-					</div>
-				) : null}
+				<div className={styles.left_nav}>
+					<DeptsSideNav />
+				</div>
 				<div className={styles.body}>
 					<section className={styles.left_side}>
 						<div className={styles.empty} />
