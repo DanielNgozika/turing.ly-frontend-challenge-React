@@ -26,13 +26,13 @@
 	display: block;
 	padding: 0;
 	padding-left: 5px;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	color: #4b4b4e;
 }
 
 .price {
 	margin: 0;
-	margin-top: 5px
+	margin-top: 5px;
 }
 
 .name {
@@ -70,7 +70,7 @@
 }
 
 .top .name {
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	font-size: 18px;
 	font-weight: 500;
 	color: #040405;
@@ -78,22 +78,22 @@
 }
 
 .mod_price {
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	font-size: 16px;
-	color: #E11010;
+	color: #e11010;
 	text-decoration: line-through;
 }
 
 .disc_price {
 	display: block;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	font-size: 16px;
 	color: rgb(2, 2, 46);
 	margin-top: 10px;
 }
 
 .descr {
-	font-family: 'Lato', Arial, Helvetica, sans-serif;
+	font-family: "Lato", Arial, Helvetica, sans-serif;
 	color: #4b4b4e;
 }
 
@@ -102,7 +102,7 @@
 	background-color: #0b0b0c;
 	padding: 15px;
 	color: #fff;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	border-radius: 4px;
 	margin-top: 30px;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
@@ -111,7 +111,7 @@
 
 .attributeModal {
 	color: #4b4b4e;
-	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
@@ -122,8 +122,8 @@
 	width: 80%;
 	max-width: 350px;
 	padding: 10px;
+	padding-top: 20px;
 	background-color: #fff;
-	border-radius: 4px;
 	box-sizing: border-box;
 }
 
@@ -136,7 +136,8 @@
 }
 
 @media (min-width: 600px) {
-	.prodDetailModal, .attributeModal {
+	.prodDetailModal,
+	.attributeModal {
 		left: 20% !important;
 		right: 20% !important;
 		margin: 0 auto;
