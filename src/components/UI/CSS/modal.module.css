@@ -1,4 +1,5 @@
 #modal {
+	border-radius: 8px;
 	z-index: 1009;
 	position: fixed;
 	top: 19%;
