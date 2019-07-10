@@ -108,9 +108,7 @@ export const addToCart = async (dispatch, cart_id, product_id, attributes) => {
 				Accept: "application/json",
 				"Content-Type": "application/x-www-form-urlencoded"
 			},
-			body: `cart_id=${cart_id}&product_id=${product_id}&attributes=${
-				attributes.attributes
-			}`
+			body: `cart_id=${cart_id}&product_id=${product_id}&attributes=${attributes}`
 		});
 		if (!request.ok) {
 			const error = await request.json();
