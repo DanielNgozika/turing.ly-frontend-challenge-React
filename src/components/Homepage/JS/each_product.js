@@ -2,7 +2,7 @@ import React, { memo } from "react";
 
 //components
 import Modal from "../../UI/JS/modal";
-import AttributeInput from "../../../containers/Homepage/JS/attribute_input";
+import Attribute from "../../../containers/Homepage/JS/attribute";
 
 //style
 import styles from "../CSS/each_product.module.css";
@@ -20,8 +20,7 @@ const eachProduct = props => {
 
 	const attrModal = (
 		<Modal styles={styles.attributeModal}>
-			<p>Enter product attributes.</p>
-			<AttributeInput />
+			<Attribute />
 		</Modal>
 	);
 
