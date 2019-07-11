@@ -48,7 +48,7 @@ const App = () => {
 				<Route path="/cart" component={CartPage} />
 				<Route exact path="/" component={Homepage} />
 				<Suspense fallback={<Spinner id={spinnerStyle.spinnerPos} />}>
-					<Route path="/profile" component={() => UserProfile()} />
+					<Route path="/profile" component={UserProfile()} />
 				</Suspense>
 			</Switch>
 		</BrowserRouter>
