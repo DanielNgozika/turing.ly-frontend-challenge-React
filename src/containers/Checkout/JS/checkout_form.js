@@ -57,9 +57,9 @@ class CheckoutForm extends Component {
 				},
 				body: `stripeToken=${
 					token.id
-				}&order_id=${orderId}&description=${userDescription}&amount=${parseFloat(
-					amount
-				) * 100}`
+				}&order_id=${orderId}&description=${userDescription}&amount=${parseInt(
+					amount * 100
+				)}`
 			}
 		);
 
