@@ -34,10 +34,17 @@ import {
 	generateCartId,
 	getShippingRegions,
 	getShippingTypesPerRegion,
-	removeSplashScreen
+	removeSplashScreen,
 } from "../../../actions/general/index";
 
 class Homepage extends Component {
+	constructor(props) {
+		super(props);
+
+		this.searchBar = React.createRef();
+		this.searchIconClick = this.searchIconClick.bind(this);
+	}
+
 	componentDidMount() {
 		const {
 			getCategories,
@@ -49,7 +56,7 @@ class Homepage extends Component {
 			categories,
 			departments,
 			splashScreenShowing,
-			removeSplashScreen
+			removeSplashScreen,
 		} = this.props;
 
 		if (!categories) getCategories();
@@ -76,15 +83,17 @@ class Homepage extends Component {
 	componentDidUpdate(prevProps) {
 		if (this.props.shippingRegions !== prevProps.shippingRegions) {
 			const filtered = this.props.shippingRegions.filter(
-				r => r.shipping_region_id !== 1
+				(r) => r.shipping_region_id !== 1
 			);
-			filtered.map(region =>
+			filtered.map((region) =>
 				this.props.getShippingTypesPerRegion(region.shipping_region_id)
 			);
 		}
 	}
 
 	searchIconClick() {
+		// console.log(this.searchBar);
+		// this.searchBar.current.props._reduxForm.focus();
 		let searchInput = document.querySelector(
 			".search_product_form_input__3hB0a"
 		);
@@ -119,7 +128,10 @@ class Homepage extends Component {
 						show={showing ? true : false}
 					/>
 				) : null}
-				<Toolbar hamburgerClick={this.props.openNavSidebar}>
+				<Toolbar
+					hamburgerClick={this.props.openNavSidebar}
+					searchBarRef={this.searchBar}
+				>
 					<Link className={styles.nav_item} to={"/sign_up"}>
 						SIGN UP
 					</Link>
@@ -221,11 +233,11 @@ function mapStateToProps(state) {
 		errorModal: state.general.errorModal,
 		showingProducts: state.general.rightSideCategoryProductsShowing,
 		departments: state.general.departments,
-		splashScreenShowing: state.general.splashScreenShowing
+		splashScreenShowing: state.general.splashScreenShowing,
 	};
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
 	return {
 		openNavSidebar: () => dispatch(openNavSidebar()),
 		clickBackDrop: () => dispatch(clickBackDrop()),
@@ -236,11 +248,8 @@ const mapDispatchToProps = dispatch => {
 		getShippingRegions: () => getShippingRegions(dispatch),
 		getShippingTypesPerRegion: (...args) =>
 			getShippingTypesPerRegion(dispatch, ...args),
-		removeSplashScreen: () => dispatch(removeSplashScreen())
+		removeSplashScreen: () => dispatch(removeSplashScreen()),
 	};
 };
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Homepage);
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

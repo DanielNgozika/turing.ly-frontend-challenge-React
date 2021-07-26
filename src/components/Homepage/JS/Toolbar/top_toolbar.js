@@ -8,10 +8,10 @@ import SearchProductInput from "../../../../containers/Homepage/JS/search_produc
 
 import styles from "../../CSS/Toolbar/top_toolbar.module.css";
 
-const toolbar = props => (
+const toolbar = (props) => (
 	<header className={styles.Toolbar}>
 		<Logo />
-		<SearchProductInput />
+		<SearchProductInput inputRef={props.searchBarRef} />
 		{localStorage.length === 0 ||
 		!localStorage.userData ||
 		(localStorage.fbLoggedIn === "false" &&

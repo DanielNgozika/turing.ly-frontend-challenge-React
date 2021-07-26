@@ -13,7 +13,10 @@ import { renderInputField } from "../../../components/UI/JS/forms";
 import { searchProducts, setSearchQuery } from "../../../actions/general/index";
 
 class SearchProductsForm extends Component {
-	search = e => {
+	componentDidMount() {
+		console.log(this.props.inputRef);
+	}
+	search = (e) => {
 		if (window.location.pathname !== "/search_results")
 			this.props.history.push("/search_results");
 		this.props.searchProducts(e.search, 1);
@@ -30,9 +33,10 @@ class SearchProductsForm extends Component {
 				className={
 					this.loggedInStatus ? styles.form : styles.form_wider
 				}
-				onSubmit={this.props.handleSubmit(e => this.search(e))}
+				onSubmit={this.props.handleSubmit((e) => this.search(e))}
 			>
 				<Field
+					ref={this.props.inputRef}
 					name="search"
 					type="text"
 					className={styles.input}
@@ -44,16 +48,11 @@ class SearchProductsForm extends Component {
 	}
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 	searchProducts: (...args) => searchProducts(dispatch, ...args),
-	setSearchQuery: query => dispatch(setSearchQuery(query))
+	setSearchQuery: (query) => dispatch(setSearchQuery(query)),
 });
 
 export default reduxForm({
-	form: "search products"
-})(
-	connect(
-		null,
-		mapDispatchToProps
-	)(withRouter(SearchProductsForm))
-);
+	form: "search products",
+})(connect(null, mapDispatchToProps)(withRouter(SearchProductsForm)));
